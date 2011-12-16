@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 void clearScreen()
@@ -27,14 +28,33 @@ int requestNumCards() {
     cin >> result ;
     return result ;
 }
+
+string * requestPlayerNames(int numPlayers) 
+{
+    string * names = new string [numPlayers] ;
+    int i ;
+    for (i = 0 ; i < numPlayers ; i++) {
+        cout << "Enter name for player " << i+1 << ": " ;
+        cin >> names[i] ;
+    }
+    return names ;
+}
         
 int main()
 {
-    int numPlayers, numCardsEach ;
+    int i, numPlayers, numCardsEach ;
+    string * names ;
     clearScreen() ;
     showWelcomeMessage() ;
     numPlayers = requestNumPlayers() ;
     numCardsEach = requestNumCards() ;
+    names = requestPlayerNames(numPlayers) ;
+    
+    cout << endl ;
+    for (i = 0 ; i < numPlayers ; i++) {
+        cout << "Player : " << names[i] << endl ;
+    }
+    
     return 0 ;
 }
     
