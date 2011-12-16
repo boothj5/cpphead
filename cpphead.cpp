@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
-using namespace std;
+#include "player.h"
+
+using namespace std ;
 
 void clearScreen()
 {
@@ -55,6 +57,9 @@ int main()
         cout << "Player : " << names[i] << endl ;
     }
     
+    Player player("James") ;
+    cout << player.getName() << endl ;
+
     return 0 ;
 }
     
