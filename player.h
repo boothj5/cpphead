@@ -8,6 +8,7 @@ class Player {
     string name ;
     
     public:
+    Player() ;
     Player(string) ;
     string getName(void) ;
 } ;

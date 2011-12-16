@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "player.h"
+#include "game.h"
 
 using namespace std ;
 
@@ -33,7 +34,7 @@ int requestNumCards() {
 
 string * requestPlayerNames(int numPlayers) 
 {
-    string * names = new string [numPlayers] ;
+    string * names = new string[numPlayers] ;
     int i ;
     for (i = 0 ; i < numPlayers ; i++) {
         cout << "Enter name for player " << i+1 << ": " ;
@@ -51,14 +52,10 @@ int main()
     numPlayers = requestNumPlayers() ;
     numCardsEach = requestNumCards() ;
     names = requestPlayerNames(numPlayers) ;
+
+    Game game(names, numPlayers) ;
     
-    cout << endl ;
-    for (i = 0 ; i < numPlayers ; i++) {
-        cout << "Player : " << names[i] << endl ;
-    }
-    
-    Player player("James") ;
-    cout << player.getName() << endl ;
+    cout << "Current player : " << game.getCurrentPlayer().getName() << endl ;
 
     return 0 ;
 }
