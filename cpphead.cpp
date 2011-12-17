@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include "console.h"
 #include "card.h"
 #include "player.h"
@@ -17,13 +18,17 @@ int main()
     numCardsEach = requestNumCards() ;
     names = requestPlayerNames(numPlayers) ;
 
-    Game game(names, numPlayers) ;
+    Game game(names, numPlayers, numCardsEach) ;
     
     cout << "Current player : " << game.getCurrentPlayer().getName() << endl ;
 
-    Card tenDiamonds(TEN, DIAMONDS) ;
+    vector<Card> deck = game.getDeck() ;
 
-    cout << tenDiamonds.toString() << endl ;
+    cout << deck.size() << endl ;
+
+    for (vector<Card>::iterator card = deck.begin(); card != deck.end(); ++card) {
+        cout << card->toString() << endl ;
+    }
 
     return 0 ;
 }

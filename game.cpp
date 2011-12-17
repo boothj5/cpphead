@@ -1,24 +1,48 @@
+#include <vector>
 #include "game.h"
 #include "player.h"
+#include "card.h"
 
-Game::Game(string names[], int length) 
+#define DECK_SIZE 52
+
+using namespace std ;
+
+Game::Game(string names[], int length, int numCards) 
 {
     int i ;
-    numPlayers = length ;
-    players = new Player [length] ;
+    int rank, suit ;
+    this->numPlayers = length ;
+    this->numCards = numCards ;
+    this->players = new Player [length] ;
     for (i = 0 ; i < length ; i++) {
         Player player(names[i]) ;
         players[i] = player ;
     }
-    currentPlayer = 0 ;
-}
+    this->currentPlayer = 0 ;
 
-int Game::getNumPlayers(void) 
-{
-    return numPlayers ;
+    int numDecks = calcNumDecks(numPlayers, numCards) ;
+    for (i = 0 ; i < numDecks ; i++)
+        for (suit = HEARTS ; suit <= CLUBS ; suit++)
+            for (rank = TWO ; rank <= ACE ; rank++)
+                this->deck.push_back(Card((cardrank)rank, (cardsuit)suit)) ;
 }
 
 Player Game::getCurrentPlayer(void)
 {
     return players[currentPlayer] ;
 }
+
+vector<Card> Game::getDeck() {
+    return deck ;
+}
+
+int Game::calcNumDecks(int numPlayers, int numCards)
+{
+    int decksRequired, totalCards, div, add ;
+    totalCards = numPlayers * (numCards * 3) ;
+    div = totalCards / DECK_SIZE ;
+    add = ((totalCards % DECK_SIZE) > 0) ;
+    decksRequired = div + add ;
+    return decksRequired ;
+}
+
