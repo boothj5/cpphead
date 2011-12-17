@@ -1,4 +1,5 @@
 #include <vector>
+#include <algorithm>
 #include "game.h"
 #include "player.h"
 #include "card.h"
@@ -25,6 +26,8 @@ Game::Game(string names[], int length, int numCards)
         for (suit = HEARTS ; suit <= CLUBS ; suit++)
             for (rank = TWO ; rank <= ACE ; rank++)
                 this->deck.push_back(Card((cardrank)rank, (cardsuit)suit)) ;
+    
+    random_shuffle(this->deck.begin(), this->deck.end()) ;
 }
 
 Player Game::getCurrentPlayer(void)
