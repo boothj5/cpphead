@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "console.h"
+#include "card.h"
 #include "player.h"
 #include "game.h"
 
@@ -19,6 +20,10 @@ int main()
     Game game(names, numPlayers) ;
     
     cout << "Current player : " << game.getCurrentPlayer().getName() << endl ;
+
+    Card tenDiamonds(TEN, DIAMONDS) ;
+
+    cout << tenDiamonds.toString() << endl ;
 
     return 0 ;
 }

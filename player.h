@@ -2,6 +2,7 @@
 #define H_PLAYER
 
 #include <string>
+
 using namespace std ;
 
 class Player {
