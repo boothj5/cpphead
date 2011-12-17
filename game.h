@@ -9,7 +9,7 @@
 using namespace std ;
 
 class Game {
-    Player * players ;
+    vector<Player> players ;
     int numCards ;
     int numPlayers ;
     int currentPlayer ;
@@ -19,6 +19,7 @@ class Game {
     
     public:
     Game(string[], int, int) ;
+    void deal() ;
     Player getCurrentPlayer() ;
     vector<Card> getDeck() ;
 } ;

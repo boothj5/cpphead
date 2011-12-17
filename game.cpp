@@ -14,10 +14,9 @@ Game::Game(string names[], int length, int numCards)
     int rank, suit ;
     this->numPlayers = length ;
     this->numCards = numCards ;
-    this->players = new Player [length] ;
     for (i = 0 ; i < length ; i++) {
         Player player(names[i]) ;
-        players[i] = player ;
+        players.push_back(player) ;
     }
     this->currentPlayer = 0 ;
 
@@ -28,6 +27,22 @@ Game::Game(string names[], int length, int numCards)
                 this->deck.push_back(Card((cardrank)rank, (cardsuit)suit)) ;
     
     random_shuffle(this->deck.begin(), this->deck.end()) ;
+}
+
+void Game::deal()
+{
+    int i ;
+    for (vector<Player>::iterator player = players.begin(); player != players.end(); 
+            ++player) {
+        for (i = 0 ; i < numCards ; i++) {
+            player->addToHand(deck.back()) ;
+            deck.pop_back() ;
+            player->addToFaceUp(deck.back()) ;
+            deck.pop_back() ;
+            player->addToFaceDown(deck.back()) ;
+            deck.pop_back() ;
+        }
+    }
 }
 
 Player Game::getCurrentPlayer(void)

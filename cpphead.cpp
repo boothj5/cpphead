@@ -30,6 +30,15 @@ int main()
         cout << card->toString() << endl ;
     }
 
+    game.deal() ;
+
+    deck = game.getDeck() ;
+    cout << deck.size() << endl ;
+
+    for (vector<Card>::iterator card = deck.begin(); card != deck.end(); ++card) {
+        cout << card->toString() << endl ;
+    }
+
     return 0 ;
 }
     
