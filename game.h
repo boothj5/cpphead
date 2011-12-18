@@ -10,16 +10,17 @@ using namespace std ;
 
 class Game {
     vector<Player> players ;
+    vector<Card> deck ;
     int numCards ;
     int numPlayers ;
     int currentPlayer ;
-    vector<Card> deck ;
 
     static int calcNumDecks(int, int) ;
-    static ptrdiff_t randomGen(ptrdiff_t i) ;
+    static ptrdiff_t randomGen(ptrdiff_t) ;
     
     public:
     Game(string[], int, int) ;
+    
     void deal() ;
     vector<Player> getPlayers() ;
     Player getCurrentPlayer() ;
