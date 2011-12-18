@@ -16,6 +16,7 @@ class Game {
     vector<Card> deck ;
 
     static int calcNumDecks(int, int) ;
+    static ptrdiff_t randomGen(ptrdiff_t i) ;
     
     public:
     Game(string[], int, int) ;
