@@ -19,24 +19,14 @@ int main()
     names = requestPlayerNames(numPlayers) ;
 
     Game game(names, numPlayers, numCardsEach) ;
-    
-    cout << "Current player : " << game.getCurrentPlayer().getName() << endl ;
-
-    vector<Card> deck = game.getDeck() ;
-
-    cout << deck.size() << endl ;
-
-    for (vector<Card>::iterator card = deck.begin(); card != deck.end(); ++card) {
-        cout << card->toString() << endl ;
-    }
-
     game.deal() ;
 
-    deck = game.getDeck() ;
-    cout << deck.size() << endl ;
+    clearScreen() ;
 
-    for (vector<Card>::iterator card = deck.begin(); card != deck.end(); ++card) {
-        cout << card->toString() << endl ;
+    vector<Player> players = game.getPlayers() ;
+    for (vector<Player>::iterator player = players.begin(); player != players.end();
+            ++player) {
+        showPlayer(*player) ;
     }
 
     return 0 ;

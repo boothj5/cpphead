@@ -11,9 +11,24 @@ Player::Player(string aName)
     name = aName ;
 }
 
-string Player::getName(void) 
+string Player::getName() 
 {
     return name ;
+}
+
+vector<Card> Player::getHand()
+{
+    return hand ;
+}
+
+vector<Card> Player::getFaceUp()
+{
+    return faceUp ;
+}
+
+vector<Card> Player::getFaceDown()
+{
+    return faceDown ;
 }
 
 void Player::addToHand(Card card)

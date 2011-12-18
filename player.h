@@ -16,7 +16,10 @@ class Player {
     public:
     Player() ;
     Player(string) ;
-    string getName(void) ;
+    string getName() ;
+    vector<Card> getHand() ;
+    vector<Card> getFaceUp() ;
+    vector<Card> getFaceDown() ;
     void addToHand(Card) ;
     void addToFaceUp(Card) ;
     void addToFaceDown(Card) ;

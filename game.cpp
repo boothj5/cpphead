@@ -1,6 +1,8 @@
+#include <iostream>
 #include <vector>
 #include <algorithm>
 #include "game.h"
+#include "console.h"
 #include "player.h"
 #include "card.h"
 
@@ -31,21 +33,31 @@ Game::Game(string names[], int length, int numCards)
 
 void Game::deal()
 {
-    int i ;
-    for (vector<Player>::iterator player = players.begin(); player != players.end(); 
-            ++player) {
-        for (i = 0 ; i < numCards ; i++) {
-            player->addToHand(deck.back()) ;
+    int i, j ;
+    Card card ;
+    for (i = 0 ; i < players.size() ; i++) {
+        for (j = 0 ; j < numCards ; j++) {
+            card = deck.back() ;
+            players[i].addToHand(card) ;
             deck.pop_back() ;
-            player->addToFaceUp(deck.back()) ;
+            
+            card = deck.back() ;
+            players[i].addToFaceUp(card) ;
             deck.pop_back() ;
-            player->addToFaceDown(deck.back()) ;
+            
+            card = deck.back() ;
+            players[i].addToFaceDown(card) ;
             deck.pop_back() ;
         }
     }
 }
 
-Player Game::getCurrentPlayer(void)
+vector<Player> Game::getPlayers() 
+{
+    return players ;
+}
+
+Player Game::getCurrentPlayer()
 {
     return players[currentPlayer] ;
 }

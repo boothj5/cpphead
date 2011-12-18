@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "console.h"
+#include "player.h"
 
 using namespace std ;
 
@@ -44,3 +45,23 @@ string * requestPlayerNames(int numPlayers)
     return names ;
 }
 
+void showPlayer(Player player) 
+{
+    cout << player.getName() << endl ;
+    cout << "HAND : " ;
+    int i ;
+    for (i = 0 ; i < player.getHand().size() ; i++) {
+        cout << player.getHand()[i].toString() << ", " ;
+    }
+    cout << endl ;
+    cout << "FACEUP : " ;
+    for (i = 0 ; i < player.getFaceUp().size() ; i++) {
+        cout << player.getFaceUp()[i].toString() << ", " ;
+    }
+    cout << endl ;
+    cout << "FACEDOWN : " ;
+    for (i = 0 ; i < player.getFaceDown().size() ; i++) {
+        cout << player.getFaceDown()[i].toString() << ", " ;
+    }
+    cout << endl ;
+}

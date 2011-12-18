@@ -20,6 +20,7 @@ class Game {
     public:
     Game(string[], int, int) ;
     void deal() ;
+    vector<Player> getPlayers() ;
     Player getCurrentPlayer() ;
     vector<Card> getDeck() ;
 } ;
