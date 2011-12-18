@@ -5,10 +5,11 @@
 
 using namespace std ;
 
-void clearScreen(void) ;
-void showWelcomeMessage(void) ;
-int requestNumPlayers(void) ; 
-int requestNumCards(void) ;
+void clearScreen() ;
+void showWelcomeMessage() ;
+int requestNumPlayers() ; 
+int requestNumCards() ;
 string * requestPlayerNames(int) ;
-void showPlayer(Player player) ;
+void showPlayer(Player&) ;
+void showHand(string, vector<Card>) ;
 #endif

@@ -45,23 +45,20 @@ string * requestPlayerNames(int numPlayers)
     return names ;
 }
 
-void showPlayer(Player player) 
+void showPlayer(Player& player) 
 {
     cout << player.getName() << endl ;
-    cout << "HAND : " ;
+    showHand("HAND :     ", player.getHand()) ;
+    showHand("FACEUP :   ", player.getFaceUp()) ;
+    showHand("FACEDOWN : ", player.getFaceDown()) ;
+}
+
+void showHand(string name, vector<Card> cards)
+{
+    cout << name ;
     int i ;
-    for (i = 0 ; i < player.getHand().size() ; i++) {
-        cout << player.getHand()[i].toString() << ", " ;
-    }
-    cout << endl ;
-    cout << "FACEUP : " ;
-    for (i = 0 ; i < player.getFaceUp().size() ; i++) {
-        cout << player.getFaceUp()[i].toString() << ", " ;
-    }
-    cout << endl ;
-    cout << "FACEDOWN : " ;
-    for (i = 0 ; i < player.getFaceDown().size() ; i++) {
-        cout << player.getFaceDown()[i].toString() << ", " ;
+    for (i = 0 ; i < cards.size() ; i++) {
+        cout << cards[i].toString() << ", " ;
     }
     cout << endl ;
 }
