@@ -10,6 +10,17 @@
 
 using namespace std ;
 
+// random generator function:
+ptrdiff_t myrandom (ptrdiff_t i) 
+{
+    int seed = static_cast<int>(time(0));
+    srand(seed) ;
+    return rand() % i ; 
+}
+
+// pointer object to it:
+ptrdiff_t (*p_myrandom)(ptrdiff_t) = myrandom;
+
 Game::Game(string names[], int length, int numCards) 
 {
     int i ;
@@ -28,7 +39,7 @@ Game::Game(string names[], int length, int numCards)
             for (rank = TWO ; rank <= ACE ; rank++)
                 this->deck.push_back(Card((cardrank)rank, (cardsuit)suit)) ;
     
-    random_shuffle(this->deck.begin(), this->deck.end()) ;
+    random_shuffle(this->deck.begin(), this->deck.end(), p_myrandom) ;
 }
 
 void Game::deal()
