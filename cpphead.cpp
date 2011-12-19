@@ -23,8 +23,21 @@ int main()
 
     clearScreen() ;
 
-    showPlayers(game.getPlayers()) ;
-
+    vector<Player> players = game.getPlayers() ;
+    for (i = 0 ; i < players.size() ; i++) {
+        clearScreen() ;
+        showPlayer(players[i]) ;
+        bool doSwap = requestSwapCards(players[i].getName()) ;
+        while (doSwap) {
+            int handChoice = requestHandChoice() ;
+            int faceUpChoice = requestFaceUpChoice() ;
+            players[i].swap(handChoice, faceUpChoice) ;
+            clearScreen() ;
+            showPlayer(players[i]) ;
+            doSwap = requestSwapMore(players[i].getName()) ;
+        }
+    }
+        
     return 0 ;
 }
     

@@ -69,3 +69,35 @@ void showHand(string name, const vector<Card>& cards)
     }
     cout << endl ;
 }
+
+bool requestSwapCards(string name)
+{
+    string response ;
+    cout << name << " do you want to swap cards (y/n) : " ;
+    cin >> response ;
+    return (response == "Y" || response == "y") ;
+}
+
+bool requestSwapMore(string name) 
+{
+    string response ;
+    cout << name << " do you want to swap more cards (y/n) : " ;
+    cin >> response ;
+    return (response == "Y" || response == "y") ;
+}
+
+int requestHandChoice() 
+{
+    int response ;
+    cout << "Enter a hand card: " ;
+    cin >> response ;
+    return response - 1 ;
+}
+
+int requestFaceUpChoice()
+{
+    int response ;
+    cout << "Enter a face up card: " ;
+    cin >> response ;
+    return response - 1 ;
+}

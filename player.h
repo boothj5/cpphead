@@ -23,6 +23,7 @@ class Player {
     void addToFaceUp(Card) ;
     void addToFaceDown(Card) ;
     void sortHand() ;
+    void swap(int, int) ;
 } ;
 
 #endif
