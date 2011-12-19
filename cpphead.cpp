@@ -23,11 +23,7 @@ int main()
 
     clearScreen() ;
 
-    vector<Player> players = game.getPlayers() ;
-    for (vector<Player>::iterator player = players.begin(); player != players.end();
-            ++player) {
-        showPlayer(*player) ;
-    }
+    showPlayers(game.getPlayers()) ;
 
     return 0 ;
 }

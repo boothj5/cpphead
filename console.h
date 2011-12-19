@@ -10,6 +10,7 @@ void showWelcomeMessage() ;
 int requestNumPlayers() ; 
 int requestNumCards() ;
 string * requestPlayerNames(int) ;
+void showPlayers(const vector<Player>& players) ;
 void showPlayer(const Player&) ;
 void showHand(string, const vector<Card>&) ;
 #endif

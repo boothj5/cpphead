@@ -45,6 +45,13 @@ string * requestPlayerNames(int numPlayers)
     return names ;
 }
 
+void showPlayers(const vector<Player>& players)
+{
+    int i ;
+    for (i = 0 ; i < players.size() ; i++)
+        showPlayer(players[i]) ;
+}
+
 void showPlayer(const Player& player) 
 {
     cout << player.getName() << endl ;
