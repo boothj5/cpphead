@@ -65,3 +65,20 @@ string Card::toString() const
     return rankStr() + " of " + suitStr() ;
 }
 
+bool Card::special() const
+{
+    return rank == TWO || rank == SEVEN || rank == TEN ;
+}
+
+bool Card::shCompare(Card c1, Card c2)
+{   
+    if (c1.special() && c2.special())
+        return false ;
+    else if (c1.special() && !c2.special())
+        return false ;
+    else if (c2.special())
+        return true ;
+    else
+        return c1.rank < c2.rank ;
+}
+

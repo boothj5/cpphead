@@ -43,6 +43,7 @@ void Game::deal()
             players[i].addToFaceDown(deck.back()) ;
             deck.pop_back() ;
         }
+        players[i].sortHand() ;
     }
 }
 

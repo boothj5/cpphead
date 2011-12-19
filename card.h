@@ -20,7 +20,11 @@ class Card {
  
     public:
     Card(cardrank, cardsuit) ;
+
     string toString() const ;
+    bool special() const ;
+
+    static bool shCompare(Card c1, Card c2) ;   
 } ;    
 
 #endif

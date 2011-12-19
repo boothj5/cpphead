@@ -1,5 +1,7 @@
+#include <algorithm>
 #include "player.h"
 #include "card.h"
+
 
 Player::Player(string aName) 
 {
@@ -39,5 +41,10 @@ void Player::addToFaceUp(Card card)
 void Player::addToFaceDown(Card card)
 {
     faceDown.push_back(card) ;
+}
+
+void Player::sortHand()
+{
+    sort(hand.begin(), hand.end(), Card::shCompare) ;
 }
 
