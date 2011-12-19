@@ -31,12 +31,16 @@ int main()
         while (doSwap) {
             int handChoice = requestHandChoice() ;
             int faceUpChoice = requestFaceUpChoice() ;
-            players[i].swap(handChoice, faceUpChoice) ;
+            game.swap(i, handChoice, faceUpChoice) ;
             clearScreen() ;
+            players = game.getPlayers() ;
             showPlayer(players[i]) ;
             doSwap = requestSwapMore(players[i].getName()) ;
         }
     }
+
+    game.firstMove() ;
+    showGame(game) ;
         
     return 0 ;
 }

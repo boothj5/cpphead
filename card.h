@@ -23,6 +23,7 @@ class Card {
 
     string toString() const { return rankStr() + " of " + suitStr() ; }
     bool special() const { return rank == TWO || rank == SEVEN || rank == TEN ; }
+    bool equalsRank(Card card) { return this->rank == card.rank ; }
 
     static bool shCompare(Card c1, Card c2) ;   
 } ;    

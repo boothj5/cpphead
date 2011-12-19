@@ -25,6 +25,7 @@ class Player {
     void addToFaceDown(Card card) { faceDown.push_back(card) ; }
     void sortHand() { sort(hand.begin(), hand.end(), Card::shCompare) ; }
     void swap(int, int) ;
+    void removeFromHand(vector<int>) ; 
 } ;
 
 #endif

@@ -47,6 +47,67 @@ void Game::deal()
     }
 }
 
+void Game::swap(int player, int handChoice, int faceUpChoice)
+{
+    players[player].swap(handChoice, faceUpChoice) ;
+}
+
+void Game::firstMove()
+{
+    // assumes hands are not empty and are sorted
+    vector<Card> lowestByPlayer ;
+    vector<int> toLay ;
+    int i ;
+
+    // find player with lowest card    
+    currentPlayer = 0 ;
+    for (i = 1 ; i < numPlayers ; i++) {
+        Card playersLowest = players[i].getHand()[0] ;
+        Card currentLowest = players[currentPlayer].getHand()[0] ;
+        if (Card::shCompare(playersLowest, currentLowest))
+            currentPlayer = i ;
+    }
+     
+    // get indexes of cards with same rank in players hand
+    for (i = 0 ; i < numCards ; i++) {
+        Card first = players[currentPlayer].getHand()[0] ;
+        Card current = players[currentPlayer].getHand()[i] ;
+        if (current.equalsRank(first))
+            toLay.push_back(i) ;
+    }
+
+    // play them
+    setLastHandMove(toLay) ;
+    playFromHand(toLay) ;
+}
+
+void Game::setLastHandMove(vector<int> toLay) 
+{
+    Player player = getCurrentPlayer() ;
+    lastMove = "" ;
+    lastMove += player.getName() ;
+    lastMove += " laid " ;
+    int i ;
+    for (i = 0 ; i < toLay.size() ; i++) {
+        lastMove += player.getHand()[toLay[i]].toString() ;
+        lastMove += ", " ;
+    }
+}
+
+void Game::playFromHand(const vector<int>& toLay)
+{
+    int i ;
+    for (i = 0 ; i < toLay.size() ; i++)
+        pile.push_back(players[currentPlayer].getHand()[toLay[i]]) ;
+    
+    players[currentPlayer].removeFromHand(toLay) ;
+
+    while (deck.size() > 0 && players[currentPlayer].getHand().size() < numCards) {
+        players[currentPlayer].addToHand(deck.back()) ;
+        deck.pop_back() ;
+    }
+}
+
 int Game::calcNumDecks(int numPlayers, int numCards)
 {
     int decksRequired, totalCards, div, add ;

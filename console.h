@@ -2,6 +2,9 @@
 #define H_CONSOLE
 #include <string>
 #include "player.h"
+#include "game.h"
+
+#define CLEARSCREEN true
 
 using namespace std ;
 
@@ -10,12 +13,14 @@ void showWelcomeMessage() ;
 int requestNumPlayers() ; 
 int requestNumCards() ;
 string * requestPlayerNames(int) ;
-void showPlayers(const vector<Player>& players) ;
+void showPlayers(const vector<Player>&) ;
 void showPlayer(const Player&) ;
 void showHand(string, const vector<Card>&) ;
-bool requestSwapCards(string name) ;
+bool requestSwapCards(string) ;
 int requestHandChoice() ;
 int requestFaceUpChoice() ;
-bool requestSwapMore(string name) ;
+bool requestSwapMore(string) ;
+void showGame(const Game&) ;
+void showPile(const vector<Card>&) ;
 
 #endif

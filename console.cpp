@@ -7,9 +7,11 @@ using namespace std ;
 
 void clearScreen()
 {
-    int i = 0 ;
-    for (i = 0 ; i < 100 ; i++) {
-        cout << endl ;
+    if (CLEARSCREEN) {
+        int i = 0 ;
+        for (i = 0 ; i < 100 ; i++) {
+            cout << endl ;
+        }
     }
 }
 
@@ -48,8 +50,10 @@ string * requestPlayerNames(int numPlayers)
 void showPlayers(const vector<Player>& players)
 {
     int i ;
-    for (i = 0 ; i < players.size() ; i++)
+    for (i = 0 ; i < players.size() ; i++) {
         showPlayer(players[i]) ;
+        cout << endl ;
+    }
 }
 
 void showPlayer(const Player& player) 
@@ -100,4 +104,26 @@ int requestFaceUpChoice()
     cout << "Enter a face up card: " ;
     cin >> response ;
     return response - 1 ;
+}
+
+void showGame(const Game& game)
+{
+    clearScreen() ;
+    showPile(game.getPile()) ;
+    cout << game.getDeck().size() << " on deck" << endl << endl ;
+    cout << "0 burnt" << endl ;
+    cout << endl ;
+    
+    showPlayers(game.getPlayers()) ;
+    cout << endl ;
+    cout << game.getLastMove() << endl ;
+}
+
+void showPile(const vector<Card>& pile)
+{
+    cout << pile.size() << " on pile:" << endl ;
+    int i ;
+    for (i = 0 ; i < pile.size() ; i++)
+        cout << "    " << pile[i].toString() << endl ;
+    cout << endl ;
 }
