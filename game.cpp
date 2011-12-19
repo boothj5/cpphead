@@ -46,17 +46,18 @@ void Game::deal()
     }
 }
 
-vector<Player> Game::getPlayers() 
+vector<Player> Game::getPlayers() const
 {
     return players ;
 }
 
-Player Game::getCurrentPlayer()
+Player Game::getCurrentPlayer() const 
 {
     return players[currentPlayer] ;
 }
 
-vector<Card> Game::getDeck() {
+vector<Card> Game::getDeck() const
+{
     return deck ;
 }
 
@@ -70,7 +71,7 @@ int Game::calcNumDecks(int numPlayers, int numCards)
     return decksRequired ;
 }
 
-ptrdiff_t Game::randomGen(ptrdiff_t i) 
+ptrdiff_t Game::randomGen(ptrdiff_t i)
 {
     int seed = static_cast<int>(time(0));
     srand(seed) ;

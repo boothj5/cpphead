@@ -15,12 +15,12 @@ class Card {
     cardrank rank ;
     cardsuit suit ;
    
-    string rankStr() ;
-    string suitStr() ;
+    string rankStr() const ;
+    string suitStr() const ;
  
     public:
     Card(cardrank, cardsuit) ;
-    string toString() ;
+    string toString() const ;
 } ;    
 
 #endif

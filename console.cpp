@@ -45,7 +45,7 @@ string * requestPlayerNames(int numPlayers)
     return names ;
 }
 
-void showPlayer(Player& player) 
+void showPlayer(const Player& player) 
 {
     cout << player.getName() << endl ;
     showHand("HAND :     ", player.getHand()) ;
@@ -53,7 +53,7 @@ void showPlayer(Player& player)
     showHand("FACEDOWN : ", player.getFaceDown()) ;
 }
 
-void showHand(string name, vector<Card> cards)
+void showHand(string name, const vector<Card>& cards)
 {
     cout << name ;
     int i ;

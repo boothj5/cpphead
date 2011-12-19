@@ -10,7 +10,7 @@ Card::Card(cardrank rank, cardsuit suit)
     this->suit = suit ;
 }
 
-string Card::rankStr()
+string Card::rankStr() const
 {
     switch(rank) {
     case TWO:
@@ -44,7 +44,7 @@ string Card::rankStr()
     }
 }
 
-string Card::suitStr()
+string Card::suitStr() const
 {
     switch(suit) {
     case HEARTS:
@@ -60,7 +60,7 @@ string Card::suitStr()
     }
 }
 
-string Card::toString()
+string Card::toString() const
 {
     return rankStr() + " of " + suitStr() ;
 }

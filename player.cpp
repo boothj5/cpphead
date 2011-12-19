@@ -6,22 +6,22 @@ Player::Player(string aName)
     name = aName ;
 }
 
-string Player::getName() 
+string Player::getName() const
 {
     return name ;
 }
 
-vector<Card> Player::getHand()
+vector<Card> Player::getHand() const
 {
     return hand ;
 }
 
-vector<Card> Player::getFaceUp()
+vector<Card> Player::getFaceUp() const
 {
     return faceUp ;
 }
 
-vector<Card> Player::getFaceDown()
+vector<Card> Player::getFaceDown() const
 {
     return faceDown ;
 }

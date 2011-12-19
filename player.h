@@ -15,10 +15,10 @@ class Player {
     
     public:
     Player(string) ;
-    string getName() ;
-    vector<Card> getHand() ;
-    vector<Card> getFaceUp() ;
-    vector<Card> getFaceDown() ;
+    string getName() const ;
+    vector<Card> getHand() const ;
+    vector<Card> getFaceUp() const ;
+    vector<Card> getFaceDown() const ;
     void addToHand(Card) ;
     void addToFaceUp(Card) ;
     void addToFaceDown(Card) ;
