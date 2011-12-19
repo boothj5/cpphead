@@ -22,9 +22,9 @@ class Game {
     Game(string[], int, int) ;
     
     void deal() ;
-    vector<Player> getPlayers() const ;
-    Player getCurrentPlayer() const ;
-    vector<Card> getDeck() const ;
+    vector<Player> getPlayers() const { return players ; }
+    Player getCurrentPlayer() const { return players[currentPlayer] ; }
+    vector<Card> getDeck() const { return deck ; }
 } ;
 
 #endif

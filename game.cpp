@@ -47,21 +47,6 @@ void Game::deal()
     }
 }
 
-vector<Player> Game::getPlayers() const
-{
-    return players ;
-}
-
-Player Game::getCurrentPlayer() const 
-{
-    return players[currentPlayer] ;
-}
-
-vector<Card> Game::getDeck() const
-{
-    return deck ;
-}
-
 int Game::calcNumDecks(int numPlayers, int numCards)
 {
     int decksRequired, totalCards, div, add ;

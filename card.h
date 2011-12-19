@@ -21,8 +21,8 @@ class Card {
     public:
     Card(cardrank, cardsuit) ;
 
-    string toString() const ;
-    bool special() const ;
+    string toString() const { return rankStr() + " of " + suitStr() ; }
+    bool special() const { return rank == TWO || rank == SEVEN || rank == TEN ; }
 
     static bool shCompare(Card c1, Card c2) ;   
 } ;    

@@ -60,16 +60,6 @@ string Card::suitStr() const
     }
 }
 
-string Card::toString() const
-{
-    return rankStr() + " of " + suitStr() ;
-}
-
-bool Card::special() const
-{
-    return rank == TWO || rank == SEVEN || rank == TEN ;
-}
-
 bool Card::shCompare(Card c1, Card c2)
 {   
     if (c1.special() && c2.special())

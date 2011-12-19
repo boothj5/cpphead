@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 #include "card.h"
 
 using namespace std ;
@@ -14,15 +15,15 @@ class Player {
     vector<Card> faceDown ;
     
     public:
-    Player(string) ;
-    string getName() const ;
-    vector<Card> getHand() const ;
-    vector<Card> getFaceUp() const ;
-    vector<Card> getFaceDown() const ;
-    void addToHand(Card) ;
-    void addToFaceUp(Card) ;
-    void addToFaceDown(Card) ;
-    void sortHand() ;
+    Player(string name) { this->name = name ; }
+    string getName() const { return name ; }
+    vector<Card> getHand() const { return hand ; }
+    vector<Card> getFaceUp() const { return faceUp ; } 
+    vector<Card> getFaceDown() const { return faceDown ; }
+    void addToHand(Card card) { hand.push_back(card) ; } 
+    void addToFaceUp(Card card) { faceUp.push_back(card) ; }
+    void addToFaceDown(Card card) { faceDown.push_back(card) ; }
+    void sortHand() { sort(hand.begin(), hand.end(), Card::shCompare) ; }
     void swap(int, int) ;
 } ;
 
