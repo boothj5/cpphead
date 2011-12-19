@@ -12,42 +12,35 @@ using namespace std ;
 
 Game::Game(string names[], int length, int numCards) 
 {
-    int i ;
-    int rank, suit ;
-    this->numPlayers = length ;
+    int i, rank, suit, numDecks ;
+    numPlayers = length ;
     this->numCards = numCards ;
-    for (i = 0 ; i < length ; i++) {
+    for (i = 0 ; i < numPlayers ; i++) {
         Player player(names[i]) ;
         players.push_back(player) ;
     }
-    this->currentPlayer = 0 ;
+    currentPlayer = 0 ;
 
-    int numDecks = calcNumDecks(numPlayers, numCards) ;
+    numDecks = calcNumDecks(numPlayers, numCards) ;
     for (i = 0 ; i < numDecks ; i++)
         for (suit = HEARTS ; suit <= CLUBS ; suit++)
             for (rank = TWO ; rank <= ACE ; rank++)
-                this->deck.push_back(Card((cardrank)rank, (cardsuit)suit)) ;
+                deck.push_back(Card((cardrank)rank, (cardsuit)suit)) ;
 
     ptrdiff_t (*p_randomGen)(ptrdiff_t) = randomGen ;    
-    random_shuffle(this->deck.begin(), this->deck.end(), p_randomGen) ;
+    random_shuffle(deck.begin(), deck.end(), p_randomGen) ;
 }
 
 void Game::deal()
 {
     int i, j ;
-    Card card ;
     for (i = 0 ; i < players.size() ; i++) {
         for (j = 0 ; j < numCards ; j++) {
-            card = deck.back() ;
-            players[i].addToHand(card) ;
+            players[i].addToHand(deck.back()) ;
             deck.pop_back() ;
-            
-            card = deck.back() ;
-            players[i].addToFaceUp(card) ;
+            players[i].addToFaceUp(deck.back()) ;
             deck.pop_back() ;
-            
-            card = deck.back() ;
-            players[i].addToFaceDown(card) ;
+            players[i].addToFaceDown(deck.back()) ;
             deck.pop_back() ;
         }
     }

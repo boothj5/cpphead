@@ -14,7 +14,6 @@ class Player {
     vector<Card> faceDown ;
     
     public:
-    Player() ;
     Player(string) ;
     string getName() ;
     vector<Card> getHand() ;

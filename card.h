@@ -19,7 +19,6 @@ class Card {
     string suitStr() ;
  
     public:
-    Card() ;
     Card(cardrank, cardsuit) ;
     string toString() ;
 } ;    

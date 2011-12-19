@@ -1,11 +1,6 @@
 #include "player.h"
 #include "card.h"
 
-Player::Player()
-{
-    name = "" ;
-}
-
 Player::Player(string aName) 
 {
     name = aName ;

@@ -4,12 +4,6 @@
 
 using namespace std ;
 
-Card::Card()
-{
-    rank = TWO ;
-    suit = DIAMONDS ;
-}
-
 Card::Card(cardrank rank, cardsuit suit)
 {
     this->rank = rank ;
