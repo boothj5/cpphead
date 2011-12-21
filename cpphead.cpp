@@ -40,7 +40,12 @@ int main()
     }
 
     game.firstMove() ;
-    showGame(game) ;
+
+    while (game.canContinue()) {
+        clearScreen() ;
+        showGame(game) ;
+        break ;
+    }
         
     return 0 ;
 }

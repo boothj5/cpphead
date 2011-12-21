@@ -81,18 +81,19 @@ void Game::firstMove()
     playFromHand(toLay) ;
 }
 
-void Game::setLastHandMove(vector<int> toLay) 
+bool Game::canContinue()
 {
-    Player player = getCurrentPlayer() ;
-    lastMove = "" ;
-    lastMove += player.getName() ;
-    lastMove += " laid " ;
+    int playersWithCards = 0 ;
     int i ;
-    for (i = 0 ; i < toLay.size() ; i++) {
-        lastMove += player.getHand()[toLay[i]].toString() ;
-        lastMove += ", " ;
-    }
+
+    for (i = 0 ; i < numPlayers ; i++)
+        if (players[i].hasCards())
+            playersWithCards++ ;
+
+    return playersWithCards > 1 ;
 }
+
+// private
 
 void Game::playFromHand(const vector<int>& toLay)
 {
@@ -107,6 +108,21 @@ void Game::playFromHand(const vector<int>& toLay)
         deck.pop_back() ;
     }
 }
+
+void Game::setLastHandMove(vector<int> toLay) 
+{
+    Player player = getCurrentPlayer() ;
+    lastMove = "" ;
+    lastMove += player.getName() ;
+    lastMove += " laid " ;
+    int i ;
+    for (i = 0 ; i < toLay.size() ; i++) {
+        lastMove += player.getHand()[toLay[i]].toString() ;
+        lastMove += ", " ;
+    }
+}
+
+// static
 
 int Game::calcNumDecks(int numPlayers, int numCards)
 {

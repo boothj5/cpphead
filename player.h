@@ -26,6 +26,7 @@ class Player {
     void sortHand() { sort(hand.begin(), hand.end(), Card::shCompare) ; }
     void swap(int, int) ;
     void removeFromHand(vector<int>) ; 
+    bool hasCards() ;
 } ;
 
 #endif
