@@ -17,7 +17,6 @@ test: compile-tests
 clean:
 	rm -f *.o
 	rm -f cpphead
-	rm -f ~/bin/cpphead
 	rm -f testsuite
 
 run: clean install
