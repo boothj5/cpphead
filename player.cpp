@@ -27,7 +27,7 @@ void Player::removeFromHand(vector<int> indexes)
     sortHand() ;
 }
 
-bool Player::hasCards()
+bool Player::hasCards() const
 {
     return hand.size() > 0 || faceUp.size() > 0 || faceDown.size() > 0 ;
 }

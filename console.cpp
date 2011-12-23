@@ -1,9 +1,12 @@
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <boost/algorithm/string.hpp>
 #include "console.hpp"
 #include "player.hpp"
 
 using namespace std ;
+using namespace boost ;
 
 void clearScreen()
 {
@@ -123,7 +126,45 @@ void showPile(const vector<Card>& pile)
 {
     cout << pile.size() << " on pile:" << endl ;
     int i ;
-    for (i = 0 ; i < pile.size() ; i++)
-        cout << "    " << pile[i].toString() << endl ;
+    for (i = pile.size() ; i > 0 ; i--)
+        cout << "    " << pile[i-1].toString() << endl ;
     cout << endl ;
+}
+
+static vector<int> parseChoices(string strChoices)
+{
+    vector<int> choices ;
+    vector<string> splitString ;
+    split(splitString, strChoices, is_any_of(","));
+    int i ;
+    for (i = 0 ; i < splitString.size() ; i++) {
+        string choice = splitString[i] ;
+        stringstream str(choice) ;
+        int choiceInt ;
+        str >> choiceInt ;
+        if (!str) {
+            choices.clear() ;
+            return choices ;
+        }
+        else {
+            choices.push_back(choiceInt - 1) ;
+        }
+    }
+
+    return choices ;
+}
+
+vector<int> requestMove(string name)
+{
+    vector<int> choices ;
+    string response ;
+    cout << name << " choose cards to lay: " ;
+    cin >> response ;
+    choices = parseChoices(response) ;
+    while (choices.size() == 0) {
+        cout << "Enter numbers seperated by commas: " ;
+        cin >> response ;
+        choices = parseChoices(response) ;
+    }
+    return choices ;
 }

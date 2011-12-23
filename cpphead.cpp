@@ -44,7 +44,8 @@ int main()
     while (game.canContinue()) {
         clearScreen() ;
         showGame(game) ;
-        break ;
+        vector<int> choices = requestMove(game.getCurrentPlayer().getName()) ;
+        game.makeMove(choices) ;
     }
         
     return 0 ;

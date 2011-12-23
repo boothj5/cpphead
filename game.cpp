@@ -79,9 +79,10 @@ void Game::firstMove()
     // play them
     setLastHandMove(toLay) ;
     playFromHand(toLay) ;
+    moveToNextPlayer() ;
 }
 
-bool Game::canContinue()
+bool Game::canContinue() const
 {
     int playersWithCards = 0 ;
     int i ;
@@ -91,6 +92,13 @@ bool Game::canContinue()
             playersWithCards++ ;
 
     return playersWithCards > 1 ;
+}
+
+void Game::makeMove(const vector<int>& choices)
+{
+    setLastHandMove(choices) ;
+    playFromHand(choices) ;
+    moveToNextPlayer() ;
 }
 
 // private
@@ -109,7 +117,7 @@ void Game::playFromHand(const vector<int>& toLay)
     }
 }
 
-void Game::setLastHandMove(vector<int> toLay) 
+void Game::setLastHandMove(const vector<int>& toLay) 
 {
     Player player = getCurrentPlayer() ;
     lastMove = "" ;
@@ -120,6 +128,15 @@ void Game::setLastHandMove(vector<int> toLay)
         lastMove += player.getHand()[toLay[i]].toString() ;
         lastMove += ", " ;
     }
+}
+
+void Game::moveToNextPlayer()
+{
+    currentPlayer++ ;
+    if (currentPlayer == players.size())
+        currentPlayer = 0 ;
+    while (!getCurrentPlayer().hasCards()) 
+        moveToNextPlayer() ;
 }
 
 // static

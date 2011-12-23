@@ -21,7 +21,8 @@ class Game {
     static ptrdiff_t randomGen(ptrdiff_t) ;
     
     void playFromHand(const vector<int>&) ;
-    void setLastHandMove(vector<int>) ;
+    void setLastHandMove(const vector<int>&) ;
+    void moveToNextPlayer() ;
 
     public:
     Game(string[], int, int) ;
@@ -34,7 +35,8 @@ class Game {
     vector<Card> getDeck() const { return deck ; }
     vector<Card> getPile() const { return pile ; }
     string getLastMove() const { return lastMove ; }
-    bool canContinue() ;
+    bool canContinue() const ;
+    void makeMove(const vector<int>&) ;
 } ;
 
 #endif
