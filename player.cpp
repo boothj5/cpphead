@@ -1,6 +1,6 @@
 #include <algorithm>
-#include "player.h"
-#include "card.h"
+#include "player.hpp"
+#include "card.hpp"
 
 void Player::swap(int handCard, int faceUpCard)
 {

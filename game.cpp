@@ -1,10 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include "game.h"
-#include "console.h"
-#include "player.h"
-#include "card.h"
+#include "game.hpp"
+#include "console.hpp"
+#include "player.hpp"
+#include "card.hpp"
 
 #define DECK_SIZE 52
 

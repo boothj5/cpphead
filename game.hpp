@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <string>
-#include "player.h"
-#include "card.h"
+#include "player.hpp"
+#include "card.hpp"
 
 using namespace std ;
 

@@ -1,5 +1,5 @@
 #include <head-unit-cpp.h>
-#include "testsuite.h"
+#include "testsuite.hpp"
 
 int main(void)
 {

@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "console.h"
-#include "card.h"
-#include "player.h"
-#include "game.h"
+#include "console.hpp"
+#include "card.hpp"
+#include "player.hpp"
+#include "game.hpp"
 
 using namespace std ;
 

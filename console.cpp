@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
-#include "console.h"
-#include "player.h"
+#include "console.hpp"
+#include "player.hpp"
 
 using namespace std ;
 

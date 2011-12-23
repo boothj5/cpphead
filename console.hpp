@@ -1,8 +1,8 @@
 #ifndef H_CONSOLE
 #define H_CONSOLE
 #include <string>
-#include "player.h"
-#include "game.h"
+#include "player.hpp"
+#include "game.hpp"
 
 #define CLEARSCREEN true
 

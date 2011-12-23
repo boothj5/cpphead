@@ -1,7 +1,7 @@
 #include <head-unit-cpp.h>
 
-#include "testsuite.h"
-#include "card.h"
+#include "testsuite.hpp"
+#include "card.hpp"
 
 void testThreeLowerThanTwo(void)
 {

@@ -1,8 +1,8 @@
 #include <head-unit-cpp.h>
 #include <vector>
 
-#include "testsuite.h"
-#include "player.h"
+#include "testsuite.hpp"
+#include "player.hpp"
 
 void testAddToHandAddsCard(void)
 {
