@@ -33,17 +33,19 @@ Game::Game(string names[], int length, int numCards)
 
 void Game::deal()
 {
-    int i, j ;
-    for (i = 0 ; i < players_.size() ; i++) {
-        for (j = 0 ; j < numCards_ ; j++) {
-            players_[i].addToHand(deck_.back()) ;
+    int i ;
+    
+    vector<Player>::iterator player ;
+    for (player = players_.begin() ; player != players_.end() ; player++) {
+        for (i = 0 ; i < numCards_ ; i++) {
+            player->addToHand(deck_.back()) ;
             deck_.pop_back() ;
-            players_[i].addToFaceUp(deck_.back()) ;
+            player->addToFaceUp(deck_.back()) ;
             deck_.pop_back() ;
-            players_[i].addToFaceDown(deck_.back()) ;
+            player->addToFaceDown(deck_.back()) ;
             deck_.pop_back() ;
         }
-        players_[i].sortHand() ;
+        player->sortHand() ;
     }
 }
 
@@ -110,10 +112,10 @@ string Game::lastMove() const
 bool Game::canContinue() const
 {
     int playersWithCards = 0 ;
-    int i ;
 
-    for (i = 0 ; i < numPlayers_ ; i++)
-        if (players_[i].hasCards())
+    vector<Player>::const_iterator player ;
+    for (player = players_.begin() ; player != players_.end() ; player++)
+        if (player->hasCards())
             playersWithCards++ ;
 
     return playersWithCards > 1 ;
@@ -142,10 +144,9 @@ bool Game::currentPlayerCanMove() const
 
 void Game::pickUp()
 {
-    int i ;
-    for (i = 0 ; i < pile_.size() ; i++) {
-        players_[currentPlayer_].addToHand(pile_[i]) ;
-    }
+    vector<Card>::const_iterator card ;
+    for (card = pile_.begin() ; card != pile_.end() ; card++)
+        players_[currentPlayer_].addToHand(*card) ;
     pile_.clear() ;
     setLastMovePickUp() ;
     moveToNextPlayer() ;

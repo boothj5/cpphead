@@ -9,7 +9,7 @@ void testAddToHandAddsCard(void)
     Player james("James") ;
     Card three(THREE, DIAMONDS) ;
     james.addToHand(three) ;
-    vector<Card> cards = james.getHand() ;
+    vector<Card> cards = james.hand() ;
     Card found = cards[0] ;
 
     assert_string_equals(found.toString(), three.toString()) ;
@@ -20,7 +20,7 @@ void testAddToFaceUpAddsCard(void)
     Player james("James") ;
     Card three(THREE, DIAMONDS) ;
     james.addToFaceUp(three) ;
-    vector<Card> cards = james.getFaceUp() ;
+    vector<Card> cards = james.faceUp() ;
     Card found = cards[0] ;
 
     assert_string_equals(found.toString(), three.toString()) ;
@@ -31,7 +31,7 @@ void testAddToFaceDownAddsCard(void)
     Player james("James") ;
     Card three(THREE, DIAMONDS) ;
     james.addToFaceDown(three) ;
-    vector<Card> cards = james.getFaceDown() ;
+    vector<Card> cards = james.faceDown() ;
     Card found = cards[0] ;
 
     assert_string_equals(found.toString(), three.toString()) ;
@@ -51,10 +51,10 @@ void sortHandSortsHand(void)
 
     james.sortHand() ;
 
-    assert_string_equals(james.getHand()[0].toString(), three.toString()) ;
-    assert_string_equals(james.getHand()[1].toString(), five.toString()) ;
-    assert_string_equals(james.getHand()[2].toString(), six.toString()) ;
-    assert_string_equals(james.getHand()[3].toString(), two.toString()) ;
+    assert_string_equals(james.hand()[0].toString(), three.toString()) ;
+    assert_string_equals(james.hand()[1].toString(), five.toString()) ;
+    assert_string_equals(james.hand()[2].toString(), six.toString()) ;
+    assert_string_equals(james.hand()[3].toString(), two.toString()) ;
 }
 
 void swapSwapsCards(void)
@@ -75,12 +75,12 @@ void swapSwapsCards(void)
     
     james.swap(1, 2) ;
     
-    assert_string_equals(james.getHand()[0].toString(), three.toString()) ;    
-    assert_string_equals(james.getHand()[1].toString(), four.toString()) ;    
-    assert_string_equals(james.getHand()[2].toString(), two.toString()) ;    
-    assert_string_equals(james.getFaceUp()[0].toString(), five.toString()) ;    
-    assert_string_equals(james.getFaceUp()[1].toString(), seven.toString()) ;    
-    assert_string_equals(james.getFaceUp()[2].toString(), six.toString()) ;    
+    assert_string_equals(james.hand()[0].toString(), three.toString()) ;    
+    assert_string_equals(james.hand()[1].toString(), four.toString()) ;    
+    assert_string_equals(james.hand()[2].toString(), two.toString()) ;    
+    assert_string_equals(james.faceUp()[0].toString(), five.toString()) ;    
+    assert_string_equals(james.faceUp()[1].toString(), seven.toString()) ;    
+    assert_string_equals(james.faceUp()[2].toString(), six.toString()) ;    
 }
 
 void removeFromHandRemovesCard(void) 
@@ -100,9 +100,9 @@ void removeFromHandRemovesCard(void)
 
     james.removeFromHand(toRemove) ; 
 
-    assert_string_equals(james.getHand()[0].toString(), five.toString()) ;
-    assert_string_equals(james.getHand()[1].toString(), six.toString()) ;
-    assert_string_equals(james.getHand()[2].toString(), two.toString()) ;
+    assert_string_equals(james.hand()[0].toString(), five.toString()) ;
+    assert_string_equals(james.hand()[1].toString(), six.toString()) ;
+    assert_string_equals(james.hand()[2].toString(), two.toString()) ;
 }
 
 void hasCardsWhenCardsInHand() 

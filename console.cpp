@@ -53,9 +53,9 @@ string * requestPlayerNames(int numPlayers)
 
 void showPlayers(const vector<Player>& players)
 {
-    int i ;
-    for (i = 0 ; i < players.size() ; i++) {
-        showPlayer(players[i]) ;
+    vector<Player>::const_iterator player ;
+    for (player = players.begin() ; player != players.end() ; player++) {
+        showPlayer(*player) ;
         cout << endl ;
     }
 }
@@ -71,10 +71,11 @@ void showPlayer(const Player& player)
 void showHand(string name, const vector<Card>& cards)
 {
     cout << name ;
-    int i ;
-    for (i = 0 ; i < cards.size() ; i++) {
-        cout << cards[i].toString() << ", " ;
-    }
+    
+    vector<Card>::const_iterator card ;
+    for (card = cards.begin() ; card != cards.end() ; card++)
+        cout << card->toString() << ", " ;
+
     cout << endl ;
 }
 
