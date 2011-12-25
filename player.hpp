@@ -9,6 +9,11 @@
 using namespace std ;
 
 class Player {
+    string name_ ;
+    vector<Card> hand_ ;
+    vector<Card> faceUp_ ;
+    vector<Card> faceDown_ ;
+    
     public:
     Player(string name) ;
     string name() const ;
@@ -24,13 +29,6 @@ class Player {
     bool hasCards() const ;
     bool hasCardsInHand() const ;
     bool hasCardsInFaceUp() const ;
-    
-    private:
-    string name_ ;
-    vector<Card> hand_ ;
-    vector<Card> faceUp_ ;
-    vector<Card> faceDown_ ;
-    
 } ;
 
 #endif

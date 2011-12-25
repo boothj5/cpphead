@@ -11,6 +11,9 @@ enum cardrank { TWO = 2, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN,
 enum cardsuit { HEARTS, SPADES, DIAMONDS, CLUBS } ;
 
 class Card {
+    cardrank rank_ ;
+    cardsuit suit_ ;
+   
     public:
     Card(cardrank, cardsuit) ;
 
@@ -23,9 +26,6 @@ class Card {
     static bool shCompare(Card c1, Card c2) ;   
     
     private:
-    cardrank rank_ ;
-    cardsuit suit_ ;
-   
     string rankStr() const ;
     string suitStr() const ;
 } ;    
