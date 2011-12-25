@@ -23,19 +23,19 @@ int main()
 
     clearScreen() ;
 
-    vector<Player> players = game.getPlayers() ;
+    vector<Player> players = game.players() ;
     for (i = 0 ; i < players.size() ; i++) {
         clearScreen() ;
         showPlayer(players[i]) ;
-        bool doSwap = requestSwapCards(players[i].getName()) ;
+        bool doSwap = requestSwapCards(players[i].name()) ;
         while (doSwap) {
             int handChoice = requestHandChoice() ;
             int faceUpChoice = requestFaceUpChoice() ;
             game.swap(i, handChoice, faceUpChoice) ;
             clearScreen() ;
-            players = game.getPlayers() ;
+            players = game.players() ;
             showPlayer(players[i]) ;
-            doSwap = requestSwapMore(players[i].getName()) ;
+            doSwap = requestSwapMore(players[i].name()) ;
         }
     }
 
@@ -44,8 +44,14 @@ int main()
     while (game.canContinue()) {
         clearScreen() ;
         showGame(game) ;
-        vector<int> choices = requestMove(game.getCurrentPlayer().getName()) ;
-        game.makeMove(choices) ;
+        if (game.currentPlayerCanMove()) {
+            vector<int> choices = requestMove(game.currentPlayer().name()) ;
+            game.makeMove(choices) ;
+        } else {
+            showPickUpMessage(game.currentPlayer().name()) ;
+            game.pickUp() ;
+        }
+            
     }
         
     return 0 ;

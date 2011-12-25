@@ -23,5 +23,7 @@ bool requestSwapMore(string) ;
 void showGame(const Game&) ;
 void showPile(const vector<Card>&) ;
 vector<int> requestMove(string) ;
+void showPickUpMessage(string) ;
+void wait_user() ;
 
 #endif

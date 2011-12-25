@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <stdio.h>
 #include <boost/algorithm/string.hpp>
 #include "console.hpp"
 #include "player.hpp"
@@ -61,10 +62,10 @@ void showPlayers(const vector<Player>& players)
 
 void showPlayer(const Player& player) 
 {
-    cout << player.getName() << endl ;
-    showHand("HAND :     ", player.getHand()) ;
-    showHand("FACEUP :   ", player.getFaceUp()) ;
-    showHand("FACEDOWN : ", player.getFaceDown()) ;
+    cout << player.name() << endl ;
+    showHand("HAND :     ", player.hand()) ;
+    showHand("FACEUP :   ", player.faceUp()) ;
+    showHand("FACEDOWN : ", player.faceDown()) ;
 }
 
 void showHand(string name, const vector<Card>& cards)
@@ -112,14 +113,14 @@ int requestFaceUpChoice()
 void showGame(const Game& game)
 {
     clearScreen() ;
-    showPile(game.getPile()) ;
-    cout << game.getDeck().size() << " on deck" << endl << endl ;
+    showPile(game.pile()) ;
+    cout << game.deck().size() << " on deck" << endl << endl ;
     cout << "0 burnt" << endl ;
     cout << endl ;
     
-    showPlayers(game.getPlayers()) ;
+    showPlayers(game.players()) ;
     cout << endl ;
-    cout << game.getLastMove() << endl ;
+    cout << game.lastMove() << endl ;
 }
 
 void showPile(const vector<Card>& pile)
@@ -168,3 +169,21 @@ vector<int> requestMove(string name)
     }
     return choices ;
 }
+
+void showPickUpMessage(string name)
+{
+    cout << name << " you must pick up! Press enter:" ;
+    wait_user() ;
+}
+
+void wait_user()
+{
+    int ch;
+    do
+        ch = fgetc(stdin) ;
+    while (ch != EOF && ch != '\n');
+    clearerr(stdin);
+    fflush(stdout);
+    getchar() ;
+}
+

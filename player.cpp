@@ -1,12 +1,58 @@
 #include <algorithm>
+#include <string>
 #include "player.hpp"
 #include "card.hpp"
 
+Player::Player(string name) 
+{ 
+    name_ = name ; 
+}
+
+string Player::name() const 
+{
+    return name_ ; 
+}
+
+vector<Card> Player::hand() const 
+{ 
+    return hand_ ; 
+}
+
+vector<Card> Player::faceUp() const 
+{ 
+    return faceUp_ ; 
+}
+
+vector<Card> Player::faceDown() const 
+{ 
+    return faceDown_ ; 
+}
+
+void Player::addToHand(Card card) 
+{ 
+    hand_.push_back(card) ; 
+}
+
+void Player::addToFaceUp(Card card) 
+{ 
+    faceUp_.push_back(card) ; 
+}
+
+void Player::addToFaceDown(Card card) 
+{ 
+    faceDown_.push_back(card) ; 
+}
+
+void Player::sortHand() 
+{ 
+    sort(hand_.begin(), hand_.end(), Card::shCompare) ; 
+}
+
 void Player::swap(int handCard, int faceUpCard)
 {
-    Card tmp = hand[handCard] ;
-    hand[handCard] = faceUp[faceUpCard] ;
-    faceUp[faceUpCard] = tmp ;
+    Card tmp = hand_[handCard] ;
+    hand_[handCard] = faceUp_[faceUpCard] ;
+    faceUp_[faceUpCard] = tmp ;
     sortHand() ;
 }
 
@@ -17,18 +63,27 @@ void Player::removeFromHand(vector<int> indexes)
     vector<Card> newHand ;
     
     int i  ;
-    int handSize = hand.size() ;
+    int handSize = hand_.size() ;
     for (i = 0 ; i < handSize ; i++) {
         vector<int>::iterator result = find(indexes.begin(), indexes.end(), i) ;
         if (result == indexes.end()) 
-            newHand.push_back(hand[i]) ;
+            newHand.push_back(hand_[i]) ;
     }
-    hand = newHand ;
+    hand_ = newHand ;
     sortHand() ;
 }
 
 bool Player::hasCards() const
 {
-    return hand.size() > 0 || faceUp.size() > 0 || faceDown.size() > 0 ;
+    return hand_.size() > 0 || faceUp_.size() > 0 || faceDown_.size() > 0 ;
 }
 
+bool Player::hasCardsInHand() const
+{
+    return hand_.size() > 0 ;
+}
+
+bool Player::hasCardsInFaceUp() const
+{
+    return faceUp_.size() < 0 ;
+}

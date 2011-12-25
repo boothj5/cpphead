@@ -6,13 +6,38 @@ using namespace std ;
 
 Card::Card(cardrank rank, cardsuit suit)
 {
-    this->rank = rank ;
-    this->suit = suit ;
+    rank_ = rank ;
+    suit_ = suit ;
+}
+
+string Card::toString() const 
+{ 
+    return rankStr() + " of " + suitStr() ; 
+}
+
+cardrank Card::rank() const
+{
+    return rank_ ;
+}
+
+bool Card::special() const 
+{ 
+    return rank_ == TWO || rank_ == SEVEN || rank_ == TEN ; 
+}
+
+bool Card::isInvisible() const
+{
+    return rank_ == SEVEN ;
+}
+
+bool Card::equalsRank(Card card) 
+{ 
+    return rank_ == card.rank_ ; 
 }
 
 string Card::rankStr() const
 {
-    switch(rank) {
+    switch(rank_) {
     case TWO:
         return "TWO" ;
     case THREE:
@@ -46,7 +71,7 @@ string Card::rankStr() const
 
 string Card::suitStr() const
 {
-    switch(suit) {
+    switch(suit_) {
     case HEARTS:
         return "HEARTS" ;
     case DIAMONDS:
@@ -69,6 +94,6 @@ bool Card::shCompare(Card c1, Card c2)
     else if (c2.special())
         return true ;
     else
-        return c1.rank < c2.rank ;
+        return c1.rank_ < c2.rank_ ;
 }
 
