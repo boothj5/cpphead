@@ -2,6 +2,7 @@
 #define H_CARD
 
 #include <string>
+#include <vector>
 
 using namespace std ;
 
@@ -21,9 +22,10 @@ class Card {
     cardrank rank() const ;
     bool special() const ;
     bool isInvisible() const ;
-    bool equalsRank(Card card) ;
+    bool equalsRank(Card card) const ;
 
     static bool shCompare(Card c1, Card c2) ;   
+    static bool allRanksEqual(const vector<Card>&) ;
     
     private:
     string rankStr() const ;

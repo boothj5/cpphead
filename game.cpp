@@ -128,6 +128,26 @@ void Game::makeMove(const vector<int>& choices)
     moveToNextPlayer() ;
 }
 
+bool Game::validMove(const vector<int>& choices)
+{
+    vector<Card> toLay ;
+    vector<int>::const_iterator index ;
+    for (index = choices.begin() ; index != choices.end() ; index++)
+        if (players_[currentPlayer_].hasCardsInHand())
+            toLay.push_back(players_[currentPlayer_].hand()[*index]) ;
+        else
+            toLay.push_back(players_[currentPlayer_].faceUp()[*index]) ;
+    return validMove(toLay) ;
+}
+
+bool Game::validMove(const vector<Card>& cards)
+{
+    if (!Card::allRanksEqual(cards)) 
+        return false ;
+    else
+        return Game::canLay(cards.back(), pile_) ;
+}
+
 bool Game::currentPlayerCanMove() const
 {
     if (pile_.empty())
@@ -165,6 +185,8 @@ void Game::playFromHand(const vector<int>& toLay)
         players_[currentPlayer_].addToHand(deck_.back()) ;
         deck_.pop_back() ;
     }
+
+    players_[currentPlayer_].sortHand() ;
 }
 
 void Game::setLastHandMove(const vector<int>& toLay) 

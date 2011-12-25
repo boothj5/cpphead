@@ -25,5 +25,6 @@ void showPile(const vector<Card>&) ;
 vector<int> requestMove(string) ;
 void showPickUpMessage(string) ;
 void wait_user() ;
+void showBadMove() ;
 
 #endif

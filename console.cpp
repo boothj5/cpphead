@@ -188,3 +188,8 @@ void wait_user()
     getchar() ;
 }
 
+void showBadMove()
+{
+    cout << "You can't do that!" << endl ;
+}
+

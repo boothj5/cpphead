@@ -46,12 +46,15 @@ int main()
         showGame(game) ;
         if (game.currentPlayerCanMove()) {
             vector<int> choices = requestMove(game.currentPlayer().name()) ;
+            while (!game.validMove(choices)) {
+                showBadMove() ;
+                choices = requestMove(game.currentPlayer().name()) ;
+            }
             game.makeMove(choices) ;
         } else {
             showPickUpMessage(game.currentPlayer().name()) ;
             game.pickUp() ;
         }
-            
     }
         
     return 0 ;
