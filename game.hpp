@@ -32,7 +32,7 @@ class Game {
     void makeMove(const vector<int>&) ;
     bool currentPlayerCanMove() const ;
     void pickUp() ;
-    bool validMove(const vector<int>&) ;
+    bool validMove(const vector<int>&) const ;
 
     private:
     void playFromHand(const vector<int>&) ;
@@ -40,7 +40,7 @@ class Game {
     void setLastMovePickUp() ;
     void moveToNextPlayer() ;
     bool canMoveWithOneOf(const vector<Card>&) const ;
-    bool validMove(const vector<Card>&) ;
+    bool validMove(const vector<Card>&) const ;
 
     static bool canLay(const Card&, const vector<Card>&) ;
     static int calcNumDecks(int, int) ;

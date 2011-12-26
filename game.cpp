@@ -128,7 +128,7 @@ void Game::makeMove(const vector<int>& choices)
     moveToNextPlayer() ;
 }
 
-bool Game::validMove(const vector<int>& choices)
+bool Game::validMove(const vector<int>& choices) const
 {
     vector<Card> toLay ;
     vector<int>::const_iterator index ;
@@ -140,7 +140,7 @@ bool Game::validMove(const vector<int>& choices)
     return validMove(toLay) ;
 }
 
-bool Game::validMove(const vector<Card>& cards)
+bool Game::validMove(const vector<Card>& cards) const
 {
     if (!Card::allRanksEqual(cards)) 
         return false ;
