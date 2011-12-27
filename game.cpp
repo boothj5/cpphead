@@ -134,6 +134,12 @@ void Game::makeMove(const vector<int>& choices)
 
     if (burnCardLaid())
         burnPile() ;
+    else if (missAGoLaid()) {
+        lastMove_ = players_[currentPlayer_].name() ;
+        lastMove_ += " laid miss a go card." ;
+        moveToNextPlayer() ;
+        moveToNextPlayer() ;
+    }        
     else
         moveToNextPlayer() ;
 }
@@ -161,6 +167,11 @@ bool Game::burnCardLaid() const
             return true ;
     }
     return false ;
+}
+
+bool Game::missAGoLaid() const 
+{
+    return (pile_.back().isMissAGoCard()) ;
 }
 
 bool Game::validMove(const vector<int>& choices) const

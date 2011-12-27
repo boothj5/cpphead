@@ -35,6 +35,11 @@ bool Card::isBurnCard() const
     return rank_ == TEN ;
 }
 
+bool Card::isMissAGoCard() const
+{
+    return rank_ == EIGHT ;
+}
+
 bool Card::equalsRank(Card card)  const
 { 
     return rank_ == card.rank_ ; 

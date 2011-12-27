@@ -44,6 +44,7 @@ class Game {
     bool canMoveWithOneOf(const vector<Card>&) const ;
     bool validMove(const vector<Card>&) const ;
     bool burnCardLaid() const ;
+    bool missAGoLaid() const ;
     void burnPile() ;
 
     static bool canLay(const Card&, const vector<Card>&) ;
