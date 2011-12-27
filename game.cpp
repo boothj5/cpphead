@@ -244,7 +244,8 @@ void Game::setLastHandMove(const vector<int>& toLay)
     int i ;
     for (i = 0 ; i < toLay.size() ; i++) {
         lastMove_ += player.hand()[toLay[i]].toString() ;
-        lastMove_ += ", " ;
+        if (i < toLay.size())
+            lastMove_ += ", " ;
     }
 }
 
