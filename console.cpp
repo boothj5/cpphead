@@ -73,8 +73,11 @@ void showHand(string name, const vector<Card>& cards)
     cout << name ;
     
     vector<Card>::const_iterator card ;
-    for (card = cards.begin() ; card != cards.end() ; card++)
-        cout << card->toString() << ", " ;
+    int i = 1 ;
+    for (card = cards.begin() ; card != cards.end() ; card++) {
+        cout << "(" << i << ")" << card->toString() << ", " ;
+        i++ ;
+    }
 
     cout << endl ;
 }
