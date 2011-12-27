@@ -15,6 +15,7 @@ Game::Game(string names[], int length, int numCards)
     int i, rank, suit, numDecks ;
     numPlayers_ = length ;
     numCards_ = numCards ;
+    burnt_ = 0 ;
     for (i = 0 ; i < numPlayers_ ; i++) {
         Player player(names[i]) ;
         players_.push_back(player) ;
@@ -104,6 +105,11 @@ vector<Card> Game::pile() const
     return pile_ ; 
 }
 
+int Game::burnt() const
+{
+    return burnt_ ;
+}
+
 string Game::lastMove() const 
 { 
     return lastMove_ ; 
@@ -125,7 +131,36 @@ void Game::makeMove(const vector<int>& choices)
 {
     setLastHandMove(choices) ;
     playFromHand(choices) ;
-    moveToNextPlayer() ;
+
+    if (burnCardLaid())
+        burnPile() ;
+    else
+        moveToNextPlayer() ;
+}
+
+void Game::burnPile()
+{
+    burnt_ += pile_.size() ;
+    pile_.clear() ;
+    lastMove_ = players_[currentPlayer_].name() ;
+    lastMove_ += " burnt the pile." ;
+}
+
+bool Game::burnCardLaid() const
+{
+    if (pile_.back().isBurnCard())
+        return true ;
+    else if (pile_.size() > 3) {
+        vector<Card> lastFour ;
+        lastFour.push_back(pile_[pile_.size() - 1]) ;
+        lastFour.push_back(pile_[pile_.size() - 2]) ;
+        lastFour.push_back(pile_[pile_.size() - 3]) ;
+        lastFour.push_back(pile_[pile_.size() - 4]) ;
+        
+        if (Card::allRanksEqual(lastFour))
+            return true ;
+    }
+    return false ;
 }
 
 bool Game::validMove(const vector<int>& choices) const

@@ -12,6 +12,7 @@ class Game {
     vector<Player> players_ ;
     vector<Card> deck_ ;
     vector<Card> pile_ ;
+    int burnt_ ;
     int numCards_ ;
     int numPlayers_ ;
     int currentPlayer_ ;
@@ -27,6 +28,7 @@ class Game {
     Player currentPlayer() const ;
     vector<Card> deck() const ;
     vector<Card> pile() const ;
+    int burnt() const ;
     string lastMove() const ;
     bool canContinue() const ;
     void makeMove(const vector<int>&) ;
@@ -41,6 +43,8 @@ class Game {
     void moveToNextPlayer() ;
     bool canMoveWithOneOf(const vector<Card>&) const ;
     bool validMove(const vector<Card>&) const ;
+    bool burnCardLaid() const ;
+    void burnPile() ;
 
     static bool canLay(const Card&, const vector<Card>&) ;
     static int calcNumDecks(int, int) ;

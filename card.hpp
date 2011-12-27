@@ -22,6 +22,7 @@ class Card {
     cardrank rank() const ;
     bool special() const ;
     bool isInvisible() const ;
+    bool isBurnCard() const ;
     bool equalsRank(Card card) const ;
 
     static bool shCompare(Card c1, Card c2) ;   

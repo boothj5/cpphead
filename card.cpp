@@ -30,6 +30,11 @@ bool Card::isInvisible() const
     return rank_ == SEVEN ;
 }
 
+bool Card::isBurnCard() const
+{
+    return rank_ == TEN ;
+}
+
 bool Card::equalsRank(Card card)  const
 { 
     return rank_ == card.rank_ ; 

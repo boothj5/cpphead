@@ -119,7 +119,7 @@ void showGame(const Game& game)
     clearScreen() ;
     showPile(game.pile()) ;
     cout << game.deck().size() << " on deck" << endl << endl ;
-    cout << "0 burnt" << endl ;
+    cout << game.burnt() << " burnt" << endl ;
     cout << endl ;
     
     showPlayers(game.players()) ;
