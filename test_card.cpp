@@ -62,6 +62,37 @@ void testRanksNotEqual(void)
     assert_false(ten.equalsRank(ace)) ;
 }
 
+void testAllRanksEqual(void)
+{
+    vector<Card> cards ;
+    Card tenspades(TEN, SPADES) ;
+    Card tendiamonds(TEN, DIAMONDS) ;
+    Card tenclubs(TEN, CLUBS) ;
+    Card tenhearts(TEN, HEARTS) ;
+
+    cards.push_back(tenspades) ;
+    cards.push_back(tendiamonds) ;
+    cards.push_back(tenclubs) ;
+    cards.push_back(tenhearts) ;
+
+    assert_true(Card::allRanksEqual(cards)) ;
+}
+
+void testNotAllRanksEqual(void)
+{
+    vector<Card> cards ;
+    Card tenspades(TEN, SPADES) ;
+    Card tendiamonds(TEN, DIAMONDS) ;
+    Card nineclubs(NINE, CLUBS) ;
+    Card tenhearts(TEN, HEARTS) ;
+
+    cards.push_back(tenspades) ;
+    cards.push_back(tendiamonds) ;
+    cards.push_back(nineclubs) ;
+    cards.push_back(tenhearts) ;
+
+    assert_false(Card::allRanksEqual(cards)) ;
+}
 void register_card_tests()
 {
     add_suite("test_card") ;
@@ -73,5 +104,7 @@ void register_card_tests()
     add_test(testTenSpecial, "testTenSpecial") ;
     add_test(testRanksEqual, "testRanksEqual") ;
     add_test(testRanksNotEqual, "testRanksNotEqual") ;
+    add_test(testAllRanksEqual, "testAllRanksEqual") ;
+    add_test(testNotAllRanksEqual, "testAllRanksEqual") ;
 }
 
