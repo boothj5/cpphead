@@ -63,19 +63,22 @@ void showPlayers(const vector<Player>& players)
 void showPlayer(const Player& player) 
 {
     cout << player.name() << endl ;
-    showHand("HAND :     ", player.hand()) ;
-    showHand("FACEUP :   ", player.faceUp()) ;
-    showHand("FACEDOWN : ", player.faceDown()) ;
+    showHand("HAND :     ", player.hand(), false) ;
+    showHand("FACEUP :   ", player.faceUp(), false) ;
+    showHand("FACEDOWN : ", player.faceDown(), true) ;
 }
 
-void showHand(string name, const vector<Card>& cards)
+void showHand(string name, const vector<Card>& cards, bool hide)
 {
     cout << name ;
     
     vector<Card>::const_iterator card ;
     int i = 1 ;
     for (card = cards.begin() ; card != cards.end() ; card++) {
-        cout << "(" << i << ")" << card->toString() ; 
+        if (hide)
+            cout << "(" << i << ")" << "****" ; 
+        else
+            cout << "(" << i << ")" << card->toString() ; 
         if (i != cards.size())
             cout << ", " ;
         i++ ;
@@ -216,5 +219,11 @@ void showFaceDownFail(const Card& card)
 {
     cout << "OH DEAR! You chose the " << card.toString() << ", press enter." ;
     wait_user() ;
+}
+
+void showShithead(string name)
+{
+    cout << endl << "!!!!!!!! GAME OVER !!!!!!!!" << endl ;
+    cout << name << " is a shithead!!" << endl ;
 }
 

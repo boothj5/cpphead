@@ -15,7 +15,7 @@ int requestNumCards() ;
 string * requestPlayerNames(int) ;
 void showPlayers(const vector<Player>&) ;
 void showPlayer(const Player&) ;
-void showHand(string, const vector<Card>&) ;
+void showHand(string, const vector<Card>&, bool) ;
 bool requestSwapCards(string) ;
 int requestHandChoice() ;
 int requestFaceUpChoice() ;
@@ -29,5 +29,6 @@ void showBadMove() ;
 int requestFaceDownCard(string) ;
 void showFaceDownWin(const Card&) ;
 void showFaceDownFail(const Card&) ;
+void showShithead(string) ;
 
 #endif

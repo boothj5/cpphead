@@ -69,6 +69,9 @@ int main()
             }
         }
     }
+
+
+    showShithead(game.getCppHead()) ;
         
     return 0 ;
 }

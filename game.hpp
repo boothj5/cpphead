@@ -39,6 +39,7 @@ class Game {
     void pickUpPileAndFaceDown(int) ;
     bool validMove(const vector<int>&) const ;
     bool validMoveFromFaceDown(int) const ;
+    string getCppHead() const ;
 
     private:
     void playFromHand(const vector<int>&) ;

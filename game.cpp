@@ -399,3 +399,12 @@ ptrdiff_t Game::randomGen(ptrdiff_t i)
     srand(seed) ;
     return rand() % i ; 
 }
+
+string Game::getCppHead() const
+{
+    vector<Player>::const_iterator player ;
+    for (player = players_.begin() ; player != players_.end() ; player++)
+        if (player->hasCards())
+            return player->name() ;
+    return players_[0].name() ;
+}
