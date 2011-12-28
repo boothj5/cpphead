@@ -44,16 +44,29 @@ int main()
     while (game.canContinue()) {
         clearScreen() ;
         showGame(game) ;
-        if (game.currentPlayerCanMove()) {
-            vector<int> choices = requestMove(game.currentPlayer().name()) ;
-            while (!game.validMove(choices)) {
-                showBadMove() ;
-                choices = requestMove(game.currentPlayer().name()) ;
+        if (game.playingFromFaceDown()) {
+            int choice = requestFaceDownCard(game.currentPlayer().name()) ;
+            if (game.validMoveFromFaceDown(choice)) {
+                showFaceDownWin(game.currentPlayer().faceDown()[choice]) ;
+                game.makeFaceDownMove(choice) ;
             }
-            game.makeMove(choices) ;
-        } else {
-            showPickUpMessage(game.currentPlayer().name()) ;
-            game.pickUp() ;
+            else {
+                showFaceDownFail(game.currentPlayer().faceDown()[choice]) ;
+                game.pickUpPileAndFaceDown(choice) ;
+            }
+        }
+        else {
+            if (game.currentPlayerCanMove()) {
+                vector<int> choices = requestMove(game.currentPlayer().name()) ;
+                while (!game.validMove(choices)) {
+                    showBadMove() ;
+                    choices = requestMove(game.currentPlayer().name()) ;
+                }
+                game.makeMove(choices) ;
+            } else {
+                showPickUpMessage(game.currentPlayer().name()) ;
+                game.pickUp() ;
+            }
         }
     }
         

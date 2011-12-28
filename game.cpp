@@ -150,6 +150,27 @@ void Game::makeMove(const vector<int>& choices)
         moveToNextPlayer() ;
 }
 
+void Game::makeFaceDownMove(int choice)
+{
+    lastMove_ = players_[currentPlayer_].name() ;
+    lastMove_ += " laid the " ;
+    lastMove_ += players_[currentPlayer_].faceDown()[choice].toString() ;
+
+    pile_.push_back(players_[currentPlayer_].faceDown()[choice]) ;
+    players_[currentPlayer_].removeFromFaceDown(choice) ;
+    
+    if (burnCardLaid())
+        burnPile() ;
+    else if (missAGoLaid()) {
+        lastMove_ = players_[currentPlayer_].name() ;
+        lastMove_ += " laid miss a go card." ;
+        moveToNextPlayer() ;
+        moveToNextPlayer() ;
+    }        
+    else
+        moveToNextPlayer() ;
+}
+
 void Game::burnPile()
 {
     burnt_ += pile_.size() ;
@@ -201,6 +222,14 @@ bool Game::validMove(const vector<int>& choices) const
     return validMove(toLay) ;
 }
 
+bool Game::validMoveFromFaceDown(int choice) const
+{
+    Player player = currentPlayer() ;
+    vector<Card> toLay ;
+    toLay.push_back(player.faceDown()[choice]) ;
+    return validMove(toLay) ;
+}
+
 bool Game::validMove(const vector<Card>& cards) const
 {
     if (!Card::allRanksEqual(cards)) 
@@ -222,6 +251,12 @@ bool Game::currentPlayerCanMove() const
     else
         return false ;
 }
+    
+bool Game::playingFromFaceDown() const
+{
+    Player player = currentPlayer() ;
+    return (!player.hasCardsInHand() && !player.hasCardsInFaceUp()) ;
+}
 
 void Game::pickUp()
 {
@@ -234,6 +269,23 @@ void Game::pickUp()
     moveToNextPlayer() ;
 }
 
+void Game::pickUpPileAndFaceDown(int choice)
+{
+    Player player = players_[currentPlayer_] ;
+    vector<Card>::const_iterator card ;
+    for (card = pile_.begin() ; card != pile_.end() ; card++)
+        players_[currentPlayer_].addToHand(*card) ;
+    players_[currentPlayer_].addToHand(player.faceDown()[choice]) ;
+    players_[currentPlayer_].removeFromFaceDown(choice) ;
+
+    players_[currentPlayer_].sortHand() ;
+
+    pile_.clear() ;
+    
+    lastMove_ = player.name() ;
+    lastMove_ += " picked up." ;
+    moveToNextPlayer() ;
+}
 
 void Game::playFromHand(const vector<int>& toLay)
 {
@@ -347,4 +399,3 @@ ptrdiff_t Game::randomGen(ptrdiff_t i)
     srand(seed) ;
     return rand() % i ; 
 }
-

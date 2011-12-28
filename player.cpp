@@ -89,6 +89,11 @@ void Player::removeFromFaceUp(vector<int> indexes)
     faceUp_ = newFaceUp ;
 }
 
+void Player::removeFromFaceDown(int index)
+{
+    faceDown_.erase(faceDown_.begin() + index) ;
+}
+
 bool Player::hasCards() const
 {
     return hand_.size() > 0 || faceUp_.size() > 0 || faceDown_.size() > 0 ;

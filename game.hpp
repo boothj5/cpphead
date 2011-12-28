@@ -32,9 +32,13 @@ class Game {
     string lastMove() const ;
     bool canContinue() const ;
     void makeMove(const vector<int>&) ;
+    void makeFaceDownMove(int) ;
     bool currentPlayerCanMove() const ;
+    bool playingFromFaceDown() const ;
     void pickUp() ;
+    void pickUpPileAndFaceDown(int) ;
     bool validMove(const vector<int>&) const ;
+    bool validMoveFromFaceDown(int) const ;
 
     private:
     void playFromHand(const vector<int>&) ;

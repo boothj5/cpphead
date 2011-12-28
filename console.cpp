@@ -198,3 +198,23 @@ void showBadMove()
     cout << "You can't do that!" << endl ;
 }
 
+int requestFaceDownCard(string name) 
+{
+    int result ;
+    cout << name << " please choose a face down card: " ;
+    cin >> result ;
+    return result - 1  ;
+}
+
+void showFaceDownWin(const Card& card)
+{
+    cout << "WHEW you chose the " << card.toString() << ", press enter." ;
+    wait_user() ;
+}
+
+void showFaceDownFail(const Card& card)
+{
+    cout << "OH DEAR! You chose the " << card.toString() << ", press enter." ;
+    wait_user() ;
+}
+

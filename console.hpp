@@ -26,5 +26,8 @@ vector<int> requestMove(string) ;
 void showPickUpMessage(string) ;
 void wait_user() ;
 void showBadMove() ;
+int requestFaceDownCard(string) ;
+void showFaceDownWin(const Card&) ;
+void showFaceDownFail(const Card&) ;
 
 #endif
