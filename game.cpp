@@ -72,8 +72,8 @@ void Game::firstMove()
     }
      
     // get indexes of cards with same rank in players hand
+    Card first = players_[currentPlayer_].hand()[0] ;
     for (i = 0 ; i < numCards_ ; i++) {
-        Card first = players_[currentPlayer_].hand()[0] ;
         Card current = players_[currentPlayer_].hand()[i] ;
         if (current.equalsRank(first))
             toLay.push_back(i) ;
