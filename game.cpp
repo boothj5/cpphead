@@ -213,6 +213,7 @@ void Game::pickUp()
     vector<Card>::const_iterator card ;
     for (card = pile_.begin() ; card != pile_.end() ; card++)
         players_[currentPlayer_].addToHand(*card) ;
+    players_[currentPlayer_].sortHand() ;
     pile_.clear() ;
     setLastMovePickUp() ;
     moveToNextPlayer() ;
