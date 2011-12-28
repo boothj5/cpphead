@@ -39,6 +39,8 @@ class Game {
     private:
     void playFromHand(const vector<int>&) ;
     void setLastHandMove(const vector<int>&) ;
+    void playFromFaceUp(const vector<int>&) ;
+    void setLastFaceUpMove(const vector<int>&) ;
     void setLastMovePickUp() ;
     void moveToNextPlayer() ;
     bool canMoveWithOneOf(const vector<Card>&) const ;

@@ -26,6 +26,7 @@ class Player {
     void sortHand() ;
     void swap(int, int) ;
     void removeFromHand(vector<int>) ; 
+    void removeFromFaceUp(vector<int>) ; 
     bool hasCards() const ;
     bool hasCardsInHand() const ;
     bool hasCardsInFaceUp() const ;

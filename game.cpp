@@ -129,8 +129,14 @@ bool Game::canContinue() const
 
 void Game::makeMove(const vector<int>& choices)
 {
-    setLastHandMove(choices) ;
-    playFromHand(choices) ;
+    if (players_[currentPlayer_].hasCardsInHand()) {
+        setLastHandMove(choices) ;
+        playFromHand(choices) ;
+    }
+    else {
+        setLastFaceUpMove(choices) ;
+        playFromFaceUp(choices) ;
+    }
 
     if (burnCardLaid())
         burnPile() ;
@@ -178,11 +184,20 @@ bool Game::validMove(const vector<int>& choices) const
 {
     vector<Card> toLay ;
     vector<int>::const_iterator index ;
-    for (index = choices.begin() ; index != choices.end() ; index++)
-        if (players_[currentPlayer_].hasCardsInHand())
-            toLay.push_back(players_[currentPlayer_].hand()[*index]) ;
-        else
-            toLay.push_back(players_[currentPlayer_].faceUp()[*index]) ;
+    Player player = currentPlayer() ;
+    if (players_[currentPlayer_].hasCardsInHand())
+        for (index = choices.begin() ; index != choices.end() ; index++)
+            if (*index >= player.hand().size())
+                return false ;
+            else
+                toLay.push_back(player.hand()[*index]) ;
+    else
+        for (index = choices.begin() ; index != choices.end() ; index++)
+            if (*index >= player.faceUp().size())
+                return false ;
+            else 
+                toLay.push_back(player.faceUp()[*index]) ;
+
     return validMove(toLay) ;
 }
 
@@ -236,6 +251,15 @@ void Game::playFromHand(const vector<int>& toLay)
     players_[currentPlayer_].sortHand() ;
 }
 
+void Game::playFromFaceUp(const vector<int>& toLay)
+{
+    int i ;
+    for (i = 0 ; i < toLay.size() ; i++)
+        pile_.push_back(players_[currentPlayer_].faceUp()[toLay[i]]) ;
+    
+    players_[currentPlayer_].removeFromFaceUp(toLay) ;
+}
+
 void Game::setLastHandMove(const vector<int>& toLay) 
 {
     Player player = currentPlayer() ;
@@ -245,6 +269,20 @@ void Game::setLastHandMove(const vector<int>& toLay)
     int i ;
     for (i = 0 ; i < toLay.size() ; i++) {
         lastMove_ += player.hand()[toLay[i]].toString() ;
+        if (i < toLay.size())
+            lastMove_ += ", " ;
+    }
+}
+
+void Game::setLastFaceUpMove(const vector<int>& toLay) 
+{
+    Player player = currentPlayer() ;
+    lastMove_ = "" ;
+    lastMove_ += player.name() ;
+    lastMove_ += " laid " ;
+    int i ;
+    for (i = 0 ; i < toLay.size() ; i++) {
+        lastMove_ += player.faceUp()[toLay[i]].toString() ;
         if (i < toLay.size())
             lastMove_ += ", " ;
     }

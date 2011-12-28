@@ -73,6 +73,22 @@ void Player::removeFromHand(vector<int> indexes)
     sortHand() ;
 }
 
+void Player::removeFromFaceUp(vector<int> indexes)
+{
+    // TODO write generic template function to remove indexes from vector
+    // instead of copying
+    vector<Card> newFaceUp ;
+    
+    int i  ;
+    int faceUpSize = faceUp_.size() ;
+    for (i = 0 ; i < faceUpSize ; i++) {
+        vector<int>::iterator result = find(indexes.begin(), indexes.end(), i) ;
+        if (result == indexes.end()) 
+            newFaceUp.push_back(faceUp_[i]) ;
+    }
+    faceUp_ = newFaceUp ;
+}
+
 bool Player::hasCards() const
 {
     return hand_.size() > 0 || faceUp_.size() > 0 || faceDown_.size() > 0 ;
@@ -85,5 +101,5 @@ bool Player::hasCardsInHand() const
 
 bool Player::hasCardsInFaceUp() const
 {
-    return faceUp_.size() < 0 ;
+    return faceUp_.size() > 0 ;
 }
