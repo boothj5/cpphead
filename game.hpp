@@ -15,7 +15,7 @@ class Game {
     int burnt_ ;
     int numCards_ ;
     int numPlayers_ ;
-    int currentPlayer_ ;
+    vector<Player>::iterator currentPlayer_ ;
     string lastMove_ ;
 
     public:

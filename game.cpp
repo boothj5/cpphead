@@ -20,7 +20,7 @@ Game::Game(string names[], int length, int numCards)
         Player player(names[i]) ;
         players_.push_back(player) ;
     }
-    currentPlayer_ = 0 ;
+    currentPlayer_ = players_.begin() ;
 
     numDecks = calcNumDecks(numPlayers_, numCards_) ;
     for (i = 0 ; i < numDecks ; i++)
@@ -63,18 +63,18 @@ void Game::firstMove()
     int i ;
 
     // find player with lowest card    
-    currentPlayer_ = 0 ;
+    currentPlayer_ = players_.begin() ;
     for (i = 1 ; i < numPlayers_ ; i++) {
         Card playersLowest = players_[i].hand()[0] ;
-        Card currentLowest = players_[currentPlayer_].hand()[0] ;
+        Card currentLowest = currentPlayer_->hand()[0] ;
         if (Card::shCompare(playersLowest, currentLowest))
-            currentPlayer_ = i ;
+            currentPlayer_ = players_.begin() + i ;
     }
      
     // get indexes of cards with same rank in players hand
-    Card first = players_[currentPlayer_].hand()[0] ;
+    Card first = currentPlayer_->hand()[0] ;
     for (i = 0 ; i < numCards_ ; i++) {
-        Card current = players_[currentPlayer_].hand()[i] ;
+        Card current = currentPlayer_->hand()[i] ;
         if (current.equalsRank(first))
             toLay.push_back(i) ;
     }
@@ -92,7 +92,7 @@ vector<Player> Game::players() const
 
 Player Game::currentPlayer() const 
 {
-    return players_[currentPlayer_] ; 
+    return *currentPlayer_ ; 
 }
 
 vector<Card> Game::deck() const 
@@ -129,7 +129,7 @@ bool Game::canContinue() const
 
 void Game::makeMove(const vector<int>& choices)
 {
-    if (players_[currentPlayer_].hasCardsInHand()) {
+    if (currentPlayer_->hasCardsInHand()) {
         setLastHandMove(choices) ;
         playFromHand(choices) ;
     }
@@ -141,7 +141,7 @@ void Game::makeMove(const vector<int>& choices)
     if (burnCardLaid())
         burnPile() ;
     else if (missAGoLaid()) {
-        lastMove_ = players_[currentPlayer_].name() ;
+        lastMove_ = currentPlayer_->name() ;
         lastMove_ += " laid miss a go card." ;
         moveToNextPlayer() ;
         moveToNextPlayer() ;
@@ -152,17 +152,17 @@ void Game::makeMove(const vector<int>& choices)
 
 void Game::makeFaceDownMove(int choice)
 {
-    lastMove_ = players_[currentPlayer_].name() ;
+    lastMove_ = currentPlayer_->name() ;
     lastMove_ += " laid the " ;
-    lastMove_ += players_[currentPlayer_].faceDown()[choice].toString() ;
+    lastMove_ += currentPlayer_->faceDown()[choice].toString() ;
 
-    pile_.push_back(players_[currentPlayer_].faceDown()[choice]) ;
-    players_[currentPlayer_].removeFromFaceDown(choice) ;
+    pile_.push_back(currentPlayer_->faceDown()[choice]) ;
+    currentPlayer_->removeFromFaceDown(choice) ;
     
     if (burnCardLaid())
         burnPile() ;
     else if (missAGoLaid()) {
-        lastMove_ = players_[currentPlayer_].name() ;
+        lastMove_ = currentPlayer_->name() ;
         lastMove_ += " laid miss a go card." ;
         moveToNextPlayer() ;
         moveToNextPlayer() ;
@@ -175,7 +175,7 @@ void Game::burnPile()
 {
     burnt_ += pile_.size() ;
     pile_.clear() ;
-    lastMove_ = players_[currentPlayer_].name() ;
+    lastMove_ = currentPlayer_->name() ;
     lastMove_ += " burnt the pile." ;
 }
 
@@ -203,10 +203,10 @@ bool Game::missAGoLaid() const
 
 bool Game::validMove(const vector<int>& choices) const
 {
+    Player player = currentPlayer() ;
     vector<Card> toLay ;
     vector<int>::const_iterator index ;
-    Player player = currentPlayer() ;
-    if (players_[currentPlayer_].hasCardsInHand())
+    if (player.hasCardsInHand())
         for (index = choices.begin() ; index != choices.end() ; index++)
             if (*index >= player.hand().size())
                 return false ;
@@ -262,8 +262,8 @@ void Game::pickUp()
 {
     vector<Card>::const_iterator card ;
     for (card = pile_.begin() ; card != pile_.end() ; card++)
-        players_[currentPlayer_].addToHand(*card) ;
-    players_[currentPlayer_].sortHand() ;
+        currentPlayer_->addToHand(*card) ;
+    currentPlayer_->sortHand() ;
     pile_.clear() ;
     setLastMovePickUp() ;
     moveToNextPlayer() ;
@@ -271,18 +271,17 @@ void Game::pickUp()
 
 void Game::pickUpPileAndFaceDown(int choice)
 {
-    Player player = players_[currentPlayer_] ;
     vector<Card>::const_iterator card ;
     for (card = pile_.begin() ; card != pile_.end() ; card++)
-        players_[currentPlayer_].addToHand(*card) ;
-    players_[currentPlayer_].addToHand(player.faceDown()[choice]) ;
-    players_[currentPlayer_].removeFromFaceDown(choice) ;
+        currentPlayer_->addToHand(*card) ;
+    currentPlayer_->addToHand(currentPlayer_->faceDown()[choice]) ;
+    currentPlayer_->removeFromFaceDown(choice) ;
 
-    players_[currentPlayer_].sortHand() ;
+    currentPlayer_->sortHand() ;
 
     pile_.clear() ;
     
-    lastMove_ = player.name() ;
+    lastMove_ = currentPlayer_->name() ;
     lastMove_ += " picked up." ;
     moveToNextPlayer() ;
 }
@@ -291,25 +290,25 @@ void Game::playFromHand(const vector<int>& toLay)
 {
     int i ;
     for (i = 0 ; i < toLay.size() ; i++)
-        pile_.push_back(players_[currentPlayer_].hand()[toLay[i]]) ;
+        pile_.push_back(currentPlayer_->hand()[toLay[i]]) ;
     
-    players_[currentPlayer_].removeFromHand(toLay) ;
+    currentPlayer_->removeFromHand(toLay) ;
 
-    while (deck_.size() > 0 && players_[currentPlayer_].hand().size() < numCards_) {
-        players_[currentPlayer_].addToHand(deck_.back()) ;
+    while (deck_.size() > 0 && currentPlayer_->hand().size() < numCards_) {
+        currentPlayer_->addToHand(deck_.back()) ;
         deck_.pop_back() ;
     }
 
-    players_[currentPlayer_].sortHand() ;
+    currentPlayer_->sortHand() ;
 }
 
 void Game::playFromFaceUp(const vector<int>& toLay)
 {
     int i ;
     for (i = 0 ; i < toLay.size() ; i++)
-        pile_.push_back(players_[currentPlayer_].faceUp()[toLay[i]]) ;
+        pile_.push_back(currentPlayer_->faceUp()[toLay[i]]) ;
     
-    players_[currentPlayer_].removeFromFaceUp(toLay) ;
+    currentPlayer_->removeFromFaceUp(toLay) ;
 }
 
 void Game::setLastHandMove(const vector<int>& toLay) 
@@ -350,8 +349,8 @@ void Game::setLastMovePickUp()
 void Game::moveToNextPlayer()
 {
     currentPlayer_++ ;
-    if (currentPlayer_ == players_.size())
-        currentPlayer_ = 0 ;
+    if (currentPlayer_ == players_.end())
+        currentPlayer_ = players_.begin() ;
     while (!currentPlayer().hasCards()) 
         moveToNextPlayer() ;
 }
