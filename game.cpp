@@ -85,36 +85,6 @@ void Game::firstMove()
     moveToNextPlayer() ;
 }
 
-vector<Player> Game::players() const 
-{ 
-    return players_ ; 
-}
-
-Player Game::currentPlayer() const 
-{
-    return *currentPlayer_ ; 
-}
-
-vector<Card> Game::deck() const 
-{ 
-    return deck_ ; 
-}
-
-vector<Card> Game::pile() const 
-{ 
-    return pile_ ; 
-}
-
-int Game::burnt() const
-{
-    return burnt_ ;
-}
-
-string Game::lastMove() const 
-{ 
-    return lastMove_ ; 
-}
-
 bool Game::canContinue() const
 {
     int playersWithCards = 0 ;
@@ -138,35 +108,23 @@ void Game::makeMove(const vector<int>& choices)
         playFromFaceUp(choices) ;
     }
 
-    if (burnCardLaid())
-        burnPile() ;
-    else if (missAGoLaid()) {
-        lastMove_ = currentPlayer_->name() ;
-        lastMove_ += " laid miss a go card." ;
-        moveToNextPlayer() ;
-        moveToNextPlayer() ;
-    }        
-    else
-        moveToNextPlayer() ;
+    processSpecialCards() ;
 }
 
 void Game::makeFaceDownMove(int choice)
 {
-    lastMove_ = currentPlayer_->name() ;
-    lastMove_ += " laid the " ;
-    lastMove_ += currentPlayer_->faceDown()[choice].toString() ;
+    setLastFaceDownMove(choice) ;
+    playFromFaceDown(choice) ;
 
-    pile_.push_back(currentPlayer_->faceDown()[choice]) ;
-    currentPlayer_->removeFromFaceDown(choice) ;
-    
+    processSpecialCards() ;
+}
+
+void Game::processSpecialCards()
+{
     if (burnCardLaid())
         burnPile() ;
-    else if (missAGoLaid()) {
-        lastMove_ = currentPlayer_->name() ;
-        lastMove_ += " laid miss a go card." ;
-        moveToNextPlayer() ;
-        moveToNextPlayer() ;
-    }        
+    else if (missAGoLaid())
+        missAGo() ;
     else
         moveToNextPlayer() ;
 }
@@ -177,6 +135,13 @@ void Game::burnPile()
     pile_.clear() ;
     lastMove_ = currentPlayer_->name() ;
     lastMove_ += " burnt the pile." ;
+}
+
+void Game::missAGo()
+{
+    setLastMoveMissAGo() ;
+    moveToNextPlayer() ;
+    moveToNextPlayer() ;
 }
 
 bool Game::burnCardLaid() const
@@ -308,6 +273,12 @@ void Game::playFromFaceUp(const vector<int>& toLay)
     currentPlayer_->removeFromFaceUp(toLay) ;
 }
 
+void Game::playFromFaceDown(int choice)
+{
+    pile_.push_back(currentPlayer_->faceDown()[choice]) ;
+    currentPlayer_->removeFromFaceDown(choice) ;
+}
+
 void Game::setLastHandMove(const vector<int>& toLay) 
 {
     Player player = currentPlayer() ;
@@ -334,6 +305,20 @@ void Game::setLastFaceUpMove(const vector<int>& toLay)
         if (i < toLay.size())
             lastMove_ += ", " ;
     }
+}
+
+void Game::setLastFaceDownMove(int choice)
+{
+    Player player = currentPlayer() ;
+    lastMove_ = player.name() ;
+    lastMove_ += " laid the " ;
+    lastMove_ += player.faceDown()[choice].toString() ;
+}
+
+void Game::setLastMoveMissAGo()
+{
+    lastMove_ = currentPlayer_->name() ;
+    lastMove_ += " laid miss a go card." ;
 }
 
 void Game::setLastMovePickUp() 
@@ -403,4 +388,34 @@ string Game::getCppHead() const
         if (player->hasCards())
             return player->name() ;
     return players_[0].name() ;
+}
+
+vector<Player> Game::players() const 
+{ 
+    return players_ ; 
+}
+
+Player Game::currentPlayer() const 
+{
+    return *currentPlayer_ ; 
+}
+
+vector<Card> Game::deck() const 
+{ 
+    return deck_ ; 
+}
+
+vector<Card> Game::pile() const 
+{ 
+    return pile_ ; 
+}
+
+int Game::burnt() const
+{
+    return burnt_ ;
+}
+
+string Game::lastMove() const 
+{ 
+    return lastMove_ ; 
 }

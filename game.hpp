@@ -45,14 +45,19 @@ class Game {
     void playFromHand(const vector<int>&) ;
     void setLastHandMove(const vector<int>&) ;
     void playFromFaceUp(const vector<int>&) ;
+    void playFromFaceDown(int) ;
     void setLastFaceUpMove(const vector<int>&) ;
+    void setLastFaceDownMove(int) ;
     void setLastMovePickUp() ;
+    void setLastMoveMissAGo() ;
     void moveToNextPlayer() ;
+    void processSpecialCards() ;
     bool canMoveWithOneOf(const vector<Card>&) const ;
     bool validMove(const vector<Card>&) const ;
     bool burnCardLaid() const ;
     bool missAGoLaid() const ;
     void burnPile() ;
+    void missAGo() ;
 
     static bool canLay(const Card&, const vector<Card>&) ;
     static int calcNumDecks(int, int) ;
