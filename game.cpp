@@ -260,24 +260,21 @@ bool Game::playingFromFaceDown() const
 
 void Game::pickUp()
 {
-    vector<Card>::const_iterator card ;
-    for (card = pile_.begin() ; card != pile_.end() ; card++)
-        currentPlayer_->addToHand(*card) ;
+    currentPlayer_->addAllToHand(pile_) ;
     currentPlayer_->sortHand() ;
+
     pile_.clear() ;
+
     setLastMovePickUp() ;
     moveToNextPlayer() ;
 }
 
 void Game::pickUpPileAndFaceDown(int choice)
 {
-    vector<Card>::const_iterator card ;
-    for (card = pile_.begin() ; card != pile_.end() ; card++)
-        currentPlayer_->addToHand(*card) ;
+    currentPlayer_->addAllToHand(pile_) ;
     currentPlayer_->addToHand(currentPlayer_->faceDown()[choice]) ;
-    currentPlayer_->removeFromFaceDown(choice) ;
-
     currentPlayer_->sortHand() ;
+    currentPlayer_->removeFromFaceDown(choice) ;
 
     pile_.clear() ;
     

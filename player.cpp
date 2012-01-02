@@ -33,6 +33,11 @@ void Player::addToHand(Card card)
     hand_.push_back(card) ; 
 }
 
+void Player::addAllToHand(const vector<Card>& cards)
+{
+    copy(cards.begin(), cards.end(), back_inserter(hand_)) ;
+}
+
 void Player::addToFaceUp(Card card) 
 { 
     faceUp_.push_back(card) ; 

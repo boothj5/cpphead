@@ -21,6 +21,7 @@ class Player {
     vector<Card> faceUp() const ;
     vector<Card> faceDown() const ;
     void addToHand(Card card) ;
+    void addAllToHand(const vector<Card>&) ;
     void addToFaceUp(Card card) ;
     void addToFaceDown(Card card) ;
     void sortHand() ;

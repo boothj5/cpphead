@@ -19,6 +19,7 @@ class Card {
     Card(cardrank, cardsuit) ;
 
     string toString() const ;
+    bool operator==(Card) ;
     cardrank rank() const ;
     bool special() const ;
     bool isInvisible() const ;

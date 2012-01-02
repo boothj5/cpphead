@@ -1,8 +1,11 @@
 #include <head-unit-cpp.h>
 #include <vector>
+#include <algorithm>
 
 #include "testsuite.hpp"
 #include "player.hpp"
+
+using namespace std ;
 
 void testAddToHandAddsCard(void)
 {
@@ -13,6 +16,34 @@ void testAddToHandAddsCard(void)
     Card found = cards[0] ;
 
     assert_string_equals(found.toString(), three.toString()) ;
+}
+
+void testAddAllToHandAddsCards(void)
+{
+    Player james("James") ;
+    Card three(THREE, DIAMONDS) ;
+    Card seven(SEVEN, DIAMONDS) ;
+    Card four(FOUR, SPADES) ;
+    Card ace(ACE, CLUBS) ;
+
+    vector<Card> cards ;
+    cards.push_back(three) ;
+    cards.push_back(seven) ;
+    cards.push_back(four) ;
+    cards.push_back(ace) ;
+
+    james.addAllToHand(cards) ;
+    
+    vector<Card>::iterator found ;
+    vector<Card> hand = james.hand() ;
+    found = find(hand.begin(), hand.end(), three) ;
+    assert_false(found == hand.end()) ;
+    found = find(hand.begin(), hand.end(), seven) ;
+    assert_false(found == hand.end()) ;
+    found = find(hand.begin(), hand.end(), four) ;
+    assert_false(found == hand.end()) ;
+    found = find(hand.begin(), hand.end(), ace) ;
+    assert_false(found == hand.end()) ;
 }
 
 void testAddToFaceUpAddsCard(void)
@@ -142,6 +173,7 @@ void register_player_tests()
 {
     add_suite("test_player") ;
     add_test(testAddToHandAddsCard, "testAddToHandAddsCard") ;
+    add_test(testAddAllToHandAddsCards, "testAddAllToHandAddsCards") ;
     add_test(testAddToFaceUpAddsCard, "testAddToFaceUpAddsCard") ;
     add_test(testAddToFaceDownAddsCard, "testAddToFaceDownAddsCard") ;
     add_test(sortHandSortsHand, "sortHandSortsHand") ;
