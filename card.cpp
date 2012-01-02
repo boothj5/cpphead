@@ -15,9 +15,19 @@ string Card::toString() const
     return rankStr() + " of " + suitStr() ; 
 }
 
-bool Card::operator==(Card other)
+bool Card::operator==(const Card& other) const
 {
     return rank_ == other.rank_ && suit_ == other.suit_ ;
+}
+
+bool Card::operator!=(const Card& other) const
+{
+    return rank_ != other.rank_ || suit_ != other.suit_ ;
+}
+
+ostream& operator<<(ostream& strm, const Card& card)
+{
+  return strm << card.toString();
 }
 
 cardrank Card::rank() const

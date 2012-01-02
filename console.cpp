@@ -78,7 +78,7 @@ void showHand(string name, const vector<Card>& cards, bool hide)
         if (hide)
             cout << "(" << i << ")" << "****" ; 
         else
-            cout << "(" << i << ")" << card->toString() ; 
+            cout << "(" << i << ")" << *card ; 
         if (i != cards.size())
             cout << ", " ;
         i++ ;
@@ -137,7 +137,7 @@ void showPile(const vector<Card>& pile)
     cout << pile.size() << " on pile:" << endl ;
     int i ;
     for (i = pile.size() ; i > 0 ; i--)
-        cout << "    " << pile[i-1].toString() << endl ;
+        cout << "    " << pile[i-1] << endl ;
     cout << endl ;
 }
 
@@ -211,13 +211,13 @@ int requestFaceDownCard(string name)
 
 void showFaceDownWin(const Card& card)
 {
-    cout << "WHEW you chose the " << card.toString() << ", press enter." ;
+    cout << "WHEW you chose the " << card << ", press enter." ;
     wait_user() ;
 }
 
 void showFaceDownFail(const Card& card)
 {
-    cout << "OH DEAR! You chose the " << card.toString() << ", press enter." ;
+    cout << "OH DEAR! You chose the " << card << ", press enter." ;
     wait_user() ;
 }
 

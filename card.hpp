@@ -19,7 +19,8 @@ class Card {
     Card(cardrank, cardsuit) ;
 
     string toString() const ;
-    bool operator==(Card) ;
+    bool operator==(const Card&) const ;
+    bool operator!=(const Card&) const ;
     cardrank rank() const ;
     bool special() const ;
     bool isInvisible() const ;
@@ -34,5 +35,7 @@ class Card {
     string rankStr() const ;
     string suitStr() const ;
 } ;    
+
+ostream& operator<<(ostream&, const Card&) ;
 
 #endif
