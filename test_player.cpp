@@ -2,7 +2,6 @@
 #include <vector>
 #include <algorithm>
 
-#include "testsuite.hpp"
 #include "player.hpp"
 
 using namespace std ;
