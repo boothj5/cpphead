@@ -94,16 +94,16 @@ void testNotAllRanksEqual(void)
 }
 void register_card_tests()
 {
-    add_suite("test_card") ;
-    add_test(testThreeLowerThanTwo, "testThreeLowerThanTwo") ;
-    add_test(testFiveLowerThanTwo, "testFiveLowerThanTwo") ;
-    add_test(testJackLowerThanSeven, "testJackLowerThanSeven") ;
-    add_test(testTwoSpecial, "testTwoSpecial") ;
-    add_test(testSevenSpecial, "testSevenSpecial") ;
-    add_test(testTenSpecial, "testTenSpecial") ;
-    add_test(testRanksEqual, "testRanksEqual") ;
-    add_test(testRanksNotEqual, "testRanksNotEqual") ;
-    add_test(testAllRanksEqual, "testAllRanksEqual") ;
-    add_test(testNotAllRanksEqual, "testAllRanksEqual") ;
+    TEST_MODULE("test_card");
+    TEST(testThreeLowerThanTwo);
+    TEST(testFiveLowerThanTwo);
+    TEST(testJackLowerThanSeven);
+    TEST(testTwoSpecial);
+    TEST(testSevenSpecial);
+    TEST(testTenSpecial);
+    TEST(testRanksEqual);
+    TEST(testRanksNotEqual);
+    TEST(testAllRanksEqual);
+    TEST(testNotAllRanksEqual);
 }
 

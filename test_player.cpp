@@ -170,18 +170,18 @@ void notHasCardsWhenNone()
 
 void register_player_tests()
 {
-    add_suite("test_player") ;
-    add_test(testAddToHandAddsCard, "testAddToHandAddsCard") ;
-    add_test(testAddAllToHandAddsCards, "testAddAllToHandAddsCards") ;
-    add_test(testAddToFaceUpAddsCard, "testAddToFaceUpAddsCard") ;
-    add_test(testAddToFaceDownAddsCard, "testAddToFaceDownAddsCard") ;
-    add_test(sortHandSortsHand, "sortHandSortsHand") ;
-    add_test(swapSwapsCards, "swapSwapsCards") ;
-    add_test(removeFromHandRemovesCard, "removeFromHandRemovesCard") ;
-    add_test(hasCardsWhenCardsInHand, "hasCardsWhenCardsInHand") ;
-    add_test(hasCardsWhenCardsInFaceUp, "hasCardsWhenCardsInFaceUp") ;
-    add_test(hasCardsWhenCardsInFaceDown, "hasCardsWhenCardsInFaceDown") ;
-    add_test(notHasCardsWhenNone, "notHasCardsWhenNone") ;
+    TEST_MODULE("test_player");
+    TEST(testAddToHandAddsCard);
+    TEST(testAddAllToHandAddsCards);
+    TEST(testAddToFaceUpAddsCard);
+    TEST(testAddToFaceDownAddsCard);
+    TEST(sortHandSortsHand);
+    TEST(swapSwapsCards);
+    TEST(removeFromHandRemovesCard);
+    TEST(hasCardsWhenCardsInHand);
+    TEST(hasCardsWhenCardsInFaceUp);
+    TEST(hasCardsWhenCardsInFaceDown);
+    TEST(notHasCardsWhenNone);
 }
 
 
