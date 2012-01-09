@@ -32,6 +32,8 @@ class Player {
     bool hasCards() const ;
     bool hasCardsInHand() const ;
     bool hasCardsInFaceUp() const ;
+
+    virtual bool isComputer() const =0;
 } ;
 
 #endif

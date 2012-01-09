@@ -2,14 +2,14 @@ CC=g++
 #CXXFLAGS=-I ~/include -Werror -Wall -Wextra
 CXXFLAGS=-I ~/include -Wno-write-strings
 
-compile: card.o player.o console.o game.o cpphead.o
-	$(CC) -o cpphead card.o player.o console.o game.o cpphead.o
+compile: card.o player.o human_player.o console.o game.o cpphead.o
+	$(CC) -o cpphead card.o player.o human_player.o console.o game.o cpphead.o
 
 install: compile
 	cp cpphead ~/bin/cpphead
 
-compile-tests: testsuite.o test_card.o card.o test_player.o player.o
-	$(CC) -Wno-write-strings testsuite.o test_card.o card.o test_player.o player.o -I ~/include -L ~/lib -o testsuite -l headunit
+compile-tests: testsuite.o test_card.o card.o test_player.o player.o human_player.o
+	$(CC) -Wno-write-strings testsuite.o test_card.o card.o test_player.o player.o human_player.o -I ~/include -L ~/lib -o testsuite -l headunit
 
 test: compile-tests
 	./testsuite

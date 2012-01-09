@@ -13,7 +13,7 @@ void showWelcomeMessage() ;
 int requestNumPlayers() ; 
 int requestNumCards() ;
 string * requestPlayerNames(int) ;
-void showPlayers(const vector<Player>&) ;
+void showPlayers(const vector<Player *>&) ;
 void showPlayer(const Player&) ;
 void showHand(string, const vector<Card>&, bool) ;
 bool requestSwapCards(string) ;

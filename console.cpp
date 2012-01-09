@@ -51,11 +51,11 @@ string * requestPlayerNames(int numPlayers)
     return names ;
 }
 
-void showPlayers(const vector<Player>& players)
+void showPlayers(const vector<Player* >& players)
 {
-    vector<Player>::const_iterator player ;
+    vector<Player *>::const_iterator player ;
     for (player = players.begin() ; player != players.end() ; player++) {
-        showPlayer(*player) ;
+        showPlayer(**player) ;
         cout << endl ;
     }
 }

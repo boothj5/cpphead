@@ -9,13 +9,13 @@
 using namespace std ;
 
 class Game {
-    vector<Player> players_ ;
+    vector<Player *> players_ ;
     vector<Card> deck_ ;
     vector<Card> pile_ ;
     int burnt_ ;
     int numCards_ ;
     int numPlayers_ ;
-    vector<Player>::iterator currentPlayer_ ;
+    vector<Player *>::iterator currentPlayer_ ;
     string lastMove_ ;
 
     public:
@@ -24,8 +24,8 @@ class Game {
     void deal() ;
     void swap(int, int, int) ;
     void firstMove() ;
-    vector<Player> players() const ;
-    Player currentPlayer() const ;
+    const vector<Player *> players() const ;
+    const Player * currentPlayer() const ;
     vector<Card> deck() const ;
     vector<Card> pile() const ;
     int burnt() const ;

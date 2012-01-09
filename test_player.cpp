@@ -3,12 +3,13 @@
 #include <algorithm>
 
 #include "player.hpp"
+#include "human_player.hpp"
 
 using namespace std ;
 
 void testAddToHandAddsCard(void)
 {
-    Player james("James") ;
+    HumanPlayer james("James") ;
     Card three(THREE, DIAMONDS) ;
     james.addToHand(three) ;
     vector<Card> cards = james.hand() ;
@@ -19,7 +20,7 @@ void testAddToHandAddsCard(void)
 
 void testAddAllToHandAddsCards(void)
 {
-    Player james("James") ;
+    HumanPlayer james("James") ;
     Card three(THREE, DIAMONDS) ;
     Card seven(SEVEN, DIAMONDS) ;
     Card four(FOUR, SPADES) ;
@@ -47,7 +48,7 @@ void testAddAllToHandAddsCards(void)
 
 void testAddToFaceUpAddsCard(void)
 {
-    Player james("James") ;
+    HumanPlayer james("James") ;
     Card three(THREE, DIAMONDS) ;
     james.addToFaceUp(three) ;
     vector<Card> cards = james.faceUp() ;
@@ -58,7 +59,7 @@ void testAddToFaceUpAddsCard(void)
 
 void testAddToFaceDownAddsCard(void)
 {
-    Player james("James") ;
+    HumanPlayer james("James") ;
     Card three(THREE, DIAMONDS) ;
     james.addToFaceDown(three) ;
     vector<Card> cards = james.faceDown() ;
@@ -69,7 +70,7 @@ void testAddToFaceDownAddsCard(void)
 
 void sortHandSortsHand(void) 
 {
-    Player james("James") ;
+    HumanPlayer james("James") ;
     Card six(SIX, HEARTS) ;
     Card three(THREE, DIAMONDS) ;
     Card two(TWO, SPADES) ;
@@ -89,7 +90,7 @@ void sortHandSortsHand(void)
 
 void swapSwapsCards(void)
 {
-    Player james("James") ;
+    HumanPlayer james("James") ;
     Card six(SIX, HEARTS) ;
     Card three(THREE, DIAMONDS) ;
     Card two(TWO, SPADES) ;
@@ -115,7 +116,7 @@ void swapSwapsCards(void)
 
 void removeFromHandRemovesCard(void) 
 {
-    Player james("James") ;
+    HumanPlayer james("James") ;
     Card six(SIX, HEARTS) ;
     Card three(THREE, DIAMONDS) ;
     Card two(TWO, SPADES) ;
@@ -137,7 +138,7 @@ void removeFromHandRemovesCard(void)
 
 void hasCardsWhenCardsInHand() 
 {
-    Player james("James") ;
+    HumanPlayer james("James") ;
     Card six(SIX, HEARTS) ;
     james.addToHand(six) ;
 
@@ -146,7 +147,7 @@ void hasCardsWhenCardsInHand()
 
 void hasCardsWhenCardsInFaceUp() 
 {
-    Player james("James") ;
+    HumanPlayer james("James") ;
     Card six(SIX, HEARTS) ;
     james.addToFaceUp(six) ;
 
@@ -155,7 +156,7 @@ void hasCardsWhenCardsInFaceUp()
 
 void hasCardsWhenCardsInFaceDown() 
 {
-    Player james("James") ;
+    HumanPlayer james("James") ;
     Card six(SIX, HEARTS) ;
     james.addToFaceDown(six) ;
 
@@ -164,7 +165,7 @@ void hasCardsWhenCardsInFaceDown()
 
 void notHasCardsWhenNone()
 {
-    Player james("James") ;
+    HumanPlayer james("James") ;
     assert_false(james.hasCards()) ;
 }
 

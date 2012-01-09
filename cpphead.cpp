@@ -23,48 +23,49 @@ int main()
 
     clearScreen() ;
 
-    vector<Player> players = game.players() ;
+    vector<Player *> players = game.players() ;
     for (i = 0 ; i < players.size() ; i++) {
         clearScreen() ;
-        showPlayer(players[i]) ;
-        bool doSwap = requestSwapCards(players[i].name()) ;
+        showPlayer(*players[i]) ;
+        bool doSwap = requestSwapCards(players[i]->name()) ;
         while (doSwap) {
             int handChoice = requestHandChoice() ;
             int faceUpChoice = requestFaceUpChoice() ;
             game.swap(i, handChoice, faceUpChoice) ;
             clearScreen() ;
             players = game.players() ;
-            showPlayer(players[i]) ;
-            doSwap = requestSwapMore(players[i].name()) ;
+            showPlayer(*players[i]) ;
+            doSwap = requestSwapMore(players[i]->name()) ;
         }
     }
 
     game.firstMove() ;
 
     while (game.canContinue()) {
+        const Player *currentPlayer = game.currentPlayer();
         clearScreen() ;
         showGame(game) ;
         if (game.playingFromFaceDown()) {
-            int choice = requestFaceDownCard(game.currentPlayer().name()) ;
+            int choice = requestFaceDownCard(currentPlayer->name()) ;
             if (game.validMoveFromFaceDown(choice)) {
-                showFaceDownWin(game.currentPlayer().faceDown()[choice]) ;
+                showFaceDownWin(currentPlayer->faceDown()[choice]) ;
                 game.makeFaceDownMove(choice) ;
             }
             else {
-                showFaceDownFail(game.currentPlayer().faceDown()[choice]) ;
+                showFaceDownFail(currentPlayer->faceDown()[choice]) ;
                 game.pickUpPileAndFaceDown(choice) ;
             }
         }
         else {
             if (game.currentPlayerCanMove()) {
-                vector<int> choices = requestMove(game.currentPlayer().name()) ;
+                vector<int> choices = requestMove(currentPlayer->name()) ;
                 while (!game.validMove(choices)) {
                     showBadMove() ;
-                    choices = requestMove(game.currentPlayer().name()) ;
+                    choices = requestMove(currentPlayer->name()) ;
                 }
                 game.makeMove(choices) ;
             } else {
-                showPickUpMessage(game.currentPlayer().name()) ;
+                showPickUpMessage(currentPlayer->name()) ;
                 game.pickUp() ;
             }
         }
