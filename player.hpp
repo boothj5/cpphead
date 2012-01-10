@@ -34,6 +34,8 @@ class Player {
     bool hasCardsInFaceUp() const ;
 
     virtual bool isComputer() const =0;
+    virtual pair<int, int> askSwapChoice() const =0;
+    virtual bool askSwapCards() const =0;
 } ;
 
 #endif

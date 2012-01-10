@@ -2,6 +2,7 @@
 #include <string>
 #include "human_player.hpp"
 #include "card.hpp"
+#include "shithead_exception.hpp"
 
 HumanPlayer::HumanPlayer(string name) : Player(name) 
 {
@@ -11,4 +12,14 @@ HumanPlayer::HumanPlayer(string name) : Player(name)
 bool HumanPlayer::isComputer() const
 {
     return false ;
+}
+
+pair<int, int> HumanPlayer::askSwapChoice() const 
+{
+    throw ShitheadException("Cannot ask human player for swap choice");
+}
+
+bool HumanPlayer::askSwapCards() const
+{
+    throw ShitheadException("Cannot ask human player to swap cards");
 }

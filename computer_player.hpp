@@ -13,6 +13,8 @@ class ComputerPlayer: public Player {
     public:
     ComputerPlayer(string name);
     bool isComputer() const;
-} ;
+    pair<int, int> askSwapChoice() const;
+    bool askSwapCards() const;
+};
 
 #endif
