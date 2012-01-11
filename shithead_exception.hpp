@@ -3,15 +3,13 @@
 
 #include <string>
 
-using namespace std;
-
 class ShitheadException
 {
-    string msg_;
+    std::string msg_;
 
     public:
-    ShitheadException(string msg) : msg_(msg) {}
-    string getMessage() const { return msg_; }
+    ShitheadException(std::string msg) : msg_(msg) {}
+    std::string getMessage() const { return msg_; }
 };
 
 #endif

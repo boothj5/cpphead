@@ -1,7 +1,10 @@
 #include <algorithm>
 #include <string>
+#include "player.hpp"
 #include "human_player.hpp"
 #include "shithead_exception.hpp"
+
+using namespace std;
 
 HumanPlayer::HumanPlayer(string name) : Player(name) 
 {

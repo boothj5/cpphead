@@ -35,17 +35,27 @@ int main()
 
         vector<Player *> players = game.players();
         for (i = 0 ; i < players.size() ; i++) {
-            clearScreen();
-            showPlayer(*players[i]);
-            bool doSwap = requestSwapCards(players[i]->name());
-            while (doSwap) {
-                int handChoice = requestHandChoice();
-                int faceUpChoice = requestFaceUpChoice();
-                game.swap(i, handChoice, faceUpChoice);
+            if (!players[i]->isComputer()) {
                 clearScreen();
-                players = game.players();
                 showPlayer(*players[i]);
-                doSwap = requestSwapMore(players[i]->name());
+                bool doSwap = requestSwapCards(players[i]->name());
+                while (doSwap) {
+                    int handChoice = requestHandChoice();
+                    int faceUpChoice = requestFaceUpChoice();
+                    game.swap(i, handChoice, faceUpChoice);
+                    clearScreen();
+                    players = game.players();
+                    showPlayer(*players[i]);
+                    doSwap = requestSwapMore(players[i]->name());
+                }
+            } 
+            else {
+                bool doSwap = players[i]->askSwapCards();
+                while (doSwap) {
+                    pair<int, int> swapChoice = players[i]->askSwapChoice();
+                    game.swap(i, swapChoice.first, swapChoice.second);
+                    doSwap = players[i]->askSwapCards();
+                }
             }
         }
 

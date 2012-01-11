@@ -4,7 +4,6 @@
 #include "game.hpp"
 #include "console.hpp"
 #include "player.hpp"
-#include "player_factory.hpp"
 #include "card.hpp"
 
 #define DECK_SIZE 52
