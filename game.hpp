@@ -20,7 +20,7 @@ class Game {
     Game(const std::vector<std::string>&, const std::vector<char>&, int);
     
     void deal();
-    void swap(int, int, int);
+    void swap(Player *, int, int);
     void firstMove();
     const std::vector<Player *> players() const;
     const Player * currentPlayer() const;

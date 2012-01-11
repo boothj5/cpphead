@@ -4,6 +4,7 @@
 #include "console.hpp"
 #include "card.hpp"
 #include "player.hpp"
+#include "player_interaction.hpp"
 #include "game.hpp"
 #include "shithead_exception.hpp"
 
@@ -34,30 +35,8 @@ int main()
         clearScreen();
 
         vector<Player *> players = game.players();
-        for (i = 0 ; i < players.size() ; i++) {
-            if (!players[i]->isComputer()) {
-                clearScreen();
-                showPlayer(*players[i]);
-                bool doSwap = requestSwapCards(players[i]->name());
-                while (doSwap) {
-                    int handChoice = requestHandChoice();
-                    int faceUpChoice = requestFaceUpChoice();
-                    game.swap(i, handChoice, faceUpChoice);
-                    clearScreen();
-                    players = game.players();
-                    showPlayer(*players[i]);
-                    doSwap = requestSwapMore(players[i]->name());
-                }
-            } 
-            else {
-                bool doSwap = players[i]->askSwapCards();
-                while (doSwap) {
-                    pair<int, int> swapChoice = players[i]->askSwapChoice();
-                    game.swap(i, swapChoice.first, swapChoice.second);
-                    doSwap = players[i]->askSwapCards();
-                }
-            }
-        }
+        for (i = 0 ; i < players.size() ; i++)
+            player_swap(players[i], game);
 
         game.firstMove();
 
@@ -65,32 +44,11 @@ int main()
             const Player *currentPlayer = game.currentPlayer();
             clearScreen();
             showGame(game);
-            if (game.playingFromFaceDown()) {
-                int choice = requestFaceDownCard(currentPlayer->name());
-                if (game.validMoveFromFaceDown(choice)) {
-                    showFaceDownWin(currentPlayer->faceDown()[choice]);
-                    game.makeFaceDownMove(choice);
-                }
-                else {
-                    showFaceDownFail(currentPlayer->faceDown()[choice]);
-                    game.pickUpPileAndFaceDown(choice);
-                }
-            }
-            else {
-                if (game.currentPlayerCanMove()) {
-                    vector<int> choices = requestMove(currentPlayer->name());
-                    while (!game.validMove(choices)) {
-                        showBadMove();
-                        choices = requestMove(currentPlayer->name());
-                    }
-                    game.makeMove(choices);
-                } else {
-                    showPickUpMessage(currentPlayer->name());
-                    game.pickUp();
-                }
-            }
+            if (game.playingFromFaceDown())
+                player_facedown_move(currentPlayer, game);
+            else
+                player_move(currentPlayer, game);
         }
-
 
         showShithead(game.getCppHead());
             
