@@ -168,6 +168,22 @@ void notHasCardsWhenNone()
     assert_false(james.hasCards()) ;
 }
 
+void createComputerPlayer()
+{
+    Player * player = createPlayer("Computer", 'c');
+    assert_true(player->isComputer());
+    string name = "Computer";
+    assert_equals(player->name(), name);
+}
+
+void createHumanPlayer()
+{
+    Player * player = createPlayer("James", 'h');
+    assert_false(player->isComputer());
+    string name = "James";
+    assert_equals(player->name(), name);
+}
+
 void register_player_tests()
 {
     TEST_MODULE("test_player");
@@ -182,6 +198,8 @@ void register_player_tests()
     TEST(hasCardsWhenCardsInFaceUp);
     TEST(hasCardsWhenCardsInFaceDown);
     TEST(notHasCardsWhenNone);
+    TEST(createComputerPlayer);
+    TEST(createHumanPlayer);
 }
 
 
