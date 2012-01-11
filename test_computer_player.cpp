@@ -2,7 +2,6 @@
 #include <vector>
 #include <algorithm>
 
-#include "player.hpp"
 #include "computer_player.hpp"
 
 using namespace std ;

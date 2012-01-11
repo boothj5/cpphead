@@ -1,8 +1,6 @@
 #include <algorithm>
 #include <string>
 #include "computer_player.hpp"
-#include "card.hpp"
-#include "shithead_exception.hpp"
 
 ComputerPlayer::ComputerPlayer(string name) : Player(name) 
 {

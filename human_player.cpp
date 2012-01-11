@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <string>
 #include "human_player.hpp"
-#include "card.hpp"
 #include "shithead_exception.hpp"
 
 HumanPlayer::HumanPlayer(string name) : Player(name) 

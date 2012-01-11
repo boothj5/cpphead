@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include "card.hpp"
 #include "player.hpp"
 
 using namespace std ;
