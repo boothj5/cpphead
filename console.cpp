@@ -40,15 +40,22 @@ int requestNumCards()
     return result ;
 }
 
-string * requestPlayerNames(int numPlayers)
+string requestPlayerName(int num)
 {
-    string * names = new string[numPlayers] ;
-    int i ;
-    for (i = 0 ; i < numPlayers ; i++) {
-        cout << "Enter name for player " << i+1 << ": " ;
-        cin >> names[i] ;
-    }
-    return names ;
+    string name;
+    cout << "Enter name for player " << num << ": ";
+    cin >> name;
+
+    return name;
+}
+
+char requestPlayerType(int num)
+{
+    char type;
+    cout << "Enter player type for player " << num << " (h/c): ";
+    cin >> type;
+
+    return type;
 }
 
 void showPlayers(const vector<Player* >& players)

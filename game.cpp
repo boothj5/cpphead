@@ -4,21 +4,21 @@
 #include "game.hpp"
 #include "console.hpp"
 #include "player.hpp"
-#include "human_player.hpp"
+#include "player_factory.hpp"
 #include "card.hpp"
 
 #define DECK_SIZE 52
 
 using namespace std ;
 
-Game::Game(string names[], int length, int numCards) 
+Game::Game(const vector<string>& names, const vector<char>& types, int numCards) 
 {
     int i, rank, suit, numDecks ;
-    numPlayers_ = length ;
+    numPlayers_ = names.size() ;
     numCards_ = numCards ;
     burnt_ = 0 ;
     for (i = 0 ; i < numPlayers_ ; i++) {
-        Player *player = new HumanPlayer(names[i]) ;
+        Player *player = createPlayer(names[i], types[i]) ;
         players_.push_back(player) ;
     }
     currentPlayer_ = players_.begin() ;

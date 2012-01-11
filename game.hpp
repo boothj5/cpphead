@@ -19,7 +19,7 @@ class Game {
     string lastMove_ ;
 
     public:
-    Game(string[], int, int) ;
+    Game(const vector<string>&, const vector<char>&, int) ;
     
     void deal() ;
     void swap(int, int, int) ;
