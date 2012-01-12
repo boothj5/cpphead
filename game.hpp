@@ -41,6 +41,8 @@ class Game {
     bool validMoveFromFaceDown(int) const;
     std::string getCppHead() const;
 
+    static bool canLay(Card, const std::vector<Card>&);
+    
     private:
     void playFromHand(const std::vector<int>&);
     void setLastHandMove(const std::vector<int>&);
@@ -59,7 +61,6 @@ class Game {
     void burnPile();
     void missAGo();
 
-    static bool canLay(const Card&, const std::vector<Card>&);
     static int calcNumDecks(int, int);
     static std::ptrdiff_t randomGen(std::ptrdiff_t);
 };

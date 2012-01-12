@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <string>
 #include "player.hpp"
+#include "player_helper.hpp"
 #include "human_player.hpp"
 #include "shithead_exception.hpp"
 
@@ -24,4 +25,9 @@ pair<int, int> HumanPlayer::askSwapChoice() const
 bool HumanPlayer::askSwapCards() const
 {
     throw ShitheadException("Cannot ask human player to swap cards");
+}
+
+vector<int> HumanPlayer::askMoveChoice(const PlayerHelper helper) const
+{
+    throw ShitheadException("Cannot ask human player to move");
 }

@@ -2,6 +2,8 @@
 #include "player.hpp"
 #include "game.hpp"
 #include "console.hpp"
+#include "player_helper.hpp"
+#include "shithead_exception.hpp"
 
 using namespace std;
 
@@ -33,15 +35,30 @@ void player_swap(Player *player, Game& game)
 void player_move(const Player *player, Game& game)
 {
     if (game.currentPlayerCanMove()) {
-        vector<int> choices = requestMove(player->name());
-        while (!game.validMove(choices)) {
-            showBadMove();
-            choices = requestMove(player->name());
+        if (!player->isComputer()) {
+            vector<int> choices = requestMove(player->name());
+            while (!game.validMove(choices)) {
+                showBadMove();
+                choices = requestMove(player->name());
+            }
+            game.makeMove(choices);
+        }  else {
+            // computer player
+            PlayerHelper helper = game.getPlayerHelper();
+            vector<int> choices = player->askMoveChoice(helper);
+            if (!game.validMove(choices)) {
+                throw new ShitheadException("Computer player is cheating!");
+            } else {
+                game.makeMove(choices);
+            }            
         }
-        game.makeMove(choices);
     } else {
-        showPickUpMessage(player->name());
-        game.pickUp();
+        if (!player->isComputer()) {
+            showPickUpMessage(player->name());
+            game.pickUp();
+        } else {
+            game.pickUp();
+        }
     }
 }
 

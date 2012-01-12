@@ -354,7 +354,7 @@ bool Game::canMoveWithOneOf(const vector<Card>& cards) const
 
 }
 
-bool Game::canLay(const Card& card, const vector<Card>& cards)
+bool Game::canLay(Card card, const vector<Card>& cards)
 {
     if (cards.empty())
         return true ;

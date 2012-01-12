@@ -4,8 +4,10 @@
 #include <string>
 #include <vector>
 #include "card.hpp"
+#include "player_helper.hpp"
 
 class Player {
+    protected:
     std::string name_;
     std::vector<Card> hand_;
     std::vector<Card> faceUp_;
@@ -33,6 +35,7 @@ class Player {
     virtual bool isComputer() const =0;
     virtual std::pair<int, int> askSwapChoice() const =0;
     virtual bool askSwapCards() const =0;
+    virtual std::vector<int> askMoveChoice(const PlayerHelper) const =0;
 };
 
 Player * createPlayer(std::string, char);

@@ -3,6 +3,7 @@
 
 #include <string>
 #include "player.hpp"
+#include "player_helper.hpp"
 
 class ComputerPlayer: public Player {
     public:
@@ -10,6 +11,7 @@ class ComputerPlayer: public Player {
     bool isComputer() const;
     std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
+    std::vector<int> askMoveChoice(const PlayerHelper helper) const;
 };
 
 #endif
