@@ -4,6 +4,7 @@
 #include "game.hpp"
 #include "console.hpp"
 #include "player.hpp"
+#include "player_helper.hpp"
 #include "card.hpp"
 
 #define DECK_SIZE 52
@@ -30,6 +31,12 @@ Game::Game(const vector<string>& names, const vector<char>& types, int numCards)
 
     ptrdiff_t (*p_randomGen)(ptrdiff_t) = randomGen ;    
     random_shuffle(deck_.begin(), deck_.end(), p_randomGen) ;
+}
+
+PlayerHelper Game::getPlayerHelper() const
+{
+    PlayerHelper helper(pile_);
+    return helper;
 }
 
 void Game::deal()

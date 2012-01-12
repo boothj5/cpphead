@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "player.hpp"
+#include "player_helper.hpp"
 #include "card.hpp"
 
 class Game {
@@ -19,6 +20,7 @@ class Game {
     public:
     Game(const std::vector<std::string>&, const std::vector<char>&, int);
     
+    PlayerHelper getPlayerHelper() const;
     void deal();
     void swap(Player *, int, int);
     void firstMove();
