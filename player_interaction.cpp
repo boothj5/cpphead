@@ -65,13 +65,26 @@ void player_move(const Player *player, Game& game)
 
 void player_facedown_move(const Player *player, Game& game)
 {
-    int choice = requestFaceDownCard(player->name());
-    if (game.validMoveFromFaceDown(choice)) {
-        showFaceDownWin(player->faceDown()[choice]);
-        game.makeFaceDownMove(choice);
+    int choice = 0;
+    
+    if (player->isComputer()) {
+        choice = player->askFaceDownMoveChoice();
+        if (game.validMoveFromFaceDown(choice)) {
+            game.makeFaceDownMove(choice);
+        }
+        else {
+            game.pickUpPileAndFaceDown(choice);
+        }
+    } else {
+        choice = requestFaceDownCard(player->name());
+        if (game.validMoveFromFaceDown(choice)) {
+            showFaceDownWin(player->faceDown()[choice]);
+            game.makeFaceDownMove(choice);
+        }
+        else {
+            showFaceDownFail(player->faceDown()[choice]);
+            game.pickUpPileAndFaceDown(choice);
+        }
     }
-    else {
-        showFaceDownFail(player->faceDown()[choice]);
-        game.pickUpPileAndFaceDown(choice);
-    }
+
 }

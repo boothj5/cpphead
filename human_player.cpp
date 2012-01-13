@@ -31,3 +31,8 @@ vector<int> HumanPlayer::askMoveChoice(const PlayerHelper helper) const
 {
     throw ShitheadException("Cannot ask human player to move");
 }
+
+int HumanPlayer::askFaceDownMoveChoice() const
+{
+    throw ShitheadException("Cannot ask human player to move");
+}

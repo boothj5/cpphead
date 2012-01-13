@@ -12,6 +12,7 @@ class ComputerPlayer: public Player {
     std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
     std::vector<int> askMoveChoice(const PlayerHelper helper) const;
+    int askFaceDownMoveChoice() const;
 };
 
 #endif

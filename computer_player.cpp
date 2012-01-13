@@ -71,3 +71,8 @@ vector<int> ComputerPlayer::askMoveChoice(const PlayerHelper helper) const
 
     return choices;
 }
+
+int ComputerPlayer::askFaceDownMoveChoice() const
+{
+    return 0;
+}

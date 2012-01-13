@@ -136,7 +136,8 @@ void showGame(const Game& game)
     
     showPlayers(game.players()) ;
     cout << endl ;
-    cout << game.lastMove() << endl ;
+    cout << game.lastMove() << " press ENTER." ;
+    wait_user();
 }
 
 void showPile(const vector<Card>& pile)

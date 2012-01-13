@@ -13,6 +13,7 @@ class HumanPlayer: public Player {
     std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
     std::vector<int> askMoveChoice(const PlayerHelper) const;
+    int askFaceDownMoveChoice() const;
 };
 
 #endif
