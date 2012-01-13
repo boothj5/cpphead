@@ -8,6 +8,8 @@
 
 #define CLEARSCREEN true
 
+namespace console {
+
 void clearScreen();
 void showWelcomeMessage();
 int requestNumPlayers(); 
@@ -32,4 +34,5 @@ void showFaceDownWin(const Card&);
 void showFaceDownFail(const Card&);
 void showShithead(std::string);
 
+} // namespace console
 #endif

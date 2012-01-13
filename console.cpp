@@ -9,6 +9,8 @@
 using namespace std ;
 using namespace boost ;
 
+namespace console {
+
 void clearScreen()
 {
     if (CLEARSCREEN) {
@@ -235,3 +237,4 @@ void showShithead(string name)
     cout << name << " is a shithead!!" << endl ;
 }
 
+} // namespace console

@@ -10,16 +10,16 @@ using namespace std;
 void player_swap(Player *player, Game& game)
 {
     if (!player->isComputer()) {
-        clearScreen();
-        showPlayer(*player);
-        bool doSwap = requestSwapCards(player->name());
+        console::clearScreen();
+        console::showPlayer(*player);
+        bool doSwap = console::requestSwapCards(player->name());
         while (doSwap) {
-            int handChoice = requestHandChoice();
-            int faceUpChoice = requestFaceUpChoice();
+            int handChoice = console::requestHandChoice();
+            int faceUpChoice = console::requestFaceUpChoice();
             game.swap(player, handChoice, faceUpChoice);
-            clearScreen();
-            showPlayer(*player);
-            doSwap = requestSwapMore(player->name());
+            console::clearScreen();
+            console::showPlayer(*player);
+            doSwap = console::requestSwapMore(player->name());
         }
     }
     else {
@@ -36,10 +36,10 @@ void player_move(const Player *player, Game& game)
 {
     if (game.currentPlayerCanMove()) {
         if (!player->isComputer()) {
-            vector<int> choices = requestMove(player->name());
+            vector<int> choices = console::requestMove(player->name());
             while (!game.validMove(choices)) {
-                showBadMove();
-                choices = requestMove(player->name());
+                console::showBadMove();
+                choices = console::requestMove(player->name());
             }
             game.makeMove(choices);
         }  else {
@@ -54,7 +54,7 @@ void player_move(const Player *player, Game& game)
         }
     } else {
         if (!player->isComputer()) {
-            showPickUpMessage(player->name());
+            console::showPickUpMessage(player->name());
             game.pickUp();
         } else {
             game.pickUp();
@@ -76,15 +76,14 @@ void player_facedown_move(const Player *player, Game& game)
             game.pickUpPileAndFaceDown(choice);
         }
     } else {
-        choice = requestFaceDownCard(player->name());
+        choice = console::requestFaceDownCard(player->name());
         if (game.validMoveFromFaceDown(choice)) {
-            showFaceDownWin(player->faceDown()[choice]);
+            console::showFaceDownWin(player->faceDown()[choice]);
             game.makeFaceDownMove(choice);
         }
         else {
-            showFaceDownFail(player->faceDown()[choice]);
+            console::showFaceDownFail(player->faceDown()[choice]);
             game.pickUpPileAndFaceDown(choice);
         }
     }
-
 }

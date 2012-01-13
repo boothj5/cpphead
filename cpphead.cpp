@@ -16,23 +16,23 @@ int main()
         int i, numPlayers, numCardsEach;
         vector<string> playerNames;
         vector<char> playerTypes;
-        clearScreen();
-        showWelcomeMessage();
-        numPlayers = requestNumPlayers();
-        numCardsEach = requestNumCards();
+        console::clearScreen();
+        console::showWelcomeMessage();
+        numPlayers = console::requestNumPlayers();
+        numCardsEach = console::requestNumCards();
         
         for (i = 0; i < numPlayers; i++) {
-            string name = requestPlayerName(i+1);
+            string name = console::requestPlayerName(i+1);
             playerNames.push_back(name);
 
-            char type = requestPlayerType(i+1);
+            char type = console::requestPlayerType(i+1);
             playerTypes.push_back(type);
         }
 
         Game game(playerNames, playerTypes, numCardsEach);
         game.deal();
 
-        clearScreen();
+        console::clearScreen();
 
         vector<Player *> players = game.players();
         for (i = 0 ; i < players.size() ; i++)
@@ -42,15 +42,15 @@ int main()
 
         while (game.canContinue()) {
             const Player *currentPlayer = game.currentPlayer();
-            clearScreen();
-            showGame(game);
+            console::clearScreen();
+            console::showGame(game);
             if (game.playingFromFaceDown())
                 player_facedown_move(currentPlayer, game);
             else
                 player_move(currentPlayer, game);
         }
 
-        showShithead(game.getCppHead());
+        console::showShithead(game.getCppHead());
             
         return 0 ;
     } catch (ShitheadException e) {
