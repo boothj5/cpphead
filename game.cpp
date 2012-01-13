@@ -18,7 +18,7 @@ Game::Game(const vector<string>& names, const vector<char>& types, int numCards)
     numCards_ = numCards ;
     burnt_ = 0 ;
     for (i = 0 ; i < numPlayers_ ; i++) {
-        Player *player = createPlayer(names[i], types[i]) ;
+        Player *player = Player::createPlayer(names[i], types[i]) ;
         players_.push_back(player) ;
     }
     currentPlayer_ = players_.begin() ;

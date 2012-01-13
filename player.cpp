@@ -119,7 +119,7 @@ bool Player::hasCardsInFaceUp() const
     return faceUp_.size() > 0 ;
 }
 
-Player * createPlayer(string name, char type)
+Player * Player::createPlayer(string name, char type)
 {
     if (type == 'h')
         return new HumanPlayer(name);

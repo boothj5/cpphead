@@ -32,13 +32,13 @@ class Player {
     bool hasCardsInHand() const;
     bool hasCardsInFaceUp() const;
 
+    static Player * createPlayer(std::string, char);
+
     virtual bool isComputer() const =0;
     virtual std::pair<int, int> askSwapChoice() const =0;
     virtual bool askSwapCards() const =0;
     virtual std::vector<int> askMoveChoice(const PlayerHelper) const =0;
     virtual int askFaceDownMoveChoice() const =0;
 };
-
-Player * createPlayer(std::string, char);
 
 #endif
