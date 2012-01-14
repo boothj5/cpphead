@@ -4,9 +4,11 @@
 
 typedef Player* (*createFunc)(std::string);
 typedef std::map<char, createFunc> playerFuncMap_t;
+typedef std::map<char, std::string> playerDescMap_t;
 
 class PlayerFactory {
-    static const playerFuncMap_t getPlayerMap();
+    static const playerFuncMap_t playerFuncMap();
+    static const playerDescMap_t playerDescMap();
  
     public:
     static Player * createPlayer(std::string, char);
