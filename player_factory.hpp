@@ -1,8 +1,14 @@
 #include <string>
+#include <map>
 #include "player.hpp"
 
-namespace p_factory {
+typedef Player* (*createFunc)(std::string);
+typedef std::map<char, createFunc> playerFuncMap_t;
 
-Player * createPlayer(std::string, char);
-
-} // namespace p_factory
+class PlayerFactory {
+    static const playerFuncMap_t getPlayerMap();
+ 
+    public:
+    static Player * createPlayer(std::string, char);
+    static std::vector<char> getPlayerTypes();
+};

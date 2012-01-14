@@ -171,7 +171,7 @@ void notHasCardsWhenNone()
 
 void createComputerPlayer()
 {
-    Player * player = p_factory::createPlayer("Computer", 's');
+    Player * player = PlayerFactory::createPlayer("Computer", 's');
     assert_true(player->isComputer());
     string name = "Computer";
     assert_equals(player->name(), name);
@@ -179,7 +179,7 @@ void createComputerPlayer()
 
 void createHumanPlayer()
 {
-    Player * player = p_factory::createPlayer("James", 'h');
+    Player * player = PlayerFactory::createPlayer("James", 'h');
     assert_false(player->isComputer());
     string name = "James";
     assert_equals(player->name(), name);

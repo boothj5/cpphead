@@ -5,6 +5,7 @@
 #include <boost/algorithm/string.hpp>
 #include "console.hpp"
 #include "player.hpp"
+#include "player_factory.hpp"
 
 using namespace std ;
 using namespace boost ;
@@ -61,7 +62,17 @@ char requestPlayerType(int num)
 {
     string inp;
     char type;
-    cout << "Enter player type for player " << num << " (h/s/l/a): ";
+    
+    cout << "Enter player type for player " << num << endl;
+    
+    const vector<char> types = PlayerFactory::getPlayerTypes();
+    vector<char>::const_iterator iter;
+    for (iter = types.begin(); iter!=types.end(); iter++) {
+        cout << *iter << ", "; 
+    }
+    
+    cout << endl;
+    
     getline(cin, inp);
     type = inp[0];
 
