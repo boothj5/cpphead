@@ -63,12 +63,15 @@ char requestPlayerType(int num)
     string inp;
     char type;
     
-    cout << "Enter player type for player " << num << endl;
+    cout << endl << "Enter player type for player " << num << ":" << endl;
     
-    const vector<char> types = PlayerFactory::getPlayerTypes();
-    vector<char>::const_iterator iter;
-    for (iter = types.begin(); iter!=types.end(); iter++) {
-        cout << *iter << ", "; 
+    cout << endl << "h --> Human player." << endl;
+
+    playerDescMap_t playerDescMap = PlayerFactory::getPlayerTypes();
+
+    playerDescMap_t::const_iterator iter;
+    for (iter = playerDescMap.begin(); iter!=playerDescMap.end(); iter++) {
+        cout << iter->first << " --> " << iter->second << endl; 
     }
     
     cout << endl;

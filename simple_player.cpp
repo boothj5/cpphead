@@ -11,6 +11,8 @@
 
 using namespace std;
 
+string SimplePlayer::description = "SimplePlayer: Plays random cards.";
+
 SimplePlayer::SimplePlayer(string name) : ComputerPlayer(name) 
 {
     // do nothing

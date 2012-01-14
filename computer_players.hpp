@@ -18,6 +18,8 @@ class ComputerPlayer: public Player {
 
 class SimplePlayer: public ComputerPlayer {
     public:
+    static std::string description;   
+
     SimplePlayer(std::string name);
     std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
@@ -27,6 +29,8 @@ class SimplePlayer: public ComputerPlayer {
 
 class LowCardPlayer: public ComputerPlayer {
     public:
+    static std::string description;   
+
     LowCardPlayer(std::string name);
     std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
@@ -36,6 +40,8 @@ class LowCardPlayer: public ComputerPlayer {
 
 class HighCardPlayer: public ComputerPlayer {
     public:
+    static std::string description;   
+
     HighCardPlayer(std::string name);
     std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;

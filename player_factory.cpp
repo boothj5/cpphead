@@ -11,7 +11,8 @@
     { return new CLASSNAME(name); }
 
 #define REGISTER_PLAYER(CHAR, CLASSNAME) \
-    playerFuncMap.insert(make_pair(CHAR, &create ## CLASSNAME))
+    playerFuncMap.insert(make_pair(CHAR, &create ## CLASSNAME)); \
+    playerDescMap.insert(make_pair(CHAR, CLASSNAME::description))
 
 using namespace std;
 
@@ -19,16 +20,33 @@ PLAYER(SimplePlayer)
 PLAYER(LowCardPlayer)
 PLAYER(HighCardPlayer)
 
-const playerFuncMap_t PlayerFactory::playerFuncMap()
+const pair<playerFuncMap_t, playerDescMap_t> PlayerFactory::initPlayers()
 {
     static playerFuncMap_t playerFuncMap;
+    static playerDescMap_t playerDescMap;
+
     if (playerFuncMap.empty()) {
         REGISTER_PLAYER('s', SimplePlayer);
         REGISTER_PLAYER('l', LowCardPlayer);
         REGISTER_PLAYER('a', HighCardPlayer);
     }
 
-    return playerFuncMap; 
+    return make_pair(playerFuncMap, playerDescMap);
+    
+}
+
+const playerFuncMap_t PlayerFactory::playerFuncMap()
+{
+    pair<playerFuncMap_t, playerDescMap_t> maps = PlayerFactory::initPlayers();
+
+    return maps.first;
+}
+
+const playerDescMap_t PlayerFactory::playerDescMap()
+{
+    pair<playerFuncMap_t, playerDescMap_t> maps = PlayerFactory::initPlayers();
+
+    return maps.second;
 }
 
 Player * PlayerFactory::createPlayer(string name, char type)
@@ -47,18 +65,7 @@ Player * PlayerFactory::createPlayer(string name, char type)
     }
 }
 
-
-
-vector<char> PlayerFactory::getPlayerTypes()
+playerDescMap_t PlayerFactory::getPlayerTypes()
 {
-    vector<char> types;
-    types.push_back('h');
-    const playerFuncMap_t playerFuncMap = PlayerFactory::playerFuncMap();
-    
-    playerFuncMap_t::const_iterator iter;
-    for (iter = playerFuncMap.begin(); iter!=playerFuncMap.end(); iter++) {
-        types.push_back(iter->first);
-    }
-    
-    return types;  
+    return playerDescMap();
 }

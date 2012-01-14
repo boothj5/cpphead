@@ -9,6 +9,8 @@
 
 using namespace std;
 
+string HighCardPlayer::description = "HighCardPlayer: Plays high cards.";
+
 HighCardPlayer::HighCardPlayer(string name) : ComputerPlayer(name) 
 {
     // do nothing
