@@ -8,29 +8,21 @@
 #include "highcard_player.hpp"
 #include "shithead_exception.hpp"
 
+#define PLAYER(CLASSNAME) \
+    static Player * create ## CLASSNAME(string name) \
+    { return new CLASSNAME(name); }
+
+#define REGISTER_PLAYER(CHAR, CLASSNAME) \
+    playerMap.insert(make_pair(CHAR, &create ## CLASSNAME))
+
 using namespace std;
 
 namespace p_factory {
 
-static Player * createHumanPlayer(string name)
-{
-    return new HumanPlayer(name);
-}
-
-static Player * createSimplePlayer(string name)
-{
-    return new SimplePlayer(name);
-}
-
-static Player * createLowCardPlayer(string name)
-{
-    return new LowCardPlayer(name);
-}
-
-static Player * createHighCardPlayer(string name)
-{
-    return new HighCardPlayer(name);
-}
+PLAYER(HumanPlayer)
+PLAYER(SimplePlayer)
+PLAYER(LowCardPlayer)
+PLAYER(HighCardPlayer)
 
 Player * createPlayer(string name, char type)
 {
@@ -38,10 +30,10 @@ Player * createPlayer(string name, char type)
     typedef map<char, createPlayerFunction> playerMap_t;
 
     playerMap_t playerMap;
-    playerMap.insert(make_pair('h', &createHumanPlayer));
-    playerMap.insert(make_pair('s', &createSimplePlayer));
-    playerMap.insert(make_pair('l', &createLowCardPlayer));
-    playerMap.insert(make_pair('a', &createHighCardPlayer));
+    REGISTER_PLAYER('h', HumanPlayer);
+    REGISTER_PLAYER('s', SimplePlayer);
+    REGISTER_PLAYER('l', LowCardPlayer);
+    REGISTER_PLAYER('a', HighCardPlayer);
 
     playerMap_t::const_iterator iter = playerMap.find(type);
     if (iter == playerMap.end())
