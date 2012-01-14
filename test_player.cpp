@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "human_player.hpp"
+#include "player_factory.hpp"
 
 using namespace std ;
 
@@ -170,7 +171,7 @@ void notHasCardsWhenNone()
 
 void createComputerPlayer()
 {
-    Player * player = Player::createPlayer("Computer", 's');
+    Player * player = p_factory::createPlayer("Computer", 's');
     assert_true(player->isComputer());
     string name = "Computer";
     assert_equals(player->name(), name);
@@ -178,7 +179,7 @@ void createComputerPlayer()
 
 void createHumanPlayer()
 {
-    Player * player = Player::createPlayer("James", 'h');
+    Player * player = p_factory::createPlayer("James", 'h');
     assert_false(player->isComputer());
     string name = "James";
     assert_equals(player->name(), name);

@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <string>
+#include <map>
 #include "card.hpp"
 #include "player.hpp"
 #include "human_player.hpp"
@@ -120,18 +121,3 @@ bool Player::hasCardsInFaceUp() const
 {
     return faceUp_.size() > 0 ;
 }
-
-Player * Player::createPlayer(string name, char type)
-{
-    if (type == 'h')
-        return new HumanPlayer(name);
-    else if (type == 's')
-        return new SimplePlayer(name);
-    else if (type == 'l')
-        return new LowCardPlayer(name);
-    else if (type == 'a')
-        return new HighCardPlayer(name);
-    else
-        throw ShitheadException("Unknown player type");
-}
-
