@@ -6,6 +6,7 @@
 #include "player.hpp"
 #include "player_helper.hpp"
 #include "card.hpp"
+#include "util.hpp"
 
 #define DECK_SIZE 52
 
@@ -28,9 +29,8 @@ Game::Game(const vector<string>& names, const vector<char>& types, int numCards)
         for (suit = HEARTS ; suit <= CLUBS ; suit++)
             for (rank = TWO ; rank <= ACE ; rank++)
                 deck_.push_back(Card((cardrank)rank, (cardsuit)suit)) ;
-
-    ptrdiff_t (*p_randomGen)(ptrdiff_t) = randomGen ;    
-    random_shuffle(deck_.begin(), deck_.end(), p_randomGen) ;
+    
+    util::shuffle(deck_);
 }
 
 PlayerHelper Game::getPlayerHelper() const
@@ -379,13 +379,6 @@ int Game::calcNumDecks(int numPlayers, int numCards)
     add = ((totalCards % DECK_SIZE) > 0) ;
     decksRequired = div + add ;
     return decksRequired ;
-}
-
-ptrdiff_t Game::randomGen(ptrdiff_t i)
-{
-    int seed = static_cast<int>(time(0));
-    srand(seed) ;
-    return rand() % i ; 
 }
 
 string Game::getCppHead() const

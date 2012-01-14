@@ -8,6 +8,7 @@
 #include "simple_player.hpp"
 #include "player_helper.hpp"
 #include "game.hpp"
+#include "util.hpp"
 
 using namespace std;
 
@@ -35,8 +36,7 @@ vector<int> SimplePlayer::askMoveChoice(const PlayerHelper helper) const
         
         // unsort it
         vector<Card> unsorted = hand_;
-        ptrdiff_t (*p_randomGen)(ptrdiff_t) = randomGen ;
-        random_shuffle(unsorted.begin(), unsorted.end(), p_randomGen) ;
+        util::shuffle(unsorted);
 
         // find the first card I can lay and save its index
         int i;
@@ -80,11 +80,3 @@ int SimplePlayer::askFaceDownMoveChoice() const
 {
     return 0;
 }
-
-ptrdiff_t SimplePlayer::randomGen(ptrdiff_t i)
-{
-    int seed = static_cast<int>(time(0));
-    srand(seed) ;
-    return rand() % i ;
-}
-

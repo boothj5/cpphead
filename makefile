@@ -19,7 +19,7 @@ player.o: player.hpp human_player.hpp simple_player.hpp card.hpp shithead_except
 human_player.o: human_player.hpp player.hpp player_helper.hpp shithead_exception.hpp
 computer_player.o: computer_player.hpp player.hpp
 simple_player.o: simple_player.hpp computer_player.hpp player_helper.hpp card.hpp \
-                 game.hpp
+                 game.hpp util.hpp
 lowcard_player.o: lowcard_player.hpp computer_player.hpp player_helper.hpp card.hpp \
                  game.hpp
 highcard_player.o: highcard_player.hpp card.hpp computer_player.hpp \
@@ -28,7 +28,7 @@ player_interaction.o: player_interaction.hpp player.hpp game.hpp \
                       console.hpp player_helper.hpp shithead_exception.hpp
 player_helper.o: player_helper.hpp card.hpp
 console.o: console.hpp player.hpp
-game.o: game.hpp console.hpp player.hpp card.hpp player_helper.hpp
+game.o: game.hpp console.hpp player.hpp card.hpp player_helper.hpp util.hpp
 cpphead.o: console.hpp card.hpp player.hpp game.hpp shithead_exception.hpp \
            player_interaction.hpp
 

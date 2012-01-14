@@ -12,9 +12,6 @@ class SimplePlayer: public ComputerPlayer {
     bool askSwapCards() const;
     std::vector<int> askMoveChoice(const PlayerHelper helper) const;
     int askFaceDownMoveChoice() const;
-
-    private:
-    static std::ptrdiff_t randomGen(std::ptrdiff_t);
 };
 
 #endif
