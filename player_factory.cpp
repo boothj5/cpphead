@@ -3,9 +3,7 @@
 #include "player_factory.hpp"
 #include "player.hpp"
 #include "human_player.hpp"
-#include "simple_player.hpp"
-#include "lowcard_player.hpp"
-#include "highcard_player.hpp"
+#include "computer_players.hpp"
 #include "shithead_exception.hpp"
 
 #define PLAYER(CLASSNAME) \

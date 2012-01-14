@@ -3,10 +3,6 @@
 #include <map>
 #include "card.hpp"
 #include "player.hpp"
-#include "human_player.hpp"
-#include "simple_player.hpp"
-#include "lowcard_player.hpp"
-#include "highcard_player.hpp"
 #include "shithead_exception.hpp"
 
 using namespace std;

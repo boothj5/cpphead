@@ -15,16 +15,16 @@ cpphead: $(OBJS)
 	$(CC) -o cpphead $(OBJS)
 
 card.o: card.hpp
-player.o: player.hpp human_player.hpp simple_player.hpp card.hpp shithead_exception.hpp
-player_factory.o: player_factory.hpp player.hpp human_player.hpp simple_player.hpp \
-				  lowcard_player.hpp highcard_player.hpp
+player.o: player.hpp human_player.hpp card.hpp shithead_exception.hpp
+player_factory.o: player_factory.hpp player.hpp human_player.hpp \
+				  computer_players.hpp
 human_player.o: human_player.hpp player.hpp player_helper.hpp shithead_exception.hpp
-computer_player.o: computer_player.hpp player.hpp
-simple_player.o: simple_player.hpp computer_player.hpp player_helper.hpp card.hpp \
+computer_player.o: computer_players.hpp player.hpp
+simple_player.o: computer_players.hpp player_helper.hpp card.hpp \
                  game.hpp util.hpp
-lowcard_player.o: lowcard_player.hpp computer_player.hpp player_helper.hpp card.hpp \
-                 game.hpp
-highcard_player.o: highcard_player.hpp card.hpp computer_player.hpp \
+lowcard_player.o: computer_players.hpp player_helper.hpp \
+				  card.hpp game.hpp
+highcard_player.o: card.hpp computer_players.hpp \
 				   player_helper.hpp game.hpp
 player_interaction.o: player_interaction.hpp player.hpp game.hpp \
                       console.hpp player_helper.hpp shithead_exception.hpp
@@ -37,7 +37,7 @@ cpphead.o: console.hpp card.hpp player.hpp game.hpp shithead_exception.hpp \
 test_card.o: card.hpp
 test_player.o: human_player.hpp
 test_human_player.o: player.hpp human_player.hpp shithead_exception.hpp
-test_simple_player.o: simple_player.hpp
+test_simple_player.o: computer_players.hpp
 
 testsuite: testsuite.hpp $(TESTOBJS)
 	$(CC) $(CXXFLAGS) testsuite.cpp  $(TESTOBJS) -o testsuite $(TESTLIB)

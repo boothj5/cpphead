@@ -4,8 +4,7 @@
 #include <vector>
 #include <string>
 #include "card.hpp"
-#include "computer_player.hpp"
-#include "simple_player.hpp"
+#include "computer_players.hpp"
 #include "player_helper.hpp"
 #include "game.hpp"
 #include "util.hpp"

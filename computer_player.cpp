@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <string>
 #include "player.hpp"
-#include "computer_player.hpp"
+#include "computer_players.hpp"
 
 using namespace std;
 

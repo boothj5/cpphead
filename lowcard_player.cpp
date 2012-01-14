@@ -3,8 +3,7 @@
 #include <iterator>
 #include <string>
 #include "card.hpp"
-#include "computer_player.hpp"
-#include "lowcard_player.hpp"
+#include "computer_players.hpp"
 #include "player_helper.hpp"
 #include "game.hpp"
 
