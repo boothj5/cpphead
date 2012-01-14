@@ -34,8 +34,7 @@ vector<int> SimplePlayer::askMoveChoice(const PlayerHelper helper) const
         // play from hand
         
         // unsort it
-        vector<Card> unsorted;
-        copy(hand_.begin(), hand_.end(), back_inserter(unsorted));
+        vector<Card> unsorted = hand_;
         ptrdiff_t (*p_randomGen)(ptrdiff_t) = randomGen ;
         random_shuffle(unsorted.begin(), unsorted.end(), p_randomGen) ;
 

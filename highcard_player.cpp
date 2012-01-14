@@ -4,37 +4,49 @@
 #include <string>
 #include "card.hpp"
 #include "computer_player.hpp"
-#include "lowcard_player.hpp"
+#include "highcard_player.hpp"
 #include "player_helper.hpp"
 #include "game.hpp"
 
 using namespace std;
 
-LowCardPlayer::LowCardPlayer(string name) : ComputerPlayer(name) 
+HighCardPlayer::HighCardPlayer(string name) : ComputerPlayer(name) 
 {
     // do nothing
 }
 
-pair<int, int> LowCardPlayer::askSwapChoice() const
+pair<int, int> HighCardPlayer::askSwapChoice() const
 {
     return pair<int, int>(0,0);
 }
 
-bool LowCardPlayer::askSwapCards() const
+bool HighCardPlayer::askSwapCards() const
 {
     return false;
 }
 
-vector<int> LowCardPlayer::askMoveChoice(const PlayerHelper helper) const
+bool HighCardPlayer::reverseCompare(Card c1, Card c2)
+{
+    if (c1.special() && c2.special())
+        return false;
+    else if (c1.special() && !c2.special())
+        return true;
+    else if (!c1.special() && c2.special())
+        return false;
+    else
+        return c1.rank() > c2.rank();
+}
+
+vector<int> HighCardPlayer::askMoveChoice(const PlayerHelper helper) const
 {
     int first = 0;
     vector<int> choices;
     if (hasCardsInHand()) {
         // play from hand
         
-        // copy and sort my hand
+        // copy and reverse sort my hand
         vector<Card> sorted = hand_;
-        sort(sorted.begin(), sorted.end(), Card::shCompare);
+        sort(sorted.begin(), sorted.end(), HighCardPlayer::reverseCompare);
         
         // find the first card I can lay and save its index
         int i;
@@ -54,9 +66,9 @@ vector<int> LowCardPlayer::askMoveChoice(const PlayerHelper helper) const
     } else {
         // play from faceUp
         
-        // copy and sort my faceUp
+        // copy and reverse sort my faceUp
         vector<Card> sorted = faceUp_;
-        sort(sorted.begin(), sorted.end(), Card::shCompare);
+        sort(sorted.begin(), sorted.end(), HighCardPlayer::reverseCompare);
         
         // find the first card I can lay and save its index
         int i;
@@ -78,7 +90,7 @@ vector<int> LowCardPlayer::askMoveChoice(const PlayerHelper helper) const
     return choices;
 }
 
-int LowCardPlayer::askFaceDownMoveChoice() const
+int HighCardPlayer::askFaceDownMoveChoice() const
 {
     return 0;
 }

@@ -5,6 +5,7 @@
 #include "human_player.hpp"
 #include "simple_player.hpp"
 #include "lowcard_player.hpp"
+#include "highcard_player.hpp"
 #include "shithead_exception.hpp"
 
 using namespace std;
@@ -128,6 +129,8 @@ Player * Player::createPlayer(string name, char type)
         return new SimplePlayer(name);
     else if (type == 'l')
         return new LowCardPlayer(name);
+    else if (type == 'a')
+        return new HighCardPlayer(name);
     else
         throw ShitheadException("Unknown player type");
 }
