@@ -170,7 +170,7 @@ void notHasCardsWhenNone()
 
 void createComputerPlayer()
 {
-    Player * player = Player::createPlayer("Computer", 'c');
+    Player * player = Player::createPlayer("Computer", 's');
     assert_true(player->isComputer());
     string name = "Computer";
     assert_equals(player->name(), name);
