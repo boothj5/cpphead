@@ -28,34 +28,42 @@ void showWelcomeMessage()
 
 int requestNumPlayers() 
 {
-    int result ;
+    string inp ;
+    int num;
     cout << "Please enter number of players: " ;
-    cin >> result ;
-    return result ;
+    getline(cin, inp) ;
+    stringstream(inp) >> num;
+
+    return num ;
 }
 
 int requestNumCards() 
 {
-    int result ;
+    string inp ;
+    int num;
     cout << "Please enter number of cards each: " ;
-    cin >> result ;
-    return result ;
+    getline(cin, inp) ;
+    stringstream(inp) >> num;
+
+    return num ;
 }
 
 string requestPlayerName(int num)
 {
     string name;
     cout << "Enter name for player " << num << ": ";
-    cin >> name;
+    getline(cin, name);
 
     return name;
 }
 
 char requestPlayerType(int num)
 {
+    string inp;
     char type;
     cout << "Enter player type for player " << num << " (h/c): ";
-    cin >> type;
+    getline(cin, inp);
+    type = inp[0];
 
     return type;
 }
@@ -100,7 +108,7 @@ bool requestSwapCards(string name)
 {
     string response ;
     cout << name << " do you want to swap cards (y/n) : " ;
-    cin >> response ;
+    getline(cin, response) ;
     return (response == "Y" || response == "y") ;
 }
 
@@ -108,24 +116,28 @@ bool requestSwapMore(string name)
 {
     string response ;
     cout << name << " do you want to swap more cards (y/n) : " ;
-    cin >> response ;
+    getline(cin, response) ;
     return (response == "Y" || response == "y") ;
 }
 
 int requestHandChoice() 
 {
-    int response ;
+    string inp;
+    int choice ;
     cout << "Enter a hand card: " ;
-    cin >> response ;
-    return response - 1 ;
+    getline(cin, inp) ;
+    stringstream(inp) >> choice;
+    return choice - 1 ;
 }
 
 int requestFaceUpChoice()
 {
-    int response ;
+    string inp;
+    int choice ;
     cout << "Enter a face up card: " ;
-    cin >> response ;
-    return response - 1 ;
+    getline(cin, inp) ;
+    stringstream(inp) >> choice;
+    return choice - 1 ;
 }
 
 void showGame(const Game& game)
@@ -138,7 +150,7 @@ void showGame(const Game& game)
     
     showPlayers(game.players()) ;
     cout << endl ;
-    cout << game.lastMove() << " press ENTER." ;
+    cout << game.lastMove() ;
     wait_user();
 }
 
@@ -179,11 +191,11 @@ vector<int> requestMove(string name)
     vector<int> choices ;
     string response ;
     cout << name << " choose cards to lay: " ;
-    cin >> response ;
+    getline(cin, response) ;
     choices = parseChoices(response) ;
     while (choices.size() == 0) {
         cout << "Enter numbers seperated by commas: " ;
-        cin >> response ;
+        getline(cin, response) ;
         choices = parseChoices(response) ;
     }
     return choices ;
@@ -191,19 +203,14 @@ vector<int> requestMove(string name)
 
 void showPickUpMessage(string name)
 {
-    cout << name << " you must pick up! Press enter:" ;
+    cout << name << " you must pick up!" ;
     wait_user() ;
 }
 
 void wait_user()
 {
-    int ch;
-    do
-        ch = fgetc(stdin) ;
-    while (ch != EOF && ch != '\n');
-    clearerr(stdin);
-    fflush(stdout);
-    getchar() ;
+    cout << endl << endl << "Press ENTER to continue";
+    cin.ignore( std::numeric_limits<streamsize>::max(), '\n' );
 }
 
 void showBadMove()
@@ -213,21 +220,23 @@ void showBadMove()
 
 int requestFaceDownCard(string name) 
 {
-    int result ;
+    string inp;
+    int choice ;
     cout << name << " please choose a face down card: " ;
-    cin >> result ;
-    return result - 1  ;
+    getline(cin, inp) ;
+    stringstream(inp) >> choice;
+    return choice - 1 ;
 }
 
 void showFaceDownWin(const Card& card)
 {
-    cout << "WHEW you chose the " << card << ", press enter." ;
+    cout << "WHEW you chose the " << card ;
     wait_user() ;
 }
 
 void showFaceDownFail(const Card& card)
 {
-    cout << "OH DEAR! You chose the " << card << ", press enter." ;
+    cout << "OH DEAR! You chose the " << card ;
     wait_user() ;
 }
 
