@@ -6,7 +6,7 @@ OBJS = card.o player.o human_player.o computer_player.o console.o \
        player_helper.o highcard_player.o cpphead.o
 TESTOBJS = test_card.o card.o \
 		   test_player.o player.o \
-           lowcard_player.o computer_player.o \
+           highcard_player.o lowcard_player.o computer_player.o \
 		   test_simple_player.o simple_player.o \
 		   test_human_player.o human_player.o \
            player_helper.o game.o
