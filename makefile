@@ -2,7 +2,8 @@ CC = g++
 CXXFLAGS = -I ~/include -Wno-write-strings
 TESTLIB = -L ~/lib -l headunit
 OBJS = card.o player.o human_player.o computer_player.o console.o \
-	   simple_player.o game.o player_interaction.o player_helper.o cpphead.o
+	   simple_player.o lowcard_player.o game.o player_interaction.o \
+       player_helper.o cpphead.o
 TESTOBJS = test_card.o card.o \
 		   test_player.o player.o \
 		   test_simple_player.o simple_player.o \
@@ -16,7 +17,10 @@ card.o: card.hpp
 player.o: player.hpp human_player.hpp simple_player.hpp card.hpp shithead_exception.hpp
 human_player.o: human_player.hpp player.hpp player_helper.hpp shithead_exception.hpp
 computer_player.o: computer_player.hpp player.hpp
-simple_player.o: simple_player.hpp computer_player.hpp player_helper.hpp game.hpp
+simple_player.o: simple_player.hpp computer_player.hpp player_helper.hpp card.hpp \
+                 game.hpp
+lowcard_player.o: lowcard_player.hpp computer_player.hpp player_helper.hpp card.hpp \
+                 game.hpp
 player_interaction.o: player_interaction.hpp player.hpp game.hpp \
                       console.hpp player_helper.hpp shithead_exception.hpp
 player_helper.o: player_helper.hpp card.hpp

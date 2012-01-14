@@ -53,8 +53,8 @@ int main()
         console::showShithead(game.getCppHead());
             
         return 0 ;
-    } catch (ShitheadException e) {
-        cout << e.getMessage() << endl;
+    } catch (ShitheadException *e) {
+        cout << e->getMessage() << endl;
         return 1;
     }
 }

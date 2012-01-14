@@ -1,19 +1,17 @@
-#ifndef H_SIMPLE_PLAYER
-#define H_SIMPLE_PLAYER
+#ifndef H_LOWCARD_PLAYER
+#define H_LOWCARD_PLAYER
 
 #include <string>
 #include "computer_player.hpp"
 #include "player_helper.hpp"
 
-class SimplePlayer: public ComputerPlayer {
+class LowCardPlayer: public ComputerPlayer {
     public:
-    SimplePlayer(std::string name);
+    LowCardPlayer(std::string name);
     std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
     std::vector<int> askMoveChoice(const PlayerHelper helper) const;
     int askFaceDownMoveChoice() const;
-
-    static std::ptrdiff_t randomGen(std::ptrdiff_t);
 };
 
 #endif

@@ -61,7 +61,7 @@ char requestPlayerType(int num)
 {
     string inp;
     char type;
-    cout << "Enter player type for player " << num << " (h/s): ";
+    cout << "Enter player type for player " << num << " (h/s/l): ";
     getline(cin, inp);
     type = inp[0];
 

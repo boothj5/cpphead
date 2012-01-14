@@ -1,5 +1,9 @@
+#include <iostream>
 #include <algorithm>
+#include <iterator>
+#include <vector>
 #include <string>
+#include "card.hpp"
 #include "computer_player.hpp"
 #include "simple_player.hpp"
 #include "player_helper.hpp"
@@ -29,18 +33,24 @@ vector<int> SimplePlayer::askMoveChoice(const PlayerHelper helper) const
     if (hasCardsInHand()) {
         // play from hand
         
-        // find the first card I can lay and save the rank
+        // unsort it
+        vector<Card> unsorted;
+        copy(hand_.begin(), hand_.end(), back_inserter(unsorted));
+        ptrdiff_t (*p_randomGen)(ptrdiff_t) = randomGen ;
+        random_shuffle(unsorted.begin(), unsorted.end(), p_randomGen) ;
+
+        // find the first card I can lay and save its index
         int i;
-        for (i = 0; i < hand_.size(); i++) {
-            if (Game::canLay(hand_[i], helper.getPile())) {
+        for (i = 0; i < unsorted.size(); i++) {
+            if (Game::canLay(unsorted[i], helper.getPile())) {
                 first = i;
                 break;
             }
         }
-        
-        // add all cards of this rank to my choice
+
+        // add all cards of this rank from my hand to my choice
         for (i = 0; i < hand_.size(); i++) {
-            if (hand_[i].equalsRank(hand_[first])) {
+            if (hand_[i].equalsRank(unsorted[first])) {
                 choices.push_back(i);
             }
         }
@@ -71,3 +81,11 @@ int SimplePlayer::askFaceDownMoveChoice() const
 {
     return 0;
 }
+
+ptrdiff_t SimplePlayer::randomGen(ptrdiff_t i)
+{
+    int seed = static_cast<int>(time(0));
+    srand(seed) ;
+    return rand() % i ;
+}
+
