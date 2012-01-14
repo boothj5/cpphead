@@ -2,19 +2,19 @@
 #include <vector>
 #include <algorithm>
 
-#include "computer_player.hpp"
+#include "simple_player.hpp"
 
 using namespace std ;
 
 void testIsComputer(void)
 {
-    ComputerPlayer player("Comp");
+    SimplePlayer player("Comp");
     assert_true(player.isComputer());
 }
 
-void register_computer_player_tests()
+void register_simple_player_tests()
 {
-    TEST_MODULE("test_computer_player");
+    TEST_MODULE("test_simple_player");
     TEST(testIsComputer);
 }
 

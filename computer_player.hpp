@@ -9,10 +9,10 @@ class ComputerPlayer: public Player {
     public:
     ComputerPlayer(std::string name);
     bool isComputer() const;
-    std::pair<int, int> askSwapChoice() const;
-    bool askSwapCards() const;
-    std::vector<int> askMoveChoice(const PlayerHelper helper) const;
-    int askFaceDownMoveChoice() const;
+    virtual std::pair<int, int> askSwapChoice() const =0;
+    virtual bool askSwapCards() const =0;
+    virtual std::vector<int> askMoveChoice(const PlayerHelper helper) const =0;
+    virtual int askFaceDownMoveChoice() const =0;
 };
 
 #endif
