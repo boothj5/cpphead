@@ -9,6 +9,8 @@
 #include "player_interaction.hpp"
 #include "shithead_exception.hpp"
 
+#define THRESHOLD 5000
+
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -51,7 +53,7 @@ int main(int argc, char *argv[])
 
             int moves = 0;        
     
-            while (game->canContinue() && moves < 10000) {
+            while (game->canContinue() && moves < THRESHOLD) {
                 const Player *currentPlayer = game->currentPlayer();
                 if (game->playingFromFaceDown())
                     player_facedown_move(currentPlayer, *game);
@@ -61,7 +63,7 @@ int main(int argc, char *argv[])
                 moves++;
             }
 
-            if (moves == 1000) {
+            if (moves == THRESHOLD) {
                 stalemates++;
             }
             else {
