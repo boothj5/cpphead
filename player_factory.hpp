@@ -16,3 +16,16 @@ class PlayerFactory {
     static playerDescMap_t getPlayerDescriptions();
     static std::vector<char> getPlayerTypes();
 };
+
+template <class T>
+Player * createPlayer(std::string name)
+{
+    return new T(name);
+}
+
+template <class T>
+void registerPlayer(char type, playerFuncMap_t& funcMap, playerDescMap_t& descMap)
+{
+    funcMap.insert(std::make_pair(type, &createPlayer<T>));
+    descMap.insert(std::make_pair(type, T::description));
+}
