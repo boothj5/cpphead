@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>  
 #include <vector>
 #include <string>
 #include <map>
@@ -10,12 +11,15 @@
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
     typedef map<string, int> shMap_t;
     shMap_t shMap;
     
-    int numGames = 100;
+    int numGames;
+    
+    stringstream(argv[1]) >> numGames;
+
     int game;
     int stalemates = 0;
 

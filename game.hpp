@@ -19,6 +19,7 @@ class Game {
 
     public:
     Game(const std::vector<std::string>&, const std::vector<char>&, int);
+    ~Game();
     
     PlayerHelper getPlayerHelper() const;
     void deal();

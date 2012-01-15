@@ -34,6 +34,13 @@ Game::Game(const vector<string>& names, const vector<char>& types, int numCards)
     util::shuffle(deck_);
 }
 
+Game::~Game()
+{
+    vector<Player *>::iterator iter;
+    for (iter = players_.begin(); iter!=players_.end(); iter++)
+        delete (*iter);
+}
+
 PlayerHelper Game::getPlayerHelper() const
 {
     PlayerHelper helper(pile_);
@@ -101,7 +108,7 @@ bool Game::canContinue() const
     for (player = players_.begin() ; player != players_.end() ; player++)
         if ((*player)->hasCards())
             playersWithCards++ ;
-
+    
     return playersWithCards > 1 ;
 }
 
@@ -143,6 +150,10 @@ void Game::burnPile()
     pile_.clear() ;
     lastMove_ = (*currentPlayer_)->name() ;
     lastMove_ += " burnt the pile." ;
+
+    if (!(*currentPlayer_)->hasCards()) {
+        moveToNextPlayer();
+    }
 }
 
 void Game::missAGo()
@@ -338,11 +349,14 @@ void Game::setLastMovePickUp()
 
 void Game::moveToNextPlayer()
 {
-    currentPlayer_++ ;
+    currentPlayer_++;
     if (currentPlayer_ == players_.end())
-        currentPlayer_ = players_.begin() ;
-    while (!(*currentPlayer_)->hasCards()) 
-        moveToNextPlayer() ;
+        currentPlayer_ = players_.begin();
+    while (!(*currentPlayer_)->hasCards()) {
+        currentPlayer_++ ;
+        if (currentPlayer_ == players_.end())
+            currentPlayer_ = players_.begin();
+    }
 }
 
 bool Game::canMoveWithOneOf(const vector<Card>& cards) const
