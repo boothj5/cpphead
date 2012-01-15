@@ -67,7 +67,7 @@ char requestPlayerType(int num)
     
     cout << endl << "h --> Human player." << endl;
 
-    playerDescMap_t playerDescMap = PlayerFactory::getPlayerTypes();
+    playerDescMap_t playerDescMap = PlayerFactory::getPlayerDescriptions();
 
     playerDescMap_t::const_iterator iter;
     for (iter = playerDescMap.begin(); iter!=playerDescMap.end(); iter++) {

@@ -8,4 +8,6 @@ bin/
 *.o
 *.swp
 cpphead
+battle
 testsuite
+

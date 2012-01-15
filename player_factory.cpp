@@ -65,7 +65,20 @@ Player * PlayerFactory::createPlayer(string name, char type)
     }
 }
 
-playerDescMap_t PlayerFactory::getPlayerTypes()
+playerDescMap_t PlayerFactory::getPlayerDescriptions()
 {
     return playerDescMap();
+}
+
+vector<char> PlayerFactory::getPlayerTypes()
+{
+    const playerDescMap_t playerDescMap = PlayerFactory::playerDescMap();
+    vector<char> playerTypes;
+    
+    playerDescMap_t::const_iterator iter;
+    for (iter = playerDescMap.begin(); iter!=playerDescMap.end(); iter++) {
+        playerTypes.push_back(iter->first);
+    }
+
+    return playerTypes;
 }

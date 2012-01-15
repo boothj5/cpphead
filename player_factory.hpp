@@ -13,5 +13,6 @@ class PlayerFactory {
  
     public:
     static Player * createPlayer(std::string, char);
-    static playerDescMap_t getPlayerTypes();
+    static playerDescMap_t getPlayerDescriptions();
+    static std::vector<char> getPlayerTypes();
 };

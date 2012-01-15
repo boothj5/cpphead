@@ -27,7 +27,7 @@ bool Card::operator!=(const Card& other) const
 
 ostream& operator<<(ostream& strm, const Card& card)
 {
-  return strm << card.toString();
+    return strm << card.toString();
 }
 
 cardrank Card::rank() const
