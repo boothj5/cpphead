@@ -52,5 +52,15 @@ class HighCardPlayer: public ComputerPlayer {
     static bool reverseCompare(Card, Card);
 };
 
+class Pyromaniac: public ComputerPlayer {
+    public:
+    static std::string description;   
+
+    Pyromaniac(std::string name);
+    std::pair<int, int> askSwapChoice() const;
+    bool askSwapCards() const;
+    std::vector<int> askMoveChoice(const PlayerHelper helper) const;
+    int askFaceDownMoveChoice() const;
+};
 
 #endif

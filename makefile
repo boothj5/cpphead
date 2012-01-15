@@ -3,10 +3,10 @@ CXXFLAGS = -I ~/include -Wno-write-strings
 TESTLIB = -L ~/lib -l headunit
 OBJS = card.o player.o human_player.o computer_player.o console.o \
 	   simple_player.o lowcard_player.o game.o player_interaction.o \
-       player_helper.o highcard_player.o player_factory.o
+       player_helper.o highcard_player.o pyromaniac.o player_factory.o
 TESTOBJS = test_card.o card.o \
 		   test_player.o player.o \
-           highcard_player.o lowcard_player.o computer_player.o \
+           highcard_player.o lowcard_player.o pyromaniac.o computer_player.o \
 		   test_simple_player.o simple_player.o player_factory.o \
 		   test_human_player.o human_player.o \
            player_helper.o game.o
@@ -21,14 +21,16 @@ card.o: card.hpp
 player.o: player.hpp human_player.hpp card.hpp shithead_exception.hpp
 player_factory.o: player_factory.hpp player.hpp human_player.hpp \
 				  computer_players.hpp
+computer_player.o: player.hpp computer_players.hpp
 human_player.o: human_player.hpp player.hpp player_helper.hpp shithead_exception.hpp
-computer_player.o: computer_players.hpp player.hpp
 simple_player.o: computer_players.hpp player_helper.hpp card.hpp \
                  game.hpp util.hpp
 lowcard_player.o: computer_players.hpp player_helper.hpp \
 				  card.hpp game.hpp
 highcard_player.o: card.hpp computer_players.hpp \
 				   player_helper.hpp game.hpp
+pyromaniac.o: card.hpp computer_players.hpp \
+              player_helper.hpp game.hpp
 player_interaction.o: player_interaction.hpp player.hpp game.hpp \
                       console.hpp player_helper.hpp shithead_exception.hpp
 player_helper.o: player_helper.hpp card.hpp

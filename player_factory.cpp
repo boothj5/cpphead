@@ -19,6 +19,7 @@ using namespace std;
 PLAYER(SimplePlayer)
 PLAYER(LowCardPlayer)
 PLAYER(HighCardPlayer)
+PLAYER(Pyromaniac)
 
 const pair<playerFuncMap_t, playerDescMap_t> PlayerFactory::initPlayers()
 {
@@ -29,6 +30,7 @@ const pair<playerFuncMap_t, playerDescMap_t> PlayerFactory::initPlayers()
         REGISTER_PLAYER('s', SimplePlayer);
         REGISTER_PLAYER('l', LowCardPlayer);
         REGISTER_PLAYER('a', HighCardPlayer);
+        REGISTER_PLAYER('p', Pyromaniac);
     }
 
     return make_pair(playerFuncMap, playerDescMap);

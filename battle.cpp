@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
     shMap["SimplePlayer"] = 0;
     shMap["LowCardPlayer"] = 0;
     shMap["HighCardPlayer"] = 0;
+    shMap["Pyromaniac"] = 0;
             
     try {
         for (game = 0; game < numGames; game++) {
@@ -35,11 +36,13 @@ int main(int argc, char *argv[])
             names.push_back("SimplePlayer");
             names.push_back("LowCardPlayer");
             names.push_back("HighCardPlayer");
+            names.push_back("Pyromaniac");
 
             vector<char> types;
             types.push_back('s');
             types.push_back('l');
             types.push_back('a');
+            types.push_back('p');
 
             Game *game = new Game(names, types, 3);
             game->deal();
