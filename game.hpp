@@ -9,8 +9,8 @@
 
 class Game {
     std::vector<Player *> players_;
-    std::vector<Card> deck_;
-    std::vector<Card> pile_;
+    std::vector<Card *> deck_;
+    std::vector<Card *> pile_;
     int burnt_;
     int numCards_;
     int numPlayers_;
@@ -27,8 +27,8 @@ class Game {
     void firstMove();
     const std::vector<Player *> players() const;
     const Player * currentPlayer() const;
-    std::vector<Card> deck() const;
-    std::vector<Card> pile() const;
+    std::vector<Card *> deck() const;
+    std::vector<Card *> pile() const;
     int burnt() const;
     std::string lastMove() const;
     bool canContinue() const;
@@ -42,7 +42,7 @@ class Game {
     bool validMoveFromFaceDown(int) const;
     std::string getCppHead() const;
 
-    static bool canLay(Card, const std::vector<Card>&);
+    static bool canLay(Card*, const std::vector<Card *>&);
     
     private:
     void playFromHand(const std::vector<int>&);
@@ -55,8 +55,8 @@ class Game {
     void setLastMoveMissAGo();
     void moveToNextPlayer();
     void processSpecialCards();
-    bool canMoveWithOneOf(const std::vector<Card>&) const;
-    bool validMove(const std::vector<Card>&) const;
+    bool canMoveWithOneOf(const std::vector<Card *>&) const;
+    bool validMove(const std::vector<Card *>&) const;
     bool burnCardLaid() const;
     bool missAGoLaid() const;
     void burnPile();

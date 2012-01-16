@@ -13,10 +13,7 @@ using namespace std;
 
 string SimplePlayer::description = "SimplePlayer: Plays random cards.";
 
-SimplePlayer::SimplePlayer(string name) : ComputerPlayer(name) 
-{
-    // do nothing
-}
+SimplePlayer::SimplePlayer(string name) : ComputerPlayer(name) {}
 
 pair<int, int> SimplePlayer::askSwapChoice() const
 {
@@ -36,7 +33,7 @@ vector<int> SimplePlayer::askMoveChoice(const PlayerHelper helper) const
         // play from hand
         
         // unsort it
-        vector<Card> unsorted = hand_;
+        vector<Card *> unsorted = hand_;
         util::shuffle(unsorted);
 
         // find the first card I can lay and save its index
@@ -50,7 +47,7 @@ vector<int> SimplePlayer::askMoveChoice(const PlayerHelper helper) const
 
         // add all cards of this rank from my hand to my choice
         for (i = 0; i < hand_.size(); i++) {
-            if (hand_[i].equalsRank(unsorted[first])) {
+            if (hand_[i]->equalsRank(*unsorted[first])) {
                 choices.push_back(i);
             }
         }
@@ -68,7 +65,7 @@ vector<int> SimplePlayer::askMoveChoice(const PlayerHelper helper) const
         
         // add all cards of this rank to my choice
         for (i = 0; i < faceUp_.size(); i++) {
-            if (faceUp_[i].equalsRank(faceUp_[first])) {
+            if (faceUp_[i]->equalsRank(*faceUp_[first])) {
                 choices.push_back(i);
             }
         }

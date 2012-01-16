@@ -7,7 +7,7 @@ void testThreeLowerThanTwo(void)
     Card three(THREE, DIAMONDS) ;
     Card two(TWO, HEARTS) ;
 
-    assert_true(Card::shCompare(three, two)) ;
+    assert_true(Card::shCompare(&three, &two)) ;
 }
 
 
@@ -16,7 +16,7 @@ void testFiveLowerThanTwo(void)
     Card five(FIVE, DIAMONDS) ;
     Card two(TWO, HEARTS) ;
 
-    assert_true(Card::shCompare(five, two)) ;
+    assert_true(Card::shCompare(&five, &two)) ;
 }
 
 void testJackLowerThanSeven(void)
@@ -24,7 +24,7 @@ void testJackLowerThanSeven(void)
     Card jack(JACK, DIAMONDS) ;
     Card seven(SEVEN, HEARTS) ;
 
-    assert_true(Card::shCompare(jack, seven)) ;
+    assert_true(Card::shCompare(&jack, &seven)) ;
 }
 
 void testTwoSpecial(void)
@@ -63,32 +63,32 @@ void testRanksNotEqual(void)
 
 void testAllRanksEqual(void)
 {
-    vector<Card> cards ;
+    vector<Card *> cards ;
     Card tenspades(TEN, SPADES) ;
     Card tendiamonds(TEN, DIAMONDS) ;
     Card tenclubs(TEN, CLUBS) ;
     Card tenhearts(TEN, HEARTS) ;
 
-    cards.push_back(tenspades) ;
-    cards.push_back(tendiamonds) ;
-    cards.push_back(tenclubs) ;
-    cards.push_back(tenhearts) ;
+    cards.push_back(&tenspades) ;
+    cards.push_back(&tendiamonds) ;
+    cards.push_back(&tenclubs) ;
+    cards.push_back(&tenhearts) ;
 
     assert_true(Card::allRanksEqual(cards)) ;
 }
 
 void testNotAllRanksEqual(void)
 {
-    vector<Card> cards ;
+    vector<Card *> cards ;
     Card tenspades(TEN, SPADES) ;
     Card tendiamonds(TEN, DIAMONDS) ;
     Card nineclubs(NINE, CLUBS) ;
     Card tenhearts(TEN, HEARTS) ;
 
-    cards.push_back(tenspades) ;
-    cards.push_back(tendiamonds) ;
-    cards.push_back(nineclubs) ;
-    cards.push_back(tenhearts) ;
+    cards.push_back(&tenspades) ;
+    cards.push_back(&tendiamonds) ;
+    cards.push_back(&nineclubs) ;
+    cards.push_back(&tenhearts) ;
 
     assert_false(Card::allRanksEqual(cards)) ;
 }

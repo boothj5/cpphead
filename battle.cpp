@@ -11,6 +11,7 @@
 #include "game.hpp"
 #include "player_interaction.hpp"
 #include "shithead_exception.hpp"
+#include "util.hpp"
 
 #define THRESHOLD 5000
 
@@ -47,17 +48,22 @@ int main(int argc, char *argv[])
 
     try {
         for (game = 0; game < numGames; game++) {
-            vector<string> names;
-            names.push_back("SimplePlayer");
-            names.push_back("LowCardPlayer");
-            names.push_back("HighCardPlayer");
-            names.push_back("Pyromaniac");
+            vector<pair<char, string> > pVec;
+            pVec.push_back(make_pair('s', "SimplePlayer"));
+            pVec.push_back(make_pair('l', "LowCardPlayer"));
+            pVec.push_back(make_pair('a', "HighCardPlayer"));
+            pVec.push_back(make_pair('p', "Pyromaniac"));
 
+            util::shuffle<pair<char, string> >(pVec);
+
+            vector<string> names;
             vector<char> types;
-            types.push_back('s');
-            types.push_back('l');
-            types.push_back('a');
-            types.push_back('p');
+
+            vector<pair<char, string> >::const_iterator iter;
+            for (iter = pVec.begin(); iter!=pVec.end(); iter++) {
+                types.push_back(iter->first);
+                names.push_back(iter->second);
+            }
 
             Game *game = new Game(names, types, 3);
             game->deal();

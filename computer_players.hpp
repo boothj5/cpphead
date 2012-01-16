@@ -49,7 +49,7 @@ class HighCardPlayer: public ComputerPlayer {
     int askFaceDownMoveChoice() const;
 
     private:
-    static bool reverseCompare(Card, Card);
+    static bool reverseCompare(Card *, Card *);
 };
 
 class Pyromaniac: public ComputerPlayer {

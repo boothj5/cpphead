@@ -4,11 +4,10 @@
 
 using namespace std ;
 
-Card::Card(cardrank rank, cardsuit suit)
-{
-    rank_ = rank ;
-    suit_ = suit ;
-}
+Card::Card(cardrank rank, cardsuit suit) 
+    : rank_(rank), 
+      suit_(suit) 
+{}
 
 string Card::toString() const 
 { 
@@ -110,25 +109,25 @@ string Card::suitStr() const
     }
 }
 
-bool Card::shCompare(Card c1, Card c2)
+bool Card::shCompare(Card *c1, Card *c2)
 {   
-    if (c1.special() && c2.special())
+    if (c1->special() && c2->special())
         return false ;
-    else if (c1.special() && !c2.special())
+    else if (c1->special() && !c2->special())
         return false ;
-    else if (c2.special())
+    else if (c2->special())
         return true ;
     else
-        return c1.rank_ < c2.rank_ ;
+        return c1->rank_ < c2->rank_ ;
 }
 
-bool Card::allRanksEqual(const vector<Card>& cards)
+bool Card::allRanksEqual(const vector<Card *>& cards)
 {
-    Card first = cards[0] ;
+    Card *first = cards[0] ;
 
     int i ;
     for (i = 0 ; i < cards.size() ; i++)
-        if (!cards[i].equalsRank(first))
+        if (!cards[i]->equalsRank(*first))
             return false ;
     return true ;
 }

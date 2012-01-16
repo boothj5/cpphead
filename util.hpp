@@ -6,12 +6,7 @@
 
 namespace util {
 
-static std::ptrdiff_t randomGen(std::ptrdiff_t i)
-{
-    int seed = static_cast<int>(time(0));
-    std::srand(seed) ;
-    return std::rand() % i ;
-}
+std::ptrdiff_t randomGen(std::ptrdiff_t i);
 
 template <class T>
 void shuffle(std::vector<T>& vec)

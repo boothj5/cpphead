@@ -7,10 +7,7 @@
 
 using namespace std;
 
-HumanPlayer::HumanPlayer(string name) : Player(name) 
-{
-    // do nothing
-}
+HumanPlayer::HumanPlayer(string name) : Player(name) {}
 
 bool HumanPlayer::isComputer() const
 {

@@ -6,24 +6,7 @@
 #include "computer_players.hpp"
 #include "shithead_exception.hpp"
 
-/*
-#define PLAYER(CLASSNAME) \
-    static Player * create ## CLASSNAME(string name) \
-    { return new CLASSNAME(name); }
-
-#define REGISTER_PLAYER(CHAR, CLASSNAME) \
-    playerFuncMap.insert(make_pair(CHAR, &create ## CLASSNAME)); \
-    playerDescMap.insert(make_pair(CHAR, CLASSNAME::description))
-*/
-
 using namespace std;
-
-/*
-PLAYER(SimplePlayer)
-PLAYER(LowCardPlayer)
-PLAYER(HighCardPlayer)
-PLAYER(Pyromaniac)
-*/
 
 const pair<playerFuncMap_t, playerDescMap_t> PlayerFactory::initPlayers()
 {
@@ -35,16 +18,9 @@ const pair<playerFuncMap_t, playerDescMap_t> PlayerFactory::initPlayers()
         registerPlayer<LowCardPlayer>('l', playerFuncMap, playerDescMap);
         registerPlayer<HighCardPlayer>('a', playerFuncMap, playerDescMap);
         registerPlayer<Pyromaniac>('p', playerFuncMap, playerDescMap);
-        /*
-        REGISTER_PLAYER('s', SimplePlayer);
-        REGISTER_PLAYER('l', LowCardPlayer);
-        REGISTER_PLAYER('a', HighCardPlayer);
-        REGISTER_PLAYER('p', Pyromaniac);
-        */
     }
 
     return make_pair(playerFuncMap, playerDescMap);
-    
 }
 
 const playerFuncMap_t PlayerFactory::playerFuncMap()

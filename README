@@ -1,8 +1,12 @@
 C++ implementation of the shithead card game
 
 To build:
-    
+
     make
+
+To build battle mode:
+
+    make battle
 
 To install (currently to ~/bin):
 
@@ -15,3 +19,8 @@ To run tests:
 To clean:
 
     make clean
+
+To run:
+
+    cpphead
+    battle <num games>

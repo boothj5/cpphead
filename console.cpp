@@ -99,17 +99,17 @@ void showPlayer(const Player& player)
     showHand("FACEDOWN : ", player.faceDown(), true) ;
 }
 
-void showHand(string name, const vector<Card>& cards, bool hide)
+void showHand(string name, const vector<Card *>& cards, bool hide)
 {
     cout << name ;
     
-    vector<Card>::const_iterator card ;
+    vector<Card *>::const_iterator card ;
     int i = 1 ;
     for (card = cards.begin() ; card != cards.end() ; card++) {
         if (hide)
             cout << "(" << i << ")" << "****" ; 
         else
-            cout << "(" << i << ")" << *card ; 
+            cout << "(" << i << ")" << **card ; 
         if (i != cards.size())
             cout << ", " ;
         i++ ;
@@ -168,12 +168,12 @@ void showGame(const Game& game)
     wait_user();
 }
 
-void showPile(const vector<Card>& pile)
+void showPile(const vector<Card *>& pile)
 {
     cout << pile.size() << " on pile:" << endl ;
     int i ;
     for (i = pile.size() ; i > 0 ; i--)
-        cout << "    " << pile[i-1] << endl ;
+        cout << "    " << *(pile[i-1]) << endl ;
     cout << endl ;
 }
 
