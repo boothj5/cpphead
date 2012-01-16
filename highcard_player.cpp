@@ -23,16 +23,16 @@ bool HighCardPlayer::askSwapCards() const
     return false;
 }
 
-bool HighCardPlayer::reverseCompare(const Card *c1, const Card *c2)
+bool HighCardPlayer::reverseCompare(const Card& c1, const Card& c2)
 {
-    if (c1->special() && c2->special())
+    if (c1.special() && c2.special())
         return false;
-    else if (c1->special() && !c2->special())
+    else if (c1.special() && !c2.special())
         return true;
-    else if (!c1->special() && c2->special())
+    else if (!c1.special() && c2.special())
         return false;
     else
-        return c1->rank() > c2->rank();
+        return c1.rank() > c2.rank();
 }
 
 const vector<int> HighCardPlayer::askMoveChoice(const PlayerHelper& helper) const
@@ -43,7 +43,7 @@ const vector<int> HighCardPlayer::askMoveChoice(const PlayerHelper& helper) cons
         // play from hand
         
         // copy and reverse sort my hand
-        vector<Card *> sorted = hand_;
+        vector<Card> sorted = hand_;
         sort(sorted.begin(), sorted.end(), HighCardPlayer::reverseCompare);
         
         // find the first card I can lay and save its index
@@ -57,7 +57,7 @@ const vector<int> HighCardPlayer::askMoveChoice(const PlayerHelper& helper) cons
         
         // add all cards of same rank from my hand to my choice
         for (i = 0; i < hand_.size(); i++) {
-            if (hand_[i]->equalsRank(*sorted[first])) {
+            if (hand_[i].equalsRank(sorted[first])) {
                 choices.push_back(i);
             }
         }
@@ -65,7 +65,7 @@ const vector<int> HighCardPlayer::askMoveChoice(const PlayerHelper& helper) cons
         // play from faceUp
         
         // copy and reverse sort my faceUp
-        vector<Card *> sorted = faceUp_;
+        vector<Card> sorted = faceUp_;
         sort(sorted.begin(), sorted.end(), HighCardPlayer::reverseCompare);
         
         // find the first card I can lay and save its index
@@ -79,7 +79,7 @@ const vector<int> HighCardPlayer::askMoveChoice(const PlayerHelper& helper) cons
         
         // add all cards of this rank to my choice
         for (i = 0; i < faceUp_.size(); i++) {
-            if (faceUp_[i]->equalsRank(*sorted[first])) {
+            if (faceUp_[i].equalsRank(sorted[first])) {
                 choices.push_back(i);
             }
         }

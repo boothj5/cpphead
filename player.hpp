@@ -9,26 +9,26 @@
 class Player {
     protected:
     const std::string name_;
-    std::vector<Card *> hand_;
-    std::vector<Card *> faceUp_;
-    std::vector<Card *> faceDown_;
+    std::vector<Card> hand_;
+    std::vector<Card> faceUp_;
+    std::vector<Card> faceDown_;
     
     public:
     Player(const std::string name);
     ~Player();
     const std::string name() const;
-    const std::vector<Card *> hand() const;
-    const std::vector<Card *> faceUp() const;
-    const std::vector<Card *> faceDown() const;
-    void addToHand(Card *card);
-    void addAllToHand(const std::vector<Card *>&);
-    void addToFaceUp(Card *card);
-    void addToFaceDown(Card *card);
+    const std::vector<Card> hand() const;
+    const std::vector<Card> faceUp() const;
+    const std::vector<Card> faceDown() const;
+    void addToHand(const Card& card);
+    void addAllToHand(const std::vector<Card>&);
+    void addToFaceUp(const Card& card);
+    void addToFaceDown(const Card& card);
     void sortHand();
-    void swap(int, int);
+    void swap(const int, const int);
     void removeFromHand(const std::vector<int>&); 
     void removeFromFaceUp(const std::vector<int>&); 
-    void removeFromFaceDown(int); 
+    void removeFromFaceDown(const int); 
     bool hasCards() const;
     bool hasCardsInHand() const;
     bool hasCardsInFaceUp() const;

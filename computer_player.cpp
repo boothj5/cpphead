@@ -5,7 +5,7 @@
 
 using namespace std;
 
-ComputerPlayer::ComputerPlayer(string name) : Player(name) {}
+ComputerPlayer::ComputerPlayer(const string name) : Player(name) {}
 
 bool ComputerPlayer::isComputer() const
 {

@@ -50,7 +50,7 @@ class HighCardPlayer: public ComputerPlayer {
     int askFaceDownMoveChoice() const;
 
     private:
-    static bool reverseCompare(const Card *, const Card *);
+    static bool reverseCompare(const Card&, const Card&);
 };
 
 class Pyromaniac: public ComputerPlayer {

@@ -34,7 +34,7 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
 
         // if i have a burn cards save their indexes
         for (i = 0; i < hand_.size(); i++) {
-            if (hand_[i]->isBurnCard()) {
+            if (hand_[i].isBurnCard()) {
                 choices.push_back(i);
             }
         }
@@ -47,7 +47,7 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
         // otherwise
 
         // copy and sort my hand
-        vector<Card *> sorted = hand_;
+        vector<Card> sorted = hand_;
         sort(sorted.begin(), sorted.end(), Card::shCompare);
         
         // find the first card I can lay and save its index
@@ -60,7 +60,7 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
         
         // add all cards of same rank from my hand to my choice
         for (i = 0; i < hand_.size(); i++) {
-            if (hand_[i]->equalsRank(*sorted[first])) {
+            if (hand_[i].equalsRank(sorted[first])) {
                 choices.push_back(i);
             }
         }
@@ -69,7 +69,7 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
 
         // if i have a burn cards save their indexes
         for (i = 0; i < faceUp_.size(); i++) {
-            if (faceUp_[i]->isBurnCard()) {
+            if (faceUp_[i].isBurnCard()) {
                 choices.push_back(i);
             }
         }
@@ -79,7 +79,7 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
             return choices;
         } 
         // copy and sort my faceUp
-        vector<Card *> sorted = faceUp_;
+        vector<Card> sorted = faceUp_;
         sort(sorted.begin(), sorted.end(), Card::shCompare);
         
         // find the first card I can lay and save its index
@@ -92,7 +92,7 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
         
         // add all cards of this rank to my choice
         for (i = 0; i < faceUp_.size(); i++) {
-            if (faceUp_[i]->equalsRank(*sorted[first])) {
+            if (faceUp_[i].equalsRank(sorted[first])) {
                 choices.push_back(i);
             }
         }

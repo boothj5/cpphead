@@ -14,6 +14,7 @@ class Card {
     cardsuit suit_;
    
     public:
+    Card();
     Card(const cardrank, const cardsuit);
 
     const std::string toString() const;
@@ -26,8 +27,8 @@ class Card {
     bool isMissAGoCard() const;
     bool equalsRank(const Card& card) const;
 
-    static bool shCompare(const Card * const c1, const Card * const c2);   
-    static bool allRanksEqual(const std::vector<Card *>&);
+    static bool shCompare(const Card&, const Card&);   
+    static bool allRanksEqual(const std::vector<Card>&);
     
     private:
     const std::string rankStr() const;

@@ -7,186 +7,170 @@
 
 using namespace std ;
 
-struct card_pointers_equal
-{
-    const Card* to_find;
-
-    bool operator()(const Card* other) const
-    {
-        return *to_find == *other;
-    }
-};
-
 void testAddToHandAddsCard(void)
 {
-    HumanPlayer *james = new HumanPlayer("James") ;
+    HumanPlayer james("James") ;
     Card three(THREE, DIAMONDS) ;
-    james->addToHand(&three) ;
-    vector<Card *> cards = james->hand() ;
-    Card *found = cards[0] ;
+    james.addToHand(three) ;
+    vector<Card> cards = james.hand() ;
+    Card found = cards[0] ;
 
-    assert_equals(*found, three) ;
+    assert_equals(found, three) ;
 }
 
 void testAddAllToHandAddsCards(void)
 {
-    card_pointers_equal eq;
-
-    HumanPlayer *james = new HumanPlayer("James") ;
+    HumanPlayer james("James") ;
     Card three(THREE, DIAMONDS) ;
     Card seven(SEVEN, DIAMONDS) ;
     Card four(FOUR, SPADES) ;
     Card ace(ACE, CLUBS) ;
 
-    vector<Card *> cards ;
-    cards.push_back(&three) ;
-    cards.push_back(&seven) ;
-    cards.push_back(&four) ;
-    cards.push_back(&ace) ;
+    vector<Card> cards ;
+    cards.push_back(three) ;
+    cards.push_back(seven) ;
+    cards.push_back(four) ;
+    cards.push_back(ace) ;
 
-    james->addAllToHand(cards) ;
+    james.addAllToHand(cards) ;
     
-    vector<Card *>::iterator found ;
-    vector<Card *> hand = james->hand() ;
+    vector<Card>::const_iterator found ;
+    vector<Card> hand = james.hand();
 
-    eq = { &three };
-    found = find_if(hand.begin(), hand.end(), eq);
+    found = find(hand.begin(), hand.end(), three);
     assert_false(found == hand.end()) ;
     
-    eq = { &seven };
-    found = find_if(hand.begin(), hand.end(), eq);
+    found = find(hand.begin(), hand.end(), seven);
     assert_false(found == hand.end()) ;
     
-    eq = { &four };
-    found = find_if(hand.begin(), hand.end(), eq);
+    found = find(hand.begin(), hand.end(), four);
     assert_false(found == hand.end()) ;
     
-    eq = { &ace };
-    found = find_if(hand.begin(), hand.end(), eq);
+    found = find(hand.begin(), hand.end(), ace);
     assert_false(found == hand.end()) ;
 }
 
 void testAddToFaceUpAddsCard(void)
 {
-    HumanPlayer *james = new HumanPlayer("James") ;
+    HumanPlayer james("James") ;
     Card three(THREE, DIAMONDS) ;
-    james->addToFaceUp(&three) ;
-    vector<Card *> cards = james->faceUp() ;
-    Card *found = cards[0] ;
+    james.addToFaceUp(three) ;
+    vector<Card> cards = james.faceUp() ;
+    Card found = cards[0] ;
 
-    assert_equals(*found, three) ;
+    assert_equals(found, three) ;
 }
 
 void testAddToFaceDownAddsCard(void)
 {
-    HumanPlayer *james = new HumanPlayer("James") ;
+    HumanPlayer james("James") ;
     Card three(THREE, DIAMONDS) ;
-    james->addToFaceDown(&three) ;
-    vector<Card *> cards = james->faceDown() ;
-    Card *found = cards[0] ;
+    james.addToFaceDown(three) ;
+    vector<Card> cards = james.faceDown() ;
+    Card found = cards[0] ;
 
-    assert_equals(*found, three) ;
+    assert_equals(found, three) ;
 }
 
 void sortHandSortsHand(void) 
 {
-    HumanPlayer *james = new HumanPlayer("James") ;
+    HumanPlayer james("James") ;
     Card six(SIX, HEARTS) ;
     Card three(THREE, DIAMONDS) ;
     Card two(TWO, SPADES) ;
     Card five(FIVE, DIAMONDS) ;
-    james->addToHand(&six) ;
-    james->addToHand(&three) ;
-    james->addToHand(&two) ;
-    james->addToHand(&five) ;
+    james.addToHand(six) ;
+    james.addToHand(three) ;
+    james.addToHand(two) ;
+    james.addToHand(five) ;
 
-    james->sortHand() ;
+    james.sortHand() ;
 
-    assert_equals(*(james->hand()[0]), three) ;
-    assert_equals(*(james->hand()[1]), five) ;
-    assert_equals(*(james->hand()[2]), six) ;
-    assert_equals(*(james->hand()[3]), two) ;
+    assert_equals(james.hand()[0], three) ;
+    assert_equals(james.hand()[1], five) ;
+    assert_equals(james.hand()[2], six) ;
+    assert_equals(james.hand()[3], two) ;
 }
 
 void swapSwapsCards(void)
 {
-    HumanPlayer *james = new HumanPlayer("James") ;
+    HumanPlayer james("James") ;
     Card six(SIX, HEARTS) ;
     Card three(THREE, DIAMONDS) ;
     Card two(TWO, SPADES) ;
     Card five(FIVE, DIAMONDS) ;
     Card seven(SEVEN, CLUBS) ;
     Card four(FOUR, SPADES) ;
-    james->addToHand(&three) ;
-    james->addToHand(&six) ;
-    james->addToHand(&two) ;
-    james->addToFaceUp(&five) ;
-    james->addToFaceUp(&seven) ;
-    james->addToFaceUp(&four) ;
+    james.addToHand(three) ;
+    james.addToHand(six) ;
+    james.addToHand(two) ;
+    james.addToFaceUp(five) ;
+    james.addToFaceUp(seven) ;
+    james.addToFaceUp(four) ;
     
-    james->swap(1, 2) ;
+    james.swap(1, 2) ;
     
-    assert_equals(*(james->hand()[0]), three) ;    
-    assert_equals(*(james->hand()[1]), four) ;    
-    assert_equals(*(james->hand()[2]), two) ;    
-    assert_equals(*(james->faceUp()[0]), five) ;    
-    assert_equals(*(james->faceUp()[1]), seven) ;    
-    assert_equals(*(james->faceUp()[2]), six) ;    
+    assert_equals(james.hand()[0], three) ;    
+    assert_equals(james.hand()[1], four) ;    
+    assert_equals(james.hand()[2], two) ;    
+    assert_equals(james.faceUp()[0], five) ;    
+    assert_equals(james.faceUp()[1], seven) ;    
+    assert_equals(james.faceUp()[2], six) ;    
 }
 
 void removeFromHandRemovesCard(void) 
 {
-    HumanPlayer *james = new HumanPlayer("James") ;
+    HumanPlayer james("James") ;
     Card six(SIX, HEARTS) ;
     Card three(THREE, DIAMONDS) ;
     Card two(TWO, SPADES) ;
     Card five(FIVE, DIAMONDS) ;
-    james->addToHand(&six) ;
-    james->addToHand(&three) ;
-    james->addToHand(&two) ;
-    james->addToHand(&five) ;
+    james.addToHand(six) ;
+    james.addToHand(three) ;
+    james.addToHand(two) ;
+    james.addToHand(five) ;
 
     vector<int> toRemove ;
     toRemove.push_back(1) ;
 
-    james->removeFromHand(toRemove) ; 
+    james.removeFromHand(toRemove) ; 
 
-    assert_equals(*(james->hand()[0]), five) ;
-    assert_equals(*(james->hand()[1]), six) ;
-    assert_equals(*(james->hand()[2]), two) ;
+    assert_equals(james.hand()[0], five) ;
+    assert_equals(james.hand()[1], six) ;
+    assert_equals(james.hand()[2], two) ;
 }
 
 void hasCardsWhenCardsInHand() 
 {
-    HumanPlayer *james = new HumanPlayer("James") ;
+    HumanPlayer james("James") ;
     Card six(SIX, HEARTS) ;
-    james->addToHand(&six) ;
+    james.addToHand(six) ;
 
-    assert_true(james->hasCards()) ;
+    assert_true(james.hasCards()) ;
 }
 
 void hasCardsWhenCardsInFaceUp() 
 {
-    HumanPlayer *james = new HumanPlayer("James") ;
+    HumanPlayer james("James") ;
     Card six(SIX, HEARTS) ;
-    james->addToFaceUp(&six) ;
+    james.addToFaceUp(six) ;
 
-    assert_true(james->hasCards()) ;
+    assert_true(james.hasCards()) ;
 }
 
 void hasCardsWhenCardsInFaceDown() 
 {
-    HumanPlayer *james = new HumanPlayer("James") ;
+    HumanPlayer james("James") ;
     Card six(SIX, HEARTS) ;
-    james->addToFaceDown(&six) ;
+    james.addToFaceDown(six) ;
 
-    assert_true(james->hasCards()) ;
+    assert_true(james.hasCards()) ;
 }
 
 void notHasCardsWhenNone()
 {
-    HumanPlayer *james = new HumanPlayer("James") ;
-    assert_false(james->hasCards()) ;
+    HumanPlayer james("James") ;
+    assert_false(james.hasCards()) ;
 }
 
 void createComputerPlayer()

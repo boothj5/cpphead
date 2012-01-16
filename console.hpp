@@ -14,25 +14,25 @@ void clearScreen();
 void showWelcomeMessage();
 int requestNumPlayers(); 
 int requestNumCards();
-std::string requestPlayerName(int);
-char requestPlayerType(int);
+const std::string requestPlayerName(const int);
+char requestPlayerType(const int);
 void showPlayers(const std::vector<Player *>&);
 void showPlayer(const Player&);
-void showHand(std::string, const std::vector<Card *>&, bool);
-bool requestSwapCards(std::string);
+void showHand(const std::string, const std::vector<Card>&, const bool);
+bool requestSwapCards(const std::string);
 int requestHandChoice();
 int requestFaceUpChoice();
-bool requestSwapMore(std::string);
+bool requestSwapMore(const std::string);
 void showGame(const Game&);
-void showPile(const std::vector<Card *>&);
-std::vector<int> requestMove(std::string);
-void showPickUpMessage(std::string);
+void showPile(const std::vector<Card>&);
+const std::vector<int> requestMove(const std::string);
+void showPickUpMessage(const std::string);
 void wait_user();
 void showBadMove();
-int requestFaceDownCard(std::string);
+int requestFaceDownCard(const std::string);
 void showFaceDownWin(const Card&);
 void showFaceDownFail(const Card&);
-void showShithead(std::string);
+void showShithead(const std::string);
 
 } // namespace console
 #endif

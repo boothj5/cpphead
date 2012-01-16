@@ -4,6 +4,11 @@
 
 using namespace std ;
 
+Card::Card()
+    : rank_(ACE),
+      suit_(SPADES)
+{}
+
 Card::Card(const cardrank rank, const cardsuit suit) 
     : rank_(rank), 
       suit_(suit) 
@@ -109,25 +114,25 @@ const string Card::suitStr() const
     }
 }
 
-bool Card::shCompare(const Card * const c1, const Card * const c2)
+bool Card::shCompare(const Card& c1, const Card& c2)
 {   
-    if (c1->special() && c2->special())
+    if (c1.special() && c2.special())
         return false ;
-    else if (c1->special() && !c2->special())
+    else if (c1.special() && !c2.special())
         return false ;
-    else if (c2->special())
+    else if (c2.special())
         return true ;
     else
-        return c1->rank_ < c2->rank_ ;
+        return c1.rank_ < c2.rank_ ;
 }
 
-bool Card::allRanksEqual(const vector<Card *>& cards)
+bool Card::allRanksEqual(const vector<Card>& cards)
 {
-    const Card * const first = cards[0] ;
+    const Card first = cards[0] ;
 
     int i ;
     for (i = 0 ; i < cards.size() ; i++)
-        if (!cards[i]->equalsRank(*first))
+        if (!cards[i].equalsRank(first))
             return false ;
     return true ;
 }

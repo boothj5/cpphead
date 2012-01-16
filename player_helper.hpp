@@ -5,11 +5,11 @@
 #include "card.hpp"
 
 class PlayerHelper {
-    std::vector<Card *> pile_;
+    std::vector<Card> pile_;
     
     public:
-    PlayerHelper(const std::vector<Card *>);
-    std::vector<Card *> getPile() const;
+    PlayerHelper(const std::vector<Card>&);
+    const std::vector<Card> getPile() const;
 };
 
 #endif

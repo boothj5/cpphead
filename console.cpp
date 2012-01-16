@@ -49,7 +49,7 @@ int requestNumCards()
     return num ;
 }
 
-string requestPlayerName(int num)
+const string requestPlayerName(const int num)
 {
     string name;
     cout << "Enter name for player " << num << ": ";
@@ -58,7 +58,7 @@ string requestPlayerName(int num)
     return name;
 }
 
-char requestPlayerType(int num)
+char requestPlayerType(const int num)
 {
     string inp;
     char type;
@@ -99,17 +99,17 @@ void showPlayer(const Player& player)
     showHand("FACEDOWN : ", player.faceDown(), true) ;
 }
 
-void showHand(string name, const vector<Card *>& cards, bool hide)
+void showHand(const string name, const vector<Card>& cards, bool hide)
 {
     cout << name ;
     
-    vector<Card *>::const_iterator card ;
+    vector<Card>::const_iterator card ;
     int i = 1 ;
     for (card = cards.begin() ; card != cards.end() ; card++) {
         if (hide)
             cout << "(" << i << ")" << "****" ; 
         else
-            cout << "(" << i << ")" << **card ; 
+            cout << "(" << i << ")" << *card ; 
         if (i != cards.size())
             cout << ", " ;
         i++ ;
@@ -118,7 +118,7 @@ void showHand(string name, const vector<Card *>& cards, bool hide)
     cout << endl ;
 }
 
-bool requestSwapCards(string name)
+bool requestSwapCards(const string name)
 {
     string response ;
     cout << name << " do you want to swap cards (y/n) : " ;
@@ -126,7 +126,7 @@ bool requestSwapCards(string name)
     return (response == "Y" || response == "y") ;
 }
 
-bool requestSwapMore(string name) 
+bool requestSwapMore(const string name) 
 {
     string response ;
     cout << name << " do you want to swap more cards (y/n) : " ;
@@ -168,16 +168,16 @@ void showGame(const Game& game)
     wait_user();
 }
 
-void showPile(const vector<Card *>& pile)
+void showPile(const vector<Card>& pile)
 {
     cout << pile.size() << " on pile:" << endl ;
     int i ;
     for (i = pile.size() ; i > 0 ; i--)
-        cout << "    " << *(pile[i-1]) << endl ;
+        cout << "    " << pile[i-1] << endl ;
     cout << endl ;
 }
 
-static vector<int> parseChoices(string strChoices)
+static const vector<int> parseChoices(const string strChoices)
 {
     vector<int> choices ;
     vector<string> splitString ;
@@ -200,7 +200,7 @@ static vector<int> parseChoices(string strChoices)
     return choices ;
 }
 
-vector<int> requestMove(string name)
+const vector<int> requestMove(const string name)
 {
     vector<int> choices ;
     string response ;
@@ -215,7 +215,7 @@ vector<int> requestMove(string name)
     return choices ;
 }
 
-void showPickUpMessage(string name)
+void showPickUpMessage(const string name)
 {
     cout << name << " you must pick up!" ;
     wait_user() ;
@@ -232,7 +232,7 @@ void showBadMove()
     cout << "You can't do that!" << endl ;
 }
 
-int requestFaceDownCard(string name) 
+int requestFaceDownCard(const string name) 
 {
     string inp;
     int choice ;
@@ -254,7 +254,7 @@ void showFaceDownFail(const Card& card)
     wait_user() ;
 }
 
-void showShithead(string name)
+void showShithead(const string name)
 {
     cout << endl << "!!!!!!!! GAME OVER !!!!!!!!" << endl ;
     cout << name << " is a shithead!!" << endl ;

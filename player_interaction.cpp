@@ -78,11 +78,11 @@ void player_facedown_move(const Player *player, Game& game)
     } else {
         choice = console::requestFaceDownCard(player->name());
         if (game.validMoveFromFaceDown(choice)) {
-            console::showFaceDownWin(*player->faceDown()[choice]);
+            console::showFaceDownWin(player->faceDown()[choice]);
             game.makeFaceDownMove(choice);
         }
         else {
-            console::showFaceDownFail(*player->faceDown()[choice]);
+            console::showFaceDownFail(player->faceDown()[choice]);
             game.pickUpPileAndFaceDown(choice);
         }
     }

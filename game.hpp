@@ -9,8 +9,8 @@
 
 class Game {
     std::vector<Player *> players_;
-    std::vector<Card *> deck_;
-    std::vector<Card *> pile_;
+    std::vector<Card> deck_;
+    std::vector<Card> pile_;
     int burnt_;
     int numCards_;
     int numPlayers_;
@@ -23,40 +23,40 @@ class Game {
     
     const PlayerHelper getPlayerHelper() const;
     void deal();
-    void swap(Player *, int, int);
+    void swap(Player *, const int, const int);
     void firstMove();
     const std::vector<Player *> players() const;
     const Player * currentPlayer() const;
-    const std::vector<Card *> deck() const;
-    const std::vector<Card *> pile() const;
+    const std::vector<Card> deck() const;
+    const std::vector<Card> pile() const;
     int burnt() const;
     const std::string lastMove() const;
     bool canContinue() const;
     void makeMove(const std::vector<int>&);
-    void makeFaceDownMove(int);
+    void makeFaceDownMove(const int);
     bool currentPlayerCanMove() const;
     bool playingFromFaceDown() const;
     void pickUp();
-    void pickUpPileAndFaceDown(int);
+    void pickUpPileAndFaceDown(const int);
     bool validMove(const std::vector<int>&) const;
-    bool validMoveFromFaceDown(int) const;
+    bool validMoveFromFaceDown(const int) const;
     const std::string getCppHead() const;
 
-    static bool canLay(const Card*, const std::vector<Card *>&);
+    static bool canLay(const Card&, const std::vector<Card>&);
     
     private:
     void playFromHand(const std::vector<int>&);
     void setLastHandMove(const std::vector<int>&);
     void playFromFaceUp(const std::vector<int>&);
-    void playFromFaceDown(int);
+    void playFromFaceDown(const int);
     void setLastFaceUpMove(const std::vector<int>&);
-    void setLastFaceDownMove(int);
+    void setLastFaceDownMove(const int);
     void setLastMovePickUp();
     void setLastMoveMissAGo();
     void moveToNextPlayer();
     void processSpecialCards();
-    bool canMoveWithOneOf(const std::vector<Card *>&) const;
-    bool validMove(const std::vector<Card *>&) const;
+    bool canMoveWithOneOf(const std::vector<Card>&) const;
+    bool validMove(const std::vector<Card>&) const;
     bool burnCardLaid() const;
     bool missAGoLaid() const;
     void burnPile();

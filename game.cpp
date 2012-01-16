@@ -34,7 +34,7 @@ Game::Game(const vector<string>& names, const vector<char>& types, int numCards)
     for (i = 0 ; i < numDecks ; i++)
         for (suit = HEARTS ; suit <= CLUBS ; suit++)
             for (rank = TWO ; rank <= ACE ; rank++) {
-                Card *card = new Card((cardrank)rank, (cardsuit)suit);
+                Card card((cardrank)rank, (cardsuit)suit);
                 deck_.push_back(card) ;
             }
     
@@ -43,17 +43,9 @@ Game::Game(const vector<string>& names, const vector<char>& types, int numCards)
 
 Game::~Game()
 {
-    vector<Player *>::iterator playerIter;
-    for (playerIter = players_.begin(); playerIter!=players_.end(); playerIter++)
-        delete (*playerIter);
-    
-    vector<Card *>::iterator deckIter;
-    for (deckIter = deck_.begin(); deckIter!=deck_.end(); deckIter++)
-        delete (*deckIter);
-    
-    vector<Card *>::iterator pileIter;
-    for (pileIter = pile_.begin(); pileIter!=pile_.end(); pileIter++)
-        delete (*pileIter);
+    players_.clear();
+    deck_.clear();
+    pile_.clear();
 }
 
 const PlayerHelper Game::getPlayerHelper() const
@@ -80,7 +72,7 @@ void Game::deal()
     }
 }
 
-void Game::swap(Player * const player, int handChoice, int faceUpChoice)
+void Game::swap(Player * player, const int handChoice, const int faceUpChoice)
 {
     player->swap(handChoice, faceUpChoice) ;
 }
@@ -94,18 +86,18 @@ void Game::firstMove()
 
     // find player with lowest card    
     currentPlayer_ = players_.begin() ;
+    Card currentLowest = (*currentPlayer_)->hand()[0] ;
     for (i = 1 ; i < numPlayers_ ; i++) {
-        Card *playersLowest = players_[i]->hand()[0] ;
-        Card *currentLowest = (*currentPlayer_)->hand()[0] ;
+        Card playersLowest = players_[i]->hand()[0] ;
         if (Card::shCompare(playersLowest, currentLowest))
             currentPlayer_ = players_.begin() + i ;
     }
      
     // get indexes of cards with same rank in players hand
-    const Card *first = (*currentPlayer_)->hand()[0] ;
+    const Card first = (*currentPlayer_)->hand()[0] ;
     for (i = 0 ; i < numCards_ ; i++) {
-        const Card *current = (*currentPlayer_)->hand()[i] ;
-        if (current->equalsRank(*first))
+        const Card current = (*currentPlayer_)->hand()[i] ;
+        if (current.equalsRank(first))
             toLay.push_back(i) ;
     }
 
@@ -141,7 +133,7 @@ void Game::makeMove(const vector<int>& choices)
     processSpecialCards() ;
 }
 
-void Game::makeFaceDownMove(int choice)
+void Game::makeFaceDownMove(const int choice)
 {
     setLastFaceDownMove(choice) ;
     playFromFaceDown(choice) ;
@@ -179,10 +171,10 @@ void Game::missAGo()
 
 bool Game::burnCardLaid() const
 {
-    if (pile_.back()->isBurnCard())
+    if (pile_.back().isBurnCard())
         return true ;
     else if (pile_.size() > 3) {
-        vector<Card *> lastFour ;
+        vector<Card> lastFour ;
         lastFour.push_back(pile_[pile_.size() - 1]) ;
         lastFour.push_back(pile_[pile_.size() - 2]) ;
         lastFour.push_back(pile_[pile_.size() - 3]) ;
@@ -196,13 +188,13 @@ bool Game::burnCardLaid() const
 
 bool Game::missAGoLaid() const 
 {
-    return (pile_.back()->isMissAGoCard()) ;
+    return (pile_.back().isMissAGoCard()) ;
 }
 
 bool Game::validMove(const vector<int>& choices) const
 {
     const Player *player = currentPlayer() ;
-    vector<Card *> toLay ;
+    vector<Card> toLay ;
     vector<int>::const_iterator index ;
     if (player->hasCardsInHand())
         for (index = choices.begin() ; index != choices.end() ; index++)
@@ -220,15 +212,15 @@ bool Game::validMove(const vector<int>& choices) const
     return validMove(toLay) ;
 }
 
-bool Game::validMoveFromFaceDown(int choice) const
+bool Game::validMoveFromFaceDown(const int choice) const
 {
     const Player *player = currentPlayer() ;
-    vector<Card *> toLay ;
+    vector<Card> toLay ;
     toLay.push_back(player->faceDown()[choice]) ;
     return validMove(toLay) ;
 }
 
-bool Game::validMove(const vector<Card *>& cards) const
+bool Game::validMove(const vector<Card>& cards) const
 {
     if (!Card::allRanksEqual(cards)) 
         return false ;
@@ -267,7 +259,7 @@ void Game::pickUp()
     moveToNextPlayer() ;
 }
 
-void Game::pickUpPileAndFaceDown(int choice)
+void Game::pickUpPileAndFaceDown(const int choice)
 {
     (*currentPlayer_)->addAllToHand(pile_) ;
     (*currentPlayer_)->addToHand((*currentPlayer_)->faceDown()[choice]) ;
@@ -306,7 +298,7 @@ void Game::playFromFaceUp(const vector<int>& toLay)
     (*currentPlayer_)->removeFromFaceUp(toLay) ;
 }
 
-void Game::playFromFaceDown(int choice)
+void Game::playFromFaceDown(const int choice)
 {
     pile_.push_back((*currentPlayer_)->faceDown()[choice]) ;
     (*currentPlayer_)->removeFromFaceDown(choice) ;
@@ -320,7 +312,7 @@ void Game::setLastHandMove(const vector<int>& toLay)
     lastMove_ += " laid " ;
     int i ;
     for (i = 0 ; i < toLay.size() ; i++) {
-        lastMove_ += player->hand()[toLay[i]]->toString() ;
+        lastMove_ += player->hand()[toLay[i]].toString() ;
         if (i < toLay.size())
             lastMove_ += ", " ;
     }
@@ -334,18 +326,18 @@ void Game::setLastFaceUpMove(const vector<int>& toLay)
     lastMove_ += " laid " ;
     int i ;
     for (i = 0 ; i < toLay.size() ; i++) {
-        lastMove_ += player->faceUp()[toLay[i]]->toString() ;
+        lastMove_ += player->faceUp()[toLay[i]].toString() ;
         if (i < toLay.size())
             lastMove_ += ", " ;
     }
 }
 
-void Game::setLastFaceDownMove(int choice)
+void Game::setLastFaceDownMove(const int choice)
 {
     const Player *player = currentPlayer() ;
     lastMove_ = player->name() ;
     lastMove_ += " laid the " ;
-    lastMove_ += player->faceDown()[choice]->toString() ;
+    lastMove_ += player->faceDown()[choice].toString() ;
 }
 
 void Game::setLastMoveMissAGo()
@@ -373,7 +365,7 @@ void Game::moveToNextPlayer()
     }
 }
 
-bool Game::canMoveWithOneOf(const vector<Card *>& cards) const
+bool Game::canMoveWithOneOf(const vector<Card>& cards) const
 {
     int i ;
     for (i = 0 ; i < cards.size() ; i++)
@@ -383,24 +375,24 @@ bool Game::canMoveWithOneOf(const vector<Card *>& cards) const
 
 }
 
-bool Game::canLay(const Card * const card, const vector<Card *>& cards)
+bool Game::canLay(const Card& card, const vector<Card>& cards)
 {
     if (cards.empty())
         return true ;
-    else if (card->special())
+    else if (card.special())
         return true ;
-    else if (cards.back()->isInvisible()) {
-        vector<Card *> newPile = cards ;
+    else if (cards.back().isInvisible()) {
+        vector<Card> newPile = cards ;
         newPile.pop_back() ;
         return canLay(card, newPile) ;
     }
-    else if (card->rank() < cards.back()->rank())
+    else if (card.rank() < cards.back().rank())
         return false ;
     else
         return true ;
 }
 
-int Game::calcNumDecks(int numPlayers, int numCards)
+int Game::calcNumDecks(const int numPlayers, const int numCards)
 {
     int decksRequired, totalCards, div, add ;
     totalCards = numPlayers * (numCards * 3) ;
@@ -429,12 +421,12 @@ const Player * Game::currentPlayer() const
     return *currentPlayer_ ; 
 }
 
-const vector<Card *> Game::deck() const 
+const vector<Card> Game::deck() const 
 { 
     return deck_ ; 
 }
 
-const vector<Card *> Game::pile() const 
+const vector<Card> Game::pile() const 
 { 
     return pile_ ; 
 }
