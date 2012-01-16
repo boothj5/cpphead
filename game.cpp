@@ -56,7 +56,7 @@ Game::~Game()
         delete (*pileIter);
 }
 
-PlayerHelper Game::getPlayerHelper() const
+const PlayerHelper Game::getPlayerHelper() const
 {
     PlayerHelper helper(pile_);
     return helper;
@@ -80,7 +80,7 @@ void Game::deal()
     }
 }
 
-void Game::swap(Player * player, int handChoice, int faceUpChoice)
+void Game::swap(Player * const player, int handChoice, int faceUpChoice)
 {
     player->swap(handChoice, faceUpChoice) ;
 }
@@ -102,9 +102,9 @@ void Game::firstMove()
     }
      
     // get indexes of cards with same rank in players hand
-    Card *first = (*currentPlayer_)->hand()[0] ;
+    const Card *first = (*currentPlayer_)->hand()[0] ;
     for (i = 0 ; i < numCards_ ; i++) {
-        Card *current = (*currentPlayer_)->hand()[i] ;
+        const Card *current = (*currentPlayer_)->hand()[i] ;
         if (current->equalsRank(*first))
             toLay.push_back(i) ;
     }
@@ -145,7 +145,6 @@ void Game::makeFaceDownMove(int choice)
 {
     setLastFaceDownMove(choice) ;
     playFromFaceDown(choice) ;
-
     processSpecialCards() ;
 }
 
@@ -384,7 +383,7 @@ bool Game::canMoveWithOneOf(const vector<Card *>& cards) const
 
 }
 
-bool Game::canLay(Card *card, const vector<Card *>& cards)
+bool Game::canLay(const Card * const card, const vector<Card *>& cards)
 {
     if (cards.empty())
         return true ;
@@ -411,7 +410,7 @@ int Game::calcNumDecks(int numPlayers, int numCards)
     return decksRequired ;
 }
 
-string Game::getCppHead() const
+const string Game::getCppHead() const
 {
     vector<Player *>::const_iterator player ;
     for (player = players_.begin() ; player != players_.end() ; player++)
@@ -430,12 +429,12 @@ const Player * Game::currentPlayer() const
     return *currentPlayer_ ; 
 }
 
-vector<Card *> Game::deck() const 
+const vector<Card *> Game::deck() const 
 { 
     return deck_ ; 
 }
 
-vector<Card *> Game::pile() const 
+const vector<Card *> Game::pile() const 
 { 
     return pile_ ; 
 }
@@ -445,7 +444,7 @@ int Game::burnt() const
     return burnt_ ;
 }
 
-string Game::lastMove() const 
+const string Game::lastMove() const 
 { 
     return lastMove_ ; 
 }

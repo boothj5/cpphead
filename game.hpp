@@ -21,16 +21,16 @@ class Game {
     Game(const std::vector<std::string>&, const std::vector<char>&, int);
     ~Game();
     
-    PlayerHelper getPlayerHelper() const;
+    const PlayerHelper getPlayerHelper() const;
     void deal();
     void swap(Player *, int, int);
     void firstMove();
     const std::vector<Player *> players() const;
     const Player * currentPlayer() const;
-    std::vector<Card *> deck() const;
-    std::vector<Card *> pile() const;
+    const std::vector<Card *> deck() const;
+    const std::vector<Card *> pile() const;
     int burnt() const;
-    std::string lastMove() const;
+    const std::string lastMove() const;
     bool canContinue() const;
     void makeMove(const std::vector<int>&);
     void makeFaceDownMove(int);
@@ -40,9 +40,9 @@ class Game {
     void pickUpPileAndFaceDown(int);
     bool validMove(const std::vector<int>&) const;
     bool validMoveFromFaceDown(int) const;
-    std::string getCppHead() const;
+    const std::string getCppHead() const;
 
-    static bool canLay(Card*, const std::vector<Card *>&);
+    static bool canLay(const Card*, const std::vector<Card *>&);
     
     private:
     void playFromHand(const std::vector<int>&);
