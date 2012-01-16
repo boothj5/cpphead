@@ -8,58 +8,59 @@
 
 class ComputerPlayer: public Player {
     public:
-    ComputerPlayer(std::string name);
+    ComputerPlayer(const std::string name);
     bool isComputer() const;
-    virtual std::pair<int, int> askSwapChoice() const =0;
+    virtual const std::pair<int, int> askSwapChoice() const =0;
     virtual bool askSwapCards() const =0;
-    virtual std::vector<int> askMoveChoice(const PlayerHelper helper) const =0;
+    virtual const std::vector<int> 
+        askMoveChoice(const PlayerHelper& helper) const =0;
     virtual int askFaceDownMoveChoice() const =0;
 };
 
 class SimplePlayer: public ComputerPlayer {
     public:
-    static std::string description;   
+    static const std::string description;   
 
-    SimplePlayer(std::string name);
-    std::pair<int, int> askSwapChoice() const;
+    SimplePlayer(const std::string name);
+    const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
-    std::vector<int> askMoveChoice(const PlayerHelper helper) const;
+    const std::vector<int> askMoveChoice(const PlayerHelper& helper) const;
     int askFaceDownMoveChoice() const;
 };
 
 class LowCardPlayer: public ComputerPlayer {
     public:
-    static std::string description;   
+    static const std::string description;   
 
-    LowCardPlayer(std::string name);
-    std::pair<int, int> askSwapChoice() const;
+    LowCardPlayer(const std::string name);
+    const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
-    std::vector<int> askMoveChoice(const PlayerHelper helper) const;
+    const std::vector<int> askMoveChoice(const PlayerHelper& helper) const;
     int askFaceDownMoveChoice() const;
 };
 
 class HighCardPlayer: public ComputerPlayer {
     public:
-    static std::string description;   
+    static const std::string description;   
 
-    HighCardPlayer(std::string name);
-    std::pair<int, int> askSwapChoice() const;
+    HighCardPlayer(const std::string name);
+    const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
-    std::vector<int> askMoveChoice(const PlayerHelper helper) const;
+    const std::vector<int> askMoveChoice(const PlayerHelper& helper) const;
     int askFaceDownMoveChoice() const;
 
     private:
-    static bool reverseCompare(Card *, Card *);
+    static bool reverseCompare(const Card *, const Card *);
 };
 
 class Pyromaniac: public ComputerPlayer {
     public:
-    static std::string description;   
+    static const std::string description;   
 
-    Pyromaniac(std::string name);
-    std::pair<int, int> askSwapChoice() const;
+    Pyromaniac(const std::string name);
+    const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
-    std::vector<int> askMoveChoice(const PlayerHelper helper) const;
+    const std::vector<int> askMoveChoice(const PlayerHelper& helper) const;
     int askFaceDownMoveChoice() const;
 };
 

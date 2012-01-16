@@ -9,11 +9,11 @@
 
 using namespace std;
 
-string LowCardPlayer::description = "LowCardPlayer: Plays low cards.";
+const string LowCardPlayer::description = "LowCardPlayer: Plays low cards.";
 
-LowCardPlayer::LowCardPlayer(string name) : ComputerPlayer(name) {}
+LowCardPlayer::LowCardPlayer(const string name) : ComputerPlayer(name) {}
 
-pair<int, int> LowCardPlayer::askSwapChoice() const
+const pair<int, int> LowCardPlayer::askSwapChoice() const
 {
     return pair<int, int>(0,0);
 }
@@ -23,7 +23,7 @@ bool LowCardPlayer::askSwapCards() const
     return false;
 }
 
-vector<int> LowCardPlayer::askMoveChoice(const PlayerHelper helper) const
+const vector<int> LowCardPlayer::askMoveChoice(const PlayerHelper& helper) const
 {
     int first = 0;
     vector<int> choices;

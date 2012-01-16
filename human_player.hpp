@@ -8,11 +8,11 @@
 
 class HumanPlayer: public Player {
     public:
-    HumanPlayer(std::string name);
+    HumanPlayer(const std::string name);
     bool isComputer() const;
-    std::pair<int, int> askSwapChoice() const;
+    const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
-    std::vector<int> askMoveChoice(const PlayerHelper) const;
+    const std::vector<int> askMoveChoice(const PlayerHelper&) const;
     int askFaceDownMoveChoice() const;
 };
 

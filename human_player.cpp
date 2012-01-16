@@ -7,14 +7,14 @@
 
 using namespace std;
 
-HumanPlayer::HumanPlayer(string name) : Player(name) {}
+HumanPlayer::HumanPlayer(const string name) : Player(name) {}
 
 bool HumanPlayer::isComputer() const
 {
     return false ;
 }
 
-pair<int, int> HumanPlayer::askSwapChoice() const 
+const pair<int, int> HumanPlayer::askSwapChoice() const 
 {
     throw ShitheadException("Cannot ask human player for swap choice");
 }
@@ -24,7 +24,7 @@ bool HumanPlayer::askSwapCards() const
     throw ShitheadException("Cannot ask human player to swap cards");
 }
 
-vector<int> HumanPlayer::askMoveChoice(const PlayerHelper helper) const
+const vector<int> HumanPlayer::askMoveChoice(const PlayerHelper& helper) const
 {
     throw ShitheadException("Cannot ask human player to move");
 }

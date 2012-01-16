@@ -9,11 +9,12 @@
 
 using namespace std;
 
-string Pyromaniac::description = "Pyromaniac: Lays burn if has one, then low cards.";
+const string Pyromaniac::description = 
+    "Pyromaniac: Lays burn if has one, then low cards.";
 
-Pyromaniac::Pyromaniac(string name) : ComputerPlayer(name) {}
+Pyromaniac::Pyromaniac(const string name) : ComputerPlayer(name) {}
 
-pair<int, int> Pyromaniac::askSwapChoice() const
+const pair<int, int> Pyromaniac::askSwapChoice() const
 {
     return pair<int, int>(0,0);
 }
@@ -23,7 +24,7 @@ bool Pyromaniac::askSwapCards() const
     return false;
 }
 
-vector<int> Pyromaniac::askMoveChoice(const PlayerHelper helper) const
+const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
 {
     int i;
     int first = 0;

@@ -4,12 +4,12 @@
 
 using namespace std ;
 
-Card::Card(cardrank rank, cardsuit suit) 
+Card::Card(const cardrank rank, const cardsuit suit) 
     : rank_(rank), 
       suit_(suit) 
 {}
 
-string Card::toString() const 
+const string Card::toString() const 
 { 
     return rankStr() + " of " + suitStr() ; 
 }
@@ -54,12 +54,12 @@ bool Card::isMissAGoCard() const
     return rank_ == EIGHT ;
 }
 
-bool Card::equalsRank(Card card)  const
+bool Card::equalsRank(const Card& card)  const
 { 
     return rank_ == card.rank_ ; 
 }
 
-string Card::rankStr() const
+const string Card::rankStr() const
 {
     switch(rank_) {
     case TWO:
@@ -93,7 +93,7 @@ string Card::rankStr() const
     }
 }
 
-string Card::suitStr() const
+const string Card::suitStr() const
 {
     switch(suit_) {
     case HEARTS:
@@ -109,7 +109,7 @@ string Card::suitStr() const
     }
 }
 
-bool Card::shCompare(Card *c1, Card *c2)
+bool Card::shCompare(const Card * const c1, const Card * const c2)
 {   
     if (c1->special() && c2->special())
         return false ;
@@ -123,7 +123,7 @@ bool Card::shCompare(Card *c1, Card *c2)
 
 bool Card::allRanksEqual(const vector<Card *>& cards)
 {
-    Card *first = cards[0] ;
+    const Card * const first = cards[0] ;
 
     int i ;
     for (i = 0 ; i < cards.size() ; i++)

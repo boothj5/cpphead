@@ -9,11 +9,11 @@
 
 using namespace std;
 
-string HighCardPlayer::description = "HighCardPlayer: Plays high cards.";
+const string HighCardPlayer::description = "HighCardPlayer: Plays high cards.";
 
-HighCardPlayer::HighCardPlayer(string name) : ComputerPlayer(name) {}
+HighCardPlayer::HighCardPlayer(const string name) : ComputerPlayer(name) {}
 
-pair<int, int> HighCardPlayer::askSwapChoice() const
+const pair<int, int> HighCardPlayer::askSwapChoice() const
 {
     return pair<int, int>(0,0);
 }
@@ -23,7 +23,7 @@ bool HighCardPlayer::askSwapCards() const
     return false;
 }
 
-bool HighCardPlayer::reverseCompare(Card *c1, Card *c2)
+bool HighCardPlayer::reverseCompare(const Card *c1, const Card *c2)
 {
     if (c1->special() && c2->special())
         return false;
@@ -35,7 +35,7 @@ bool HighCardPlayer::reverseCompare(Card *c1, Card *c2)
         return c1->rank() > c2->rank();
 }
 
-vector<int> HighCardPlayer::askMoveChoice(const PlayerHelper helper) const
+const vector<int> HighCardPlayer::askMoveChoice(const PlayerHelper& helper) const
 {
     int first = 0;
     vector<int> choices;

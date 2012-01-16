@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Player::Player(string name)
+Player::Player(const string name)
     : name_(name),
       hand_(0),
       faceUp_(0),
@@ -27,22 +27,22 @@ Player::~Player()
         delete (*iter);
 }
 
-string Player::name() const 
+const string Player::name() const 
 {
     return name_ ; 
 }
 
-vector<Card *> Player::hand() const 
+const vector<Card *> Player::hand() const 
 { 
     return hand_ ; 
 }
 
-vector<Card *> Player::faceUp() const 
+const vector<Card *> Player::faceUp() const 
 { 
     return faceUp_ ; 
 }
 
-vector<Card *> Player::faceDown() const 
+const vector<Card *> Player::faceDown() const 
 { 
     return faceDown_ ; 
 }
@@ -74,13 +74,13 @@ void Player::sortHand()
 
 void Player::swap(int handCard, int faceUpCard)
 {
-    Card *tmp = hand_[handCard] ;
+    Card * tmp = hand_[handCard] ;
     hand_[handCard] = faceUp_[faceUpCard] ;
     faceUp_[faceUpCard] = tmp ;
     sortHand() ;
 }
 
-void Player::removeFromHand(vector<int> indexes)
+void Player::removeFromHand(const vector<int>& indexes)
 {
     // TODO write generic template function to remove indexes from vector
     // instead of copying
@@ -89,7 +89,8 @@ void Player::removeFromHand(vector<int> indexes)
     int i  ;
     int handSize = hand_.size() ;
     for (i = 0 ; i < handSize ; i++) {
-        vector<int>::iterator result = find(indexes.begin(), indexes.end(), i) ;
+        vector<int>::const_iterator result = 
+            find(indexes.begin(), indexes.end(), i) ;
         if (result == indexes.end()) 
             newHand.push_back(hand_[i]) ;
     }
@@ -97,7 +98,7 @@ void Player::removeFromHand(vector<int> indexes)
     sortHand() ;
 }
 
-void Player::removeFromFaceUp(vector<int> indexes)
+void Player::removeFromFaceUp(const vector<int>& indexes)
 {
     // TODO write generic template function to remove indexes from vector
     // instead of copying
@@ -106,7 +107,8 @@ void Player::removeFromFaceUp(vector<int> indexes)
     int i  ;
     int faceUpSize = faceUp_.size() ;
     for (i = 0 ; i < faceUpSize ; i++) {
-        vector<int>::iterator result = find(indexes.begin(), indexes.end(), i) ;
+        const vector<int>::const_iterator result = 
+            find(indexes.begin(), indexes.end(), i) ;
         if (result == indexes.end()) 
             newFaceUp.push_back(faceUp_[i]) ;
     }

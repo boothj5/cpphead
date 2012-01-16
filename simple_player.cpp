@@ -11,11 +11,11 @@
 
 using namespace std;
 
-string SimplePlayer::description = "SimplePlayer: Plays random cards.";
+const string SimplePlayer::description = "SimplePlayer: Plays random cards.";
 
-SimplePlayer::SimplePlayer(string name) : ComputerPlayer(name) {}
+SimplePlayer::SimplePlayer(const string name) : ComputerPlayer(name) {}
 
-pair<int, int> SimplePlayer::askSwapChoice() const
+const pair<int, int> SimplePlayer::askSwapChoice() const
 {
     return pair<int, int>(0,0);
 }
@@ -25,7 +25,7 @@ bool SimplePlayer::askSwapCards() const
     return false;
 }
 
-vector<int> SimplePlayer::askMoveChoice(const PlayerHelper helper) const
+const vector<int> SimplePlayer::askMoveChoice(const PlayerHelper& helper) const
 {
     int first = 0;
     vector<int> choices;
