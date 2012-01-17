@@ -30,23 +30,25 @@ const vector<int> LowCardPlayer::askMoveChoice(const PlayerHelper& helper) const
     if (hasCardsInHand()) {
         // play from hand
         
-        // copy and sort my hand
-        vector<Card> sorted = hand_;
-        sort(sorted.begin(), sorted.end(), Card::shCompare);
+        // assume my hand is sorted
         
         // find the first card I can lay and save its index
         int i;
-        for (i = 0; i < sorted.size(); i++) {
-            if (Game::canLay(sorted[i], helper.getPile())) {
+        for (i = 0; i < hand_.size(); i++) {
+            if (Game::canLay(hand_[i], helper.getPile())) {
                 first = i;
                 break;
             }
         }
         
         // add all cards of same rank from my hand to my choice
+        bool found = false;
         for (i = 0; i < hand_.size(); i++) {
-            if (hand_[i].equalsRank(sorted[first])) {
+            if (hand_[i].equalsRank(hand_[first])) {
                 choices.push_back(i);
+                found = true;
+            } else if (found) {
+                break;
             }
         }
     } else {

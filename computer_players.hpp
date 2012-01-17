@@ -9,6 +9,7 @@
 class ComputerPlayer: public Player {
     public:
     ComputerPlayer(const std::string name);
+    virtual ~ComputerPlayer() {};
     bool isComputer() const;
     virtual const std::pair<int, int> askSwapChoice() const =0;
     virtual bool askSwapCards() const =0;
@@ -19,9 +20,10 @@ class ComputerPlayer: public Player {
 
 class SimplePlayer: public ComputerPlayer {
     public:
-    static const std::string description;   
+    static const std::string description;
 
     SimplePlayer(const std::string name);
+    ~SimplePlayer() {};
     const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
     const std::vector<int> askMoveChoice(const PlayerHelper& helper) const;
@@ -33,6 +35,7 @@ class LowCardPlayer: public ComputerPlayer {
     static const std::string description;   
 
     LowCardPlayer(const std::string name);
+    ~LowCardPlayer() {};
     const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
     const std::vector<int> askMoveChoice(const PlayerHelper& helper) const;
@@ -44,13 +47,11 @@ class HighCardPlayer: public ComputerPlayer {
     static const std::string description;   
 
     HighCardPlayer(const std::string name);
+    ~HighCardPlayer() {};
     const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
     const std::vector<int> askMoveChoice(const PlayerHelper& helper) const;
     int askFaceDownMoveChoice() const;
-
-    private:
-    static bool reverseCompare(const Card&, const Card&);
 };
 
 class Pyromaniac: public ComputerPlayer {
@@ -58,6 +59,7 @@ class Pyromaniac: public ComputerPlayer {
     static const std::string description;   
 
     Pyromaniac(const std::string name);
+    ~Pyromaniac() {};
     const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
     const std::vector<int> askMoveChoice(const PlayerHelper& helper) const;

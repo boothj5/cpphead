@@ -43,6 +43,9 @@ Game::Game(const vector<string>& names, const vector<char>& types, int numCards)
 
 Game::~Game()
 {
+    vector<Player *>::iterator iter;
+    for (iter = players_.begin(); iter!=players_.end(); iter++)
+        delete *iter;
     players_.clear();
     deck_.clear();
     pile_.clear();
@@ -75,6 +78,7 @@ void Game::deal()
 void Game::swap(Player * player, const int handChoice, const int faceUpChoice)
 {
     player->swap(handChoice, faceUpChoice) ;
+    player->sortHand();
 }
 
 void Game::firstMove()
@@ -104,6 +108,7 @@ void Game::firstMove()
     // play them
     setLastHandMove(toLay) ;
     playFromHand(toLay) ;
+    (*currentPlayer_)->sortHand();
     moveToNextPlayer() ;
 }
 
@@ -124,6 +129,7 @@ void Game::makeMove(const vector<int>& choices)
     if ((*currentPlayer_)->hasCardsInHand()) {
         setLastHandMove(choices) ;
         playFromHand(choices) ;
+        (*currentPlayer_)->sortHand();
     }
     else {
         setLastFaceUpMove(choices) ;
@@ -285,8 +291,6 @@ void Game::playFromHand(const vector<int>& toLay)
         (*currentPlayer_)->addToHand(deck_.back()) ;
         deck_.pop_back() ;
     }
-
-    (*currentPlayer_)->sortHand() ;
 }
 
 void Game::playFromFaceUp(const vector<int>& toLay)

@@ -134,10 +134,40 @@ void removeFromHandRemovesCard(void)
     toRemove.push_back(1) ;
 
     james.removeFromHand(toRemove) ; 
+    james.sortHand();
 
     assert_equals(james.hand()[0], five) ;
     assert_equals(james.hand()[1], six) ;
     assert_equals(james.hand()[2], two) ;
+}
+
+void removeFromHandRemovesCards(void) 
+{
+    HumanPlayer james("James") ;
+    Card six(SIX, HEARTS) ;
+    Card three(THREE, DIAMONDS) ;
+    Card two(TWO, SPADES) ;
+    Card five(FIVE, DIAMONDS) ;
+    Card king(KING, SPADES);
+    Card ace(ACE, HEARTS);
+    james.addToHand(six) ;
+    james.addToHand(three) ;
+    james.addToHand(two) ;
+    james.addToHand(five) ;
+    james.addToHand(king) ;
+    james.addToHand(ace) ;
+
+    vector<int> toRemove ;
+    toRemove.push_back(3) ;
+    toRemove.push_back(2) ;
+    toRemove.push_back(5) ;
+
+    james.removeFromHand(toRemove) ; 
+    james.sortHand();
+
+    assert_equals(james.hand()[0], three) ;
+    assert_equals(james.hand()[1], six) ;
+    assert_equals(james.hand()[2], king) ;
 }
 
 void hasCardsWhenCardsInHand() 
@@ -199,6 +229,7 @@ void register_player_tests()
     TEST(sortHandSortsHand);
     TEST(swapSwapsCards);
     TEST(removeFromHandRemovesCard);
+    TEST(removeFromHandRemovesCards);
     TEST(hasCardsWhenCardsInHand);
     TEST(hasCardsWhenCardsInFaceUp);
     TEST(hasCardsWhenCardsInFaceDown);

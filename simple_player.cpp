@@ -32,23 +32,30 @@ const vector<int> SimplePlayer::askMoveChoice(const PlayerHelper& helper) const
     if (hasCardsInHand()) {
         // play from hand
         
-        // unsort it
-        vector<Card> unsorted = hand_;
-        util::shuffle(unsorted);
+        // shuffle posisble indexes
+        vector<int> possibleChoices;
+        int i;
+        for (i = 0; i < hand_.size(); i++) {
+            possibleChoices.push_back(i);
+        }
+        util::shuffle(possibleChoices);
 
         // find the first card I can lay and save its index
-        int i;
-        for (i = 0; i < unsorted.size(); i++) {
-            if (Game::canLay(unsorted[i], helper.getPile())) {
+        for (i = 0; i < possibleChoices.size(); i++) {
+            if (Game::canLay(hand_[i], helper.getPile())) {
                 first = i;
                 break;
             }
         }
 
         // add all cards of this rank from my hand to my choice
+        bool found = false;
         for (i = 0; i < hand_.size(); i++) {
-            if (hand_[i].equalsRank(unsorted[first])) {
+            if (hand_[i].equalsRank(hand_[first])) {
                 choices.push_back(i);
+                found = true;
+            } else if (found) {
+                break;
             }
         }
     } else {

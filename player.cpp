@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <string>
 #include <map>
+#include <iostream>
 #include "card.hpp"
 #include "player.hpp"
 #include "shithead_exception.hpp"
@@ -71,7 +72,6 @@ void Player::swap(const int handCard, const int faceUpCard)
     const Card tmp = hand_[handCard] ;
     hand_[handCard] = faceUp_[faceUpCard] ;
     faceUp_[faceUpCard] = tmp ;
-    sortHand() ;
 }
 
 void Player::removeFromHand(const vector<int>& indexes)
@@ -87,7 +87,6 @@ void Player::removeFromHand(const vector<int>& indexes)
             newHand.push_back(hand_[i]) ;
     }
     hand_ = newHand ;
-    sortHand() ;
 }
 
 void Player::removeFromFaceUp(const vector<int>& indexes)

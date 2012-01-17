@@ -15,7 +15,7 @@ class Player {
     
     public:
     Player(const std::string name);
-    ~Player();
+    virtual ~Player();
     const std::string name() const;
     const std::vector<Card> hand() const;
     const std::vector<Card> faceUp() const;

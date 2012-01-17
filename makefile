@@ -19,7 +19,7 @@ battle: $(OBJS) battle.o
 	$(CC) -o battle $(OBJS) battle.o
 
 card.o: card.hpp
-player.o: player.hpp human_player.hpp card.hpp shithead_exception.hpp
+player.o: player.hpp human_player.hpp card.hpp shithead_exception.hpp util.hpp
 player_factory.o: player_factory.hpp player.hpp human_player.hpp \
 				  computer_players.hpp
 computer_player.o: player.hpp computer_players.hpp

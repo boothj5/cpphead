@@ -23,42 +23,31 @@ bool HighCardPlayer::askSwapCards() const
     return false;
 }
 
-bool HighCardPlayer::reverseCompare(const Card& c1, const Card& c2)
-{
-    if (c1.special() && c2.special())
-        return false;
-    else if (c1.special() && !c2.special())
-        return true;
-    else if (!c1.special() && c2.special())
-        return false;
-    else
-        return c1.rank() > c2.rank();
-}
-
 const vector<int> HighCardPlayer::askMoveChoice(const PlayerHelper& helper) const
 {
     int first = 0;
     vector<int> choices;
     if (hasCardsInHand()) {
-        // play from hand
-        
-        // copy and reverse sort my hand
-        vector<Card> sorted = hand_;
-        sort(sorted.begin(), sorted.end(), HighCardPlayer::reverseCompare);
-        
+        // play from hand, assume its sorted
+ 
+        // go through it backwards,
         // find the first card I can lay and save its index
         int i;
-        for (i = 0; i < sorted.size(); i++) {
-            if (Game::canLay(sorted[i], helper.getPile())) {
+        for (i = hand_.size()-1; i >= 0; i--) {
+            if (Game::canLay(hand_[i], helper.getPile())) {
                 first = i;
                 break;
             }
         }
         
         // add all cards of same rank from my hand to my choice
-        for (i = 0; i < hand_.size(); i++) {
-            if (hand_[i].equalsRank(sorted[first])) {
+        bool found = false;
+        for (i = hand_.size()-1; i >= 0; i--) {
+            if (hand_[i].equalsRank(hand_[first])) {
                 choices.push_back(i);
+                found = true;
+            } else if (found) {
+                break;
             }
         }
     } else {
@@ -66,7 +55,8 @@ const vector<int> HighCardPlayer::askMoveChoice(const PlayerHelper& helper) cons
         
         // copy and reverse sort my faceUp
         vector<Card> sorted = faceUp_;
-        sort(sorted.begin(), sorted.end(), HighCardPlayer::reverseCompare);
+        sort(sorted.begin(), sorted.end(), Card::shCompare);
+        reverse(sorted.begin(), sorted.end());
         
         // find the first card I can lay and save its index
         int i;
