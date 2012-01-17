@@ -42,8 +42,8 @@ const vector<int> SimplePlayer::askMoveChoice(const PlayerHelper& helper) const
 
         // find the first card I can lay and save its index
         for (i = 0; i < possibleChoices.size(); i++) {
-            if (Game::canLay(hand_[i], helper.getPile())) {
-                first = i;
+            if (Game::canLay(hand_[possibleChoices[i]], helper.getPile())) {
+                first = possibleChoices[i];
                 break;
             }
         }
