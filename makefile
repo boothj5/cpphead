@@ -1,5 +1,5 @@
 CC = g++
-CXXFLAGS = -std=c++0x -I ~/include -Wno-write-strings
+CXXFLAGS = -std=c++0x -O3 -I ~/include -Wno-write-strings
 TESTLIB = -L ~/lib -l headunit
 OBJS = card.o player.o human_player.o computer_player.o console.o \
 	   simple_player.o lowcard_player.o game.o player_interaction.o \

@@ -79,8 +79,7 @@ void Player::removeFromHand(const vector<int>& indexes)
     vector<Card> newHand ;
     
     int i  ;
-    int handSize = hand_.size() ;
-    for (i = 0 ; i < handSize ; i++) {
+    for (i = 0 ; i < hand_.size() ; i++) {
         vector<int>::const_iterator result = 
             find(indexes.begin(), indexes.end(), i) ;
         if (result == indexes.end()) 
@@ -94,8 +93,7 @@ void Player::removeFromFaceUp(const vector<int>& indexes)
     vector<Card> newFaceUp ;
     
     int i  ;
-    int faceUpSize = faceUp_.size() ;
-    for (i = 0 ; i < faceUpSize ; i++) {
+    for (i = 0 ; i < faceUp_.size() ; i++) {
         const vector<int>::const_iterator result = 
             find(indexes.begin(), indexes.end(), i) ;
         if (result == indexes.end()) 

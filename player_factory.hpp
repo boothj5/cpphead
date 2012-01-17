@@ -12,19 +12,19 @@ class PlayerFactory {
     static const playerDescMap_t playerDescMap();
  
     public:
-    static Player * createPlayer(std::string, char);
-    static playerDescMap_t getPlayerDescriptions();
-    static std::vector<char> getPlayerTypes();
+    static Player * createPlayer(const std::string, const char);
+    static const playerDescMap_t getPlayerDescriptions();
 };
 
 template <class T>
-Player * createPlayer(std::string name)
+Player * createPlayer(const std::string name)
 {
     return new T(name);
 }
 
 template <class T>
-void registerPlayer(char type, playerFuncMap_t& funcMap, playerDescMap_t& descMap)
+void registerPlayer(const char type, playerFuncMap_t& funcMap, 
+    playerDescMap_t& descMap)
 {
     funcMap.insert(std::make_pair(type, &createPlayer<T>));
     descMap.insert(std::make_pair(type, T::description));

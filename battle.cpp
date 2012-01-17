@@ -13,7 +13,8 @@
 #include "shithead_exception.hpp"
 #include "util.hpp"
 
-#define THRESHOLD 5000
+#define THRESHOLD 10000
+#define NUM_CARDS 5
 
 using namespace std;
 
@@ -41,7 +42,6 @@ int main(int argc, char *argv[])
 
     shMap["SimplePlayer"] = 0;
     shMap["LowCardPlayer"] = 0;
-    shMap["HighCardPlayer"] = 0;
     shMap["Pyromaniac"] = 0;
             
     start = clock();
@@ -51,7 +51,6 @@ int main(int argc, char *argv[])
             vector<pair<char, string> > pVec;
             pVec.push_back(make_pair('s', "SimplePlayer"));
             pVec.push_back(make_pair('l', "LowCardPlayer"));
-            pVec.push_back(make_pair('a', "HighCardPlayer"));
             pVec.push_back(make_pair('p', "Pyromaniac"));
 
             util::shuffle<pair<char, string> >(pVec);
@@ -65,7 +64,7 @@ int main(int argc, char *argv[])
                 names.push_back(iter->second);
             }
 
-            Game *game = new Game(names, types, 3);
+            Game *game = new Game(names, types, NUM_CARDS);
             game->deal();
 
             vector<Player *> players = game->players();

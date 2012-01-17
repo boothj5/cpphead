@@ -25,7 +25,7 @@ const pair<playerFuncMap_t, playerDescMap_t> PlayerFactory::initPlayers()
 
 const playerFuncMap_t PlayerFactory::playerFuncMap()
 {
-    pair<playerFuncMap_t, playerDescMap_t> maps = PlayerFactory::initPlayers();
+    const pair<playerFuncMap_t, playerDescMap_t> maps = PlayerFactory::initPlayers();
 
     return maps.first;
 }
@@ -37,7 +37,7 @@ const playerDescMap_t PlayerFactory::playerDescMap()
     return maps.second;
 }
 
-Player * PlayerFactory::createPlayer(string name, char type)
+Player * PlayerFactory::createPlayer(const string name, const char type)
 {
     if (type == 'h') {
         return new HumanPlayer(name);
@@ -53,20 +53,7 @@ Player * PlayerFactory::createPlayer(string name, char type)
     }
 }
 
-playerDescMap_t PlayerFactory::getPlayerDescriptions()
+const playerDescMap_t PlayerFactory::getPlayerDescriptions()
 {
     return playerDescMap();
-}
-
-vector<char> PlayerFactory::getPlayerTypes()
-{
-    const playerDescMap_t playerDescMap = PlayerFactory::playerDescMap();
-    vector<char> playerTypes;
-    
-    playerDescMap_t::const_iterator iter;
-    for (iter = playerDescMap.begin(); iter!=playerDescMap.end(); iter++) {
-        playerTypes.push_back(iter->first);
-    }
-
-    return playerTypes;
 }
