@@ -9,6 +9,9 @@ using namespace std;
 CliEngine::CliEngine()
 {}
 
+CliEngine::~CliEngine()
+{}
+
 void CliEngine::run()
 {
     int i, numPlayers, numCardsEach;

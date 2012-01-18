@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <memory>
 #include "engines.hpp"
 #include "game.hpp"
 #include "player_interaction.hpp"
@@ -24,9 +25,15 @@ BattleEngine::BattleEngine(const int numGames)
     }
 }
 
+BattleEngine::~BattleEngine()
+{
+    pVec_.clear();
+    shMap_.clear();
+}
+
 void BattleEngine::run()
 {
-    clock_t start_ = clock();
+    clock_t start = clock();
     int ngame;
     for (ngame = 0; ngame < numGames_; ngame++) {
         // make sure players in different order for each game
@@ -41,7 +48,7 @@ void BattleEngine::run()
             names.push_back(iter->second);
         }
     
-        Game *game = new Game(names, types, NUM_CARDS);
+        auto_ptr<Game> game(new Game(names, types, NUM_CARDS));
     
         game->deal();
     
@@ -73,13 +80,15 @@ void BattleEngine::run()
             string loser = game->getCppHead();
             ++shMap_[loser];
         }
-    
-        delete game;
     }
 
     clock_t end = clock();
+    summary(start, end);
+}
 
-    double totalTime = (end - start_) / (CLOCKS_PER_SEC / 1000);
+void BattleEngine::summary(const clock_t start, const clock_t end) const
+{
+    double totalTime = (end - start) / (CLOCKS_PER_SEC / 1000);
     float avgGameTime = totalTime / numGames_;
 
     cout << endl << "SUMMARY" << endl;

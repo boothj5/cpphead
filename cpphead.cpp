@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <memory>
 #include "engines.hpp"
 #include "engine_factory.hpp"
 #include "shithead_exception.hpp"
@@ -22,7 +23,7 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    Engine *engine = enginefactory::createEngine(numGames);
+    auto_ptr<Engine> engine(enginefactory::createEngine(numGames));
 
     try {
         engine->run();    

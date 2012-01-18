@@ -12,6 +12,7 @@ typedef std::vector<std::pair<std::string, int> > shVec_t;
 class Engine {
     public:
     Engine() {};
+    virtual ~Engine() {};
     virtual void run() =0;
 };
 
@@ -26,10 +27,12 @@ class BattleEngine: public Engine {
 
     public:
     BattleEngine(const int);
+    ~BattleEngine();
 
     void run();
 
     private:
+    void summary(const clock_t, const clock_t) const;
     static bool scoreOrder(std::pair<std::string, int>,
         std::pair<std::string, int>);
 };
@@ -37,6 +40,7 @@ class BattleEngine: public Engine {
 class CliEngine: public Engine {
     public:
     CliEngine();
+    ~CliEngine();
     
     void run();
 };    
