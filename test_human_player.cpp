@@ -21,7 +21,7 @@ void testCannotAskSwapCards(void)
     
     try {
         player.askSwapCards();
-    } catch (ShitheadException e) {
+    } catch (ShitheadException& e) {
         thrown = true;
     }
 
@@ -35,7 +35,7 @@ void testCannotAskSwapChoice(void)
     
     try {
         player.askSwapChoice();
-    } catch (ShitheadException e) {
+    } catch (ShitheadException& e) {
         thrown = true;
     }
 

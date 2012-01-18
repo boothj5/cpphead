@@ -27,8 +27,8 @@ int main(int argc, char *argv[])
 
     try {
         engine->run();    
-    } catch (ShitheadException *e) {
-        cout << e->getMessage() << endl;
+    } catch (ShitheadException& e) {
+        cout << e.getMessage() << endl;
         return 1;
     }
 

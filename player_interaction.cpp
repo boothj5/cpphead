@@ -47,7 +47,7 @@ void player_move(const Player *player, Game& game)
             PlayerHelper helper = game.getPlayerHelper();
             vector<int> choices = player->askMoveChoice(helper);
             if (!game.validMove(choices)) {
-                throw new ShitheadException("Computer player is cheating!");
+                throw ShitheadException("Computer player is cheating!");
             } else {
                 game.makeMove(choices);
             }            

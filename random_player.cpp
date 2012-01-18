@@ -8,6 +8,7 @@
 #include "player_helper.hpp"
 #include "game.hpp"
 #include "util.hpp"
+#include "shithead_exception.hpp"
 
 using namespace std;
 
@@ -17,7 +18,7 @@ RandomPlayer::RandomPlayer(const string name) : ComputerPlayer(name) {}
 
 const pair<int, int> RandomPlayer::askSwapChoice() const
 {
-    return pair<int, int>(0,0);
+    throw ShitheadException("Random player asked to swap cards");
 }
 
 bool RandomPlayer::askSwapCards() const

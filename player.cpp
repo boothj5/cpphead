@@ -4,7 +4,6 @@
 #include <iostream>
 #include "card.hpp"
 #include "player.hpp"
-#include "shithead_exception.hpp"
 
 using namespace std;
 

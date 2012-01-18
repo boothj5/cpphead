@@ -1,6 +1,7 @@
 #include "card.hpp"
 
 #include <string>
+#include "shithead_exception.hpp"
 
 using namespace std ;
 
@@ -67,50 +68,31 @@ bool Card::equalsRank(const Card& card)  const
 const string Card::rankStr() const
 {
     switch(rank_) {
-    case TWO:
-        return "TWO" ;
-    case THREE:
-        return "THREE" ;
-    case FOUR:
-        return "FOUR" ;
-    case FIVE:
-        return "FIVE" ;
-    case SIX:
-        return "SIX" ;
-    case SEVEN:
-        return "SEVEN" ;
-    case EIGHT:
-        return "EIGHT" ;
-    case NINE:
-        return "NINE" ;
-    case TEN:
-        return "TEN" ;
-    case JACK:
-        return "JACK" ;
-    case QUEEN:
-        return "QUEEN" ;
-    case KING:
-        return "KING" ;
-    case ACE:
-        return "ACE" ;
-    default:
-        return "ERROR!!!" ;
+    case TWO:   return "TWO" ;
+    case THREE: return "THREE" ;
+    case FOUR:  return "FOUR" ;
+    case FIVE:  return "FIVE" ;
+    case SIX:   return "SIX" ;
+    case SEVEN: return "SEVEN" ;
+    case EIGHT: return "EIGHT" ;
+    case NINE:  return "NINE" ;
+    case TEN:   return "TEN" ;
+    case JACK:  return "JACK" ;
+    case QUEEN: return "QUEEN" ;
+    case KING:  return "KING" ;
+    case ACE:   return "ACE" ;
+    default:    throw ShitheadException("Card has invalid rank");
     }
 }
 
 const string Card::suitStr() const
 {
     switch(suit_) {
-    case HEARTS:
-        return "HEARTS" ;
-    case DIAMONDS:
-        return "DIAMONDS" ;
-    case CLUBS:
-        return "CLUBS" ;
-    case SPADES:
-        return "SPADES" ;
-    default:
-        return "ERROR!!!!" ;
+    case HEARTS:   return "HEARTS" ;
+    case DIAMONDS: return "DIAMONDS" ;
+    case CLUBS:    return "CLUBS" ;
+    case SPADES:   return "SPADES" ;
+    default:       throw ShitheadException("Card has invalid suit");
     }
 }
 

@@ -15,14 +15,14 @@ TESTOBJS = test_card.o card.o \
 cpphead: $(OBJS) cpphead.o
 	$(CC) -o cpphead $(OBJS) cpphead.o
 
-card.o: card.hpp
-player.o: player.hpp human_player.hpp card.hpp shithead_exception.hpp util.hpp
+card.o: card.hpp shithead_exception.hpp
+player.o: player.hpp human_player.hpp card.hpp util.hpp
 player_factory.o: player_factory.hpp player.hpp human_player.hpp \
 				  computer_players.hpp
 computer_player.o: player.hpp computer_players.hpp
 human_player.o: human_player.hpp player.hpp player_helper.hpp shithead_exception.hpp
 random_player.o: computer_players.hpp player_helper.hpp card.hpp \
-                 game.hpp util.hpp
+                 game.hpp util.hpp shithead_exception.hpp
 lowcard_player.o: computer_players.hpp player_helper.hpp \
 				  card.hpp game.hpp
 highcard_player.o: card.hpp computer_players.hpp \
@@ -43,7 +43,7 @@ cpphead.o: shithead_exception.hpp engines.hpp
 test_card.o: card.hpp
 test_player.o: human_player.hpp
 test_human_player.o: player.hpp human_player.hpp shithead_exception.hpp
-test_random_player.o: computer_players.hpp
+test_random_player.o: computer_players.hpp shithead_exception.hpp
 
 testsuite: testsuite.hpp $(TESTOBJS)
 	$(CC) $(CXXFLAGS) -std=c++0x testsuite.cpp  $(TESTOBJS) -o testsuite $(TESTLIB)
