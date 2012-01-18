@@ -2,13 +2,13 @@ CC = g++
 CXXFLAGS = -std=c++0x -O3 -I ~/include -Wno-write-strings
 TESTLIB = -L ~/lib -l headunit
 OBJS = card.o player.o human_player.o computer_player.o console.o \
-	   simple_player.o lowcard_player.o game.o player_interaction.o \
+	   random_player.o lowcard_player.o game.o player_interaction.o \
        player_helper.o highcard_player.o pyromaniac.o player_factory.o \
        util.o battle_engine.o cli_engine.o engine_factory.o
 TESTOBJS = test_card.o card.o \
 		   test_player.o player.o \
            highcard_player.o lowcard_player.o pyromaniac.o computer_player.o \
-		   test_simple_player.o simple_player.o player_factory.o \
+		   test_random_player.o random_player.o player_factory.o \
 		   test_human_player.o human_player.o \
            player_helper.o game.o util.o
 
@@ -21,7 +21,7 @@ player_factory.o: player_factory.hpp player.hpp human_player.hpp \
 				  computer_players.hpp
 computer_player.o: player.hpp computer_players.hpp
 human_player.o: human_player.hpp player.hpp player_helper.hpp shithead_exception.hpp
-simple_player.o: computer_players.hpp player_helper.hpp card.hpp \
+random_player.o: computer_players.hpp player_helper.hpp card.hpp \
                  game.hpp util.hpp
 lowcard_player.o: computer_players.hpp player_helper.hpp \
 				  card.hpp game.hpp
@@ -43,7 +43,7 @@ cpphead.o: shithead_exception.hpp engines.hpp
 test_card.o: card.hpp
 test_player.o: human_player.hpp
 test_human_player.o: player.hpp human_player.hpp shithead_exception.hpp
-test_simple_player.o: computer_players.hpp
+test_random_player.o: computer_players.hpp
 
 testsuite: testsuite.hpp $(TESTOBJS)
 	$(CC) $(CXXFLAGS) -std=c++0x testsuite.cpp  $(TESTOBJS) -o testsuite $(TESTLIB)

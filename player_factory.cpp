@@ -14,7 +14,7 @@ const pair<playerFuncMap_t, playerDescMap_t> PlayerFactory::initPlayers()
     static playerDescMap_t playerDescMap;
 
     if (playerFuncMap.empty()) {
-        registerPlayer<SimplePlayer>('s', playerFuncMap, playerDescMap);
+        registerPlayer<RandomPlayer>('r', playerFuncMap, playerDescMap);
         registerPlayer<LowCardPlayer>('l', playerFuncMap, playerDescMap);
         registerPlayer<HighCardPlayer>('a', playerFuncMap, playerDescMap);
         registerPlayer<Pyromaniac>('p', playerFuncMap, playerDescMap);

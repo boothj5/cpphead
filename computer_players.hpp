@@ -18,12 +18,12 @@ class ComputerPlayer: public Player {
     virtual int askFaceDownMoveChoice() const =0;
 };
 
-class SimplePlayer: public ComputerPlayer {
+class RandomPlayer: public ComputerPlayer {
     public:
     static const std::string description;
 
-    SimplePlayer(const std::string name);
-    ~SimplePlayer() {};
+    RandomPlayer(const std::string name);
+    ~RandomPlayer() {};
     const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
     const std::vector<int> askMoveChoice(const PlayerHelper& helper) const;

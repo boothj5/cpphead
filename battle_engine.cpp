@@ -14,7 +14,7 @@ BattleEngine::BattleEngine(const int numGames)
       stalemates_(0)
 {
     // initialise player list
-    pVec_.push_back(make_pair('s', "SimplePlayer"));
+    pVec_.push_back(make_pair('r', "RandomPlayer"));
     pVec_.push_back(make_pair('l', "LowCardPlayer"));
     pVec_.push_back(make_pair('p', "Pyromaniac"));
 
