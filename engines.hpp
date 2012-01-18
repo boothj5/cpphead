@@ -32,7 +32,9 @@ class BattleEngine: public Engine {
     void run();
 
     private:
-    void summary(const clock_t, const clock_t) const;
+    void showStats(const clock_t, const clock_t) const;
+    void showSummary(const clock_t, const clock_t) const;
+    void showScores() const;
     static bool scoreOrder(std::pair<std::string, int>,
         std::pair<std::string, int>);
 };

@@ -83,49 +83,40 @@ void BattleEngine::run()
     }
 
     clock_t end = clock();
-    summary(start, end);
+    showStats(start, end);
 }
 
-void BattleEngine::summary(const clock_t start, const clock_t end) const
+void BattleEngine::showStats(const clock_t start, const clock_t end) const
 {
-    double totalTime = (end - start) / (CLOCKS_PER_SEC / 1000);
-    float avgGameTime = totalTime / numGames_;
+    cout << endl;
+    showSummary(start, end); 
+    cout << endl;
+    showScores();
+    cout << endl;
+}
 
-    cout << endl << "SUMMARY" << endl;
-    cout << "Total games : " << numGames_ << endl;
-
-    if (totalTime >= 60000) {
-        int minutes = totalTime / 60000;
-        int seconds = (totalTime - (minutes * 60000)) / 1000;
-        cout << "Total time : ";
-        cout << minutes << " minutes, ";
-        cout << seconds << " seconds" << endl;
-    } else if (totalTime >= 1000) {
-        int seconds = totalTime / 1000;
-        cout << "Total time : "; 
-        cout << seconds << " seconds" << endl;
-    } else {
-        cout << "Total time : ";
-        cout << totalTime << " milliseconds" << endl;
-    }
-
-    cout << "Average game: "; 
-    cout << avgGameTime << " milliseconds" << endl;
-
+void BattleEngine::showSummary(const clock_t start, const clock_t end) const
+{
+    double totalMillis = (end - start) / (CLOCKS_PER_SEC / 1000);
+    float avgGameMillis = totalMillis / numGames_;
     float stalematePercent = ((double)stalemates_ / (double)numGames_) * 100.0;
 
-    cout << "Stalemates: ";
-    cout << stalemates_ << ", " << stalematePercent << "%" << endl;
-    cout << endl;
+    cout << "SUMMARY" << endl;
+    cout << "Total games : " << numGames_ << endl;
+    cout << "Total time : " << util::formatMillis(totalMillis) << endl;
+    cout << "Average game: " << avgGameMillis << " milliseconds" << endl;
+    cout << "Stalemates: " << stalemates_ << ", " << stalematePercent << "%" << endl;
+}
 
-    cout << "SCORES" << endl;
-
+void BattleEngine::showScores() const
+{
     shVec_t shVec;
     copy(shMap_.begin(), shMap_.end(), back_inserter(shVec));
     sort(shVec.begin(), shVec.end(), scoreOrder);
 
+    cout << "SCORES" << endl;
     cout << left;
-    cout << setw(20) << "Name:";
+    cout << setw(20) << "Name";
     cout << setw(10) << "Shithead";
     cout << setw(10) << "Lose rate";
     cout << endl;
@@ -140,8 +131,6 @@ void BattleEngine::summary(const clock_t start, const clock_t end) const
         cout << setprecision(2);
         cout << percentSh << "%" << endl;
     }
-
-    cout << endl;
 }
 
 bool BattleEngine::scoreOrder(pair<string, int> player1, pair<string, int> player2)

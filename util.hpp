@@ -8,6 +8,8 @@ namespace util {
 
 std::ptrdiff_t randomGen(std::ptrdiff_t i);
 
+std::string formatMillis(const double);
+
 template <class T>
 void shuffle(std::vector<T>& vec)
 {
