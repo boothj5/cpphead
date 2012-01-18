@@ -13,7 +13,7 @@ void testIsComputer(void)
     assert_true(player.isComputer());
 }
 
-void testThrowsExceptionOnAskSwapChoice()
+void testErrorOnAskSwapChoice()
 {
     bool thrown = false;
 
@@ -27,11 +27,19 @@ void testThrowsExceptionOnAskSwapChoice()
     assert_true(thrown);
 }
 
+void testDoesntSwapCards()
+{
+    RandomPlayer player("Comp");
+    
+    assert_false(player.askSwapCards());
+}
+
 void register_random_player_tests()
 {
     TEST_MODULE("test_random_player");
     TEST(testIsComputer);
-    TEST(testThrowsExceptionOnAskSwapChoice);
+    TEST(testErrorOnAskSwapChoice);
+    TEST(testDoesntSwapCards);
 }
 
 
