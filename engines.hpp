@@ -1,5 +1,5 @@
-#ifndef H_BATTLEENGINE
-#define H_BATTLEENGINE
+#ifndef H_ENGINES
+#define H_ENGINES
 
 #include <string>
 #include <vector>
@@ -9,7 +9,13 @@ typedef std::pair<char, std::string> typeName_t;
 typedef std::map<std::string, int> shMap_t;
 typedef std::vector<std::pair<std::string, int> > shVec_t;
 
-class BattleEngine {
+class Engine {
+    public:
+    Engine() {};
+    virtual void run() =0;
+};
+
+class BattleEngine: public Engine {
     private:
     static const int NUM_CARDS = 3;
     static const int THRESHOLD = 10000;
@@ -20,12 +26,19 @@ class BattleEngine {
 
     public:
     BattleEngine(const int);
-    
+
     void run();
 
     private:
-    static bool scoreOrder(std::pair<std::string, int>, 
+    static bool scoreOrder(std::pair<std::string, int>,
         std::pair<std::string, int>);
+};
+
+class CliEngine: public Engine {
+    public:
+    CliEngine();
+    
+    void run();
 };    
 
 #endif

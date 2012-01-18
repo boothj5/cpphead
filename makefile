@@ -4,7 +4,7 @@ TESTLIB = -L ~/lib -l headunit
 OBJS = card.o player.o human_player.o computer_player.o console.o \
 	   simple_player.o lowcard_player.o game.o player_interaction.o \
        player_helper.o highcard_player.o pyromaniac.o player_factory.o \
-       util.o battle_engine.o cli_engine.o
+       util.o battle_engine.o cli_engine.o engine_factory.o
 TESTOBJS = test_card.o card.o \
 		   test_player.o player.o \
            highcard_player.o lowcard_player.o pyromaniac.o computer_player.o \
@@ -14,9 +14,6 @@ TESTOBJS = test_card.o card.o \
 
 cpphead: $(OBJS) cpphead.o
 	$(CC) -o cpphead $(OBJS) cpphead.o
-
-battle: $(OBJS) battle.o
-	$(CC) -o battle $(OBJS) battle.o
 
 card.o: card.hpp
 player.o: player.hpp human_player.hpp card.hpp shithead_exception.hpp util.hpp
@@ -38,10 +35,10 @@ player_helper.o: player_helper.hpp card.hpp
 console.o: console.hpp player.hpp
 game.o: game.hpp console.hpp player.hpp card.hpp player_helper.hpp util.hpp
 util.o: util.hpp
-cli_engine.o: cli_engine.hpp game.hpp player_interaction.hpp
-battle_engine.o: battle_engine.hpp game.hpp player_interaction.hpp util.hpp
-cpphead.o: shithead_exception.hpp cli_engine.hpp
-battle.o: shithead_exception.hpp battle_engine.hpp
+cli_engine.o: engines.hpp game.hpp player_interaction.hpp
+battle_engine.o: engines.hpp game.hpp player_interaction.hpp util.hpp
+engine_factory.o: engines.hpp
+cpphead.o: shithead_exception.hpp engines.hpp
 
 test_card.o: card.hpp
 test_player.o: human_player.hpp
@@ -52,9 +49,8 @@ testsuite: testsuite.hpp $(TESTOBJS)
 	$(CC) $(CXXFLAGS) -std=c++0x testsuite.cpp  $(TESTOBJS) -o testsuite $(TESTLIB)
 
 .PHONY: install
-install: cpphead battle
+install: cpphead
 	cp cpphead ~/bin/cpphead
-	cp battle ~/bin/battle
 
 .PHONY: test
 test: testsuite
@@ -64,7 +60,6 @@ test: testsuite
 clean:
 	rm -f *.o
 	rm -f cpphead
-	rm -f battle
 	rm -f testsuite
 
 .PHONY: run

@@ -1,16 +1,31 @@
 #include <iostream>
-#include <string>
-#include <vector>
-#include "cli_engine.hpp"
+#include <sstream>
+#include "engines.hpp"
+#include "engine_factory.hpp"
 #include "shithead_exception.hpp"
 
 using namespace std;
 
-int main()
+int main(int argc, char *argv[])
 {
-    CliEngine engine;
+    int numGames;
+    
+    if (argc == 1) {
+        numGames = 0;
+    }
+    else if (argc == 2) {
+        stringstream(argv[1]) >> numGames;
+    }
+    else { 
+        cout << "Usage: cpphead <num_games>" << endl;
+        cout << "    Omit num_games for interactive mode." << endl;
+        return 1;
+    }
+
+    Engine *engine = enginefactory::createEngine(numGames);
+
     try {
-        engine.run();    
+        engine->run();    
     } catch (ShitheadException *e) {
         cout << e->getMessage() << endl;
         return 1;
