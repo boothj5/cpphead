@@ -26,12 +26,25 @@ static void setup(void)
     fourS = new Card(FOUR, SPADES);
     aceC = new Card(ACE, CLUBS);
     sixH = new Card(SIX, HEARTS);
-    threeD = new Card(THREE, DIAMONDS);
     twoS = new Card(TWO, SPADES);
     fiveD = new Card(FIVE, DIAMONDS);
     sevenC = new Card(SEVEN, CLUBS);
     kingS = new Card(KING, SPADES);
     aceH = new Card(ACE, HEARTS);
+}
+
+static void teardown(void)
+{
+    delete threeD;
+    delete sevenD;
+    delete fourS;
+    delete aceC;
+    delete sixH;
+    delete twoS;
+    delete fiveD;
+    delete sevenC;
+    delete kingS;
+    delete aceH;
 }
 
 static void testAddToHandAddsCard(void)
@@ -226,4 +239,5 @@ void register_player_tests()
     TEST(hasCardsWhenCardsInFaceUp);
     TEST(hasCardsWhenCardsInFaceDown);
     TEST(notHasCardsWhenNone);
+    TEARDOWN(teardown);
 }

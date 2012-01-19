@@ -15,6 +15,11 @@ static void setup(void)
     player = new HumanPlayer("James");
 }
 
+static void teardown(void)
+{
+    delete player;
+}
+
 static void testIsHuman(void)
 {
     assert_false(player->isComputer());
@@ -53,6 +58,7 @@ void register_human_player_tests()
     TEST(testIsHuman);
     TEST(testCannotAskSwapCards);
     TEST(testCannotAskSwapChoice);
+    TEARDOWN(teardown);
 }
 
 

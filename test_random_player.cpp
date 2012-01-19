@@ -14,6 +14,11 @@ static void setup(void)
     player = new RandomPlayer("James");
 }
 
+static void teardown(void)
+{
+    delete player;
+}
+
 static void testIsComputer(void)
 {
     assert_true(player->isComputer());
@@ -44,6 +49,7 @@ void register_random_player_tests()
     TEST(testIsComputer);
     TEST(testCannotAskSwapChoice);
     TEST(testDoesntSwapCards);
+    TEARDOWN(teardown);
 }
 
 
