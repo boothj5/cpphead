@@ -8,19 +8,24 @@
 
 using namespace std ;
 
-void testIsHuman(void)
+static Player *player;
+
+static void setup(void)
 {
-    HumanPlayer player("James");
-    assert_false(player.isComputer());
+    player = new HumanPlayer("James");
 }
 
-void testCannotAskSwapCards(void)
+static void testIsHuman(void)
 {
-    HumanPlayer player("James");
+    assert_false(player->isComputer());
+}
+
+static void testCannotAskSwapCards(void)
+{
     bool thrown = false;
     
     try {
-        player.askSwapCards();
+        player->askSwapCards();
     } catch (ShitheadException& e) {
         thrown = true;
     }
@@ -28,13 +33,12 @@ void testCannotAskSwapCards(void)
     assert_true(thrown);
 }
 
-void testCannotAskSwapChoice(void)
+static void testCannotAskSwapChoice(void)
 {
-    HumanPlayer player("James");
     bool thrown = false;
     
     try {
-        player.askSwapChoice();
+        player->askSwapChoice();
     } catch (ShitheadException& e) {
         thrown = true;
     }
@@ -45,6 +49,7 @@ void testCannotAskSwapChoice(void)
 void register_human_player_tests()
 {
     TEST_MODULE("test_human_player");
+    SETUP(setup);
     TEST(testIsHuman);
     TEST(testCannotAskSwapCards);
     TEST(testCannotAskSwapChoice);

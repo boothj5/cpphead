@@ -1,100 +1,102 @@
 #include <head-unit.h>
-
+#include <memory>
 #include "card.hpp"
 
-void testThreeLowerThanTwo(void)
-{
-    Card three(THREE, DIAMONDS) ;
-    Card two(TWO, HEARTS) ;
+using namespace std;
 
-    assert_true(Card::shCompare(three, two)) ;
+static Card *threeD;
+static Card *twoH;
+static Card *fiveD;
+static Card *jackD;
+static Card *sevenH;
+static Card *tenD;
+static Card *tenH;
+static Card *tenS;
+static Card *tenC;
+static Card *aceH;
+static Card *nineC;
+
+static void setup(void)
+{
+    threeD = new Card(THREE, DIAMONDS);
+    twoH = new Card(TWO, HEARTS);
+    fiveD = new Card(FIVE, DIAMONDS) ;
+    jackD = new Card(JACK, DIAMONDS) ;
+    sevenH = new Card(SEVEN, HEARTS) ;
+    tenD = new Card(TEN, DIAMONDS) ;
+    tenH = new Card(TEN, HEARTS) ;
+    tenS = new Card(TEN, SPADES) ;
+    tenC = new Card(TEN, CLUBS) ;
+    aceH = new Card(ACE, HEARTS) ;
+    nineC = new Card(NINE, CLUBS) ;
 }
 
-
-void testFiveLowerThanTwo(void)
+static void testThreeLowerThanTwo(void)
 {
-    Card five(FIVE, DIAMONDS) ;
-    Card two(TWO, HEARTS) ;
-
-    assert_true(Card::shCompare(five, two)) ;
+    assert_true(Card::shCompare(*threeD, *twoH)) ;
 }
 
-void testJackLowerThanSeven(void)
+static void testFiveLowerThanTwo(void)
 {
-    Card jack(JACK, DIAMONDS) ;
-    Card seven(SEVEN, HEARTS) ;
-
-    assert_true(Card::shCompare(jack, seven)) ;
+    assert_true(Card::shCompare(*fiveD, *twoH)) ;
 }
 
-void testTwoSpecial(void)
+static void testJackLowerThanSeven(void)
 {
-    Card two(TWO, DIAMONDS) ;
-    assert_true(two.special()) ;
+    assert_true(Card::shCompare(*jackD, *sevenH)) ;
 }
 
-void testSevenSpecial(void)
+static void testTwoSpecial(void)
 {
-    Card seven(SEVEN, DIAMONDS) ;
-    assert_true(seven.special()) ;
+    assert_true(twoH->special()) ;
 }
 
-void testTenSpecial(void)
+static void testSevenSpecial(void)
 {
-    Card ten(TEN, DIAMONDS) ;
-    assert_true(ten.special()) ;
+    assert_true(sevenH->special()) ;
 }
 
-void testRanksEqual(void)
+static void testTenSpecial(void)
 {
-    Card tend(TEN, DIAMONDS) ;
-    Card tenh(TEN, HEARTS) ;
-
-    assert_true(tend.equalsRank(tenh)) ;
+    assert_true(tenD->special()) ;
 }
 
-void testRanksNotEqual(void)
+static void testRanksEqual(void)
 {
-    Card ten(TEN, DIAMONDS) ;
-    Card ace(ACE, HEARTS) ;
-
-    assert_false(ten.equalsRank(ace)) ;
+    assert_true(tenD->equalsRank(*tenH)) ;
 }
 
-void testAllRanksEqual(void)
+static void testRanksNotEqual(void)
+{
+    assert_false(tenD->equalsRank(*aceH)) ;
+}
+
+static void testAllRanksEqual(void)
 {
     vector<Card> cards ;
-    Card tenspades(TEN, SPADES) ;
-    Card tendiamonds(TEN, DIAMONDS) ;
-    Card tenclubs(TEN, CLUBS) ;
-    Card tenhearts(TEN, HEARTS) ;
-
-    cards.push_back(tenspades) ;
-    cards.push_back(tendiamonds) ;
-    cards.push_back(tenclubs) ;
-    cards.push_back(tenhearts) ;
+    cards.push_back(*tenS) ;
+    cards.push_back(*tenD) ;
+    cards.push_back(*tenC) ;
+    cards.push_back(*tenH) ;
 
     assert_true(Card::allRanksEqual(cards)) ;
 }
 
-void testNotAllRanksEqual(void)
+static void testNotAllRanksEqual(void)
 {
     vector<Card> cards ;
-    Card tenspades(TEN, SPADES) ;
-    Card tendiamonds(TEN, DIAMONDS) ;
-    Card nineclubs(NINE, CLUBS) ;
-    Card tenhearts(TEN, HEARTS) ;
-
-    cards.push_back(tenspades) ;
-    cards.push_back(tendiamonds) ;
-    cards.push_back(nineclubs) ;
-    cards.push_back(tenhearts) ;
+    cards.push_back(*tenS) ;
+    cards.push_back(*tenD) ;
+    cards.push_back(*nineC) ;
+    cards.push_back(*tenH) ;
 
     assert_false(Card::allRanksEqual(cards)) ;
 }
+
 void register_card_tests()
 {
     TEST_MODULE("test_card");
+    SETUP(setup);
     TEST(testThreeLowerThanTwo);
     TEST(testFiveLowerThanTwo);
     TEST(testJackLowerThanSeven);

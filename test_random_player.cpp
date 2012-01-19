@@ -7,19 +7,24 @@
 
 using namespace std ;
 
-void testIsComputer(void)
+static Player *player;
+
+static void setup(void)
 {
-    RandomPlayer player("Comp");
-    assert_true(player.isComputer());
+    player = new RandomPlayer("James");
 }
 
-void testErrorOnAskSwapChoice()
+static void testIsComputer(void)
+{
+    assert_true(player->isComputer());
+}
+
+static void testCannotAskSwapChoice()
 {
     bool thrown = false;
 
-    RandomPlayer player("Comp");
     try {
-        player.askSwapChoice();
+        player->askSwapChoice();
     } catch (ShitheadException& e) {
         thrown = true;
     }
@@ -27,18 +32,17 @@ void testErrorOnAskSwapChoice()
     assert_true(thrown);
 }
 
-void testDoesntSwapCards()
+static void testDoesntSwapCards()
 {
-    RandomPlayer player("Comp");
-    
-    assert_false(player.askSwapCards());
+    assert_false(player->askSwapCards());
 }
 
 void register_random_player_tests()
 {
     TEST_MODULE("test_random_player");
+    SETUP(setup);
     TEST(testIsComputer);
-    TEST(testErrorOnAskSwapChoice);
+    TEST(testCannotAskSwapChoice);
     TEST(testDoesntSwapCards);
 }
 
