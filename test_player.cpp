@@ -47,20 +47,27 @@ static void teardown(void)
     delete aceH;
 }
 
-static void testAddToHandAddsCard(void)
+static void beforetest(void)
 {
     james = new HumanPlayer("James");
+}
+
+static void aftertest(void)
+{
+    delete james;
+}
+
+static void testAddToHandAddsCard(void)
+{
     james->addToHand(*threeD);
     vector<Card> cards = james->hand();
     Card found = cards[0];
 
     assert_equals(found, *threeD);
-    delete james;
 }
 
 static void testAddAllToHandAddsCards(void)
 {
-    james = new HumanPlayer("James");
     vector<Card> cards;
     cards.push_back(*threeD);
     cards.push_back(*sevenD);
@@ -83,34 +90,28 @@ static void testAddAllToHandAddsCards(void)
     
     found = find(hand.begin(), hand.end(), *aceC);
     assert_false(found == hand.end());
-    delete james;
 }
 
 static void testAddToFaceUpAddsCard(void)
 {
-    james = new HumanPlayer("James");
     james->addToFaceUp(*threeD);
     vector<Card> cards = james->faceUp();
     Card found = cards[0];
 
     assert_equals(found, *threeD);
-    delete james;
 }
 
 static void testAddToFaceDownAddsCard(void)
 {
-    james = new HumanPlayer("James");
     james->addToFaceDown(*threeD);
     vector<Card> cards = james->faceDown();
     Card found = cards[0];
 
     assert_equals(found, *threeD);
-    delete james;
 }
 
 static void sortHandSortsHand(void) 
 {
-    james = new HumanPlayer("James");
     james->addToHand(*sixH);
     james->addToHand(*threeD);
     james->addToHand(*twoS);
@@ -122,12 +123,10 @@ static void sortHandSortsHand(void)
     assert_equals(james->hand()[1], *fiveD);
     assert_equals(james->hand()[2], *sixH);
     assert_equals(james->hand()[3], *twoS);
-    delete james;
 }
 
 static void swapSwapsCards(void)
 {
-    james = new HumanPlayer("James");
     james->addToHand(*threeD);
     james->addToHand(*sixH);
     james->addToHand(*twoS);
@@ -143,12 +142,10 @@ static void swapSwapsCards(void)
     assert_equals(james->faceUp()[0], *fiveD);    
     assert_equals(james->faceUp()[1], *sevenC);    
     assert_equals(james->faceUp()[2], *sixH);    
-    delete james;
 }
 
 static void removeFromHandRemovesCard(void) 
 {
-    james = new HumanPlayer("James");
     james->addToHand(*sixH);
     james->addToHand(*threeD);
     james->addToHand(*twoS);
@@ -163,12 +160,10 @@ static void removeFromHandRemovesCard(void)
     assert_equals(james->hand()[0], *fiveD);
     assert_equals(james->hand()[1], *sixH);
     assert_equals(james->hand()[2], *twoS);
-    delete james;
 }
 
 static void removeFromHandRemovesCards(void) 
 {
-    james = new HumanPlayer("James");
     james->addToHand(*sixH) ;
     james->addToHand(*threeD) ;
     james->addToHand(*twoS) ;
@@ -187,46 +182,38 @@ static void removeFromHandRemovesCards(void)
     assert_equals(james->hand()[0], *threeD) ;
     assert_equals(james->hand()[1], *sixH) ;
     assert_equals(james->hand()[2], *kingS) ;
-    delete james;
 }
 
 static void hasCardsWhenCardsInHand() 
 {
-    james = new HumanPlayer("James");
     james->addToHand(*sixH) ;
     assert_true(james->hasCards()) ;
-    delete james;
 }
 
 static void hasCardsWhenCardsInFaceUp() 
 {
-    james = new HumanPlayer("James");
     james->addToFaceUp(*sixH) ;
-
     assert_true(james->hasCards()) ;
-    delete james;
 }
 
 static void hasCardsWhenCardsInFaceDown() 
 {
-    james = new HumanPlayer("James");
     james->addToFaceDown(*sixH) ;
 
     assert_true(james->hasCards()) ;
-    delete james;
 }
 
 static void notHasCardsWhenNone()
 {
-    james = new HumanPlayer("James");
     assert_false(james->hasCards()) ;
-    delete james;
 }
 
 void register_player_tests()
 {
     TEST_MODULE("test_player");
     SETUP(setup);
+    BEFORETEST(beforetest);
+    AFTERTEST(aftertest);
     TEST(testAddToHandAddsCard);
     TEST(testAddAllToHandAddsCards);
     TEST(testAddToFaceUpAddsCard);
