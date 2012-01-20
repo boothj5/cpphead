@@ -8,6 +8,6 @@ int main(void)
     register_random_player_tests() ;
     register_human_player_tests() ;
     register_lowcard_player_tests() ;
-    run_tests() ;
+    run_suite() ;
     return 0 ;
 }
