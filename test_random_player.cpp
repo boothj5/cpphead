@@ -42,6 +42,11 @@ static void testDoesntSwapCards()
     assert_false(player->askSwapCards());
 }
 
+static void alwaysChoosesFirstFaceDownCard()
+{
+    assert_equals(0, player->askFaceDownMoveChoice());
+}
+
 void register_random_player_tests()
 {
     TEST_MODULE("test_random_player");
@@ -49,6 +54,7 @@ void register_random_player_tests()
     TEST(testIsComputer);
     TEST(testCannotAskSwapChoice);
     TEST(testDoesntSwapCards);
+    TEST(alwaysChoosesFirstFaceDownCard);
     TEARDOWN(teardown);
 }
 

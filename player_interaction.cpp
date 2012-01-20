@@ -7,7 +7,9 @@
 
 using namespace std;
 
-void player_swap(Player *player, Game& game)
+namespace interact {
+
+void swap(Player *player, Game& game)
 {
     if (!player->isComputer()) {
         console::clearScreen();
@@ -32,7 +34,7 @@ void player_swap(Player *player, Game& game)
     }
 }
 
-void player_move(const Player *player, Game& game)
+void move(const Player *player, Game& game)
 {
     if (game.currentPlayerCanMove()) {
         if (!player->isComputer()) {
@@ -62,8 +64,7 @@ void player_move(const Player *player, Game& game)
     }
 }
 
-
-void player_facedown_move(const Player *player, Game& game)
+void facedown_move(const Player *player, Game& game)
 {
     int choice = 0;
     
@@ -87,3 +88,5 @@ void player_facedown_move(const Player *player, Game& game)
         }
     }
 }
+
+} // namespace interact

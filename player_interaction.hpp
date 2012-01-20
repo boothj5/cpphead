@@ -4,7 +4,12 @@
 #include "player.hpp"
 #include "game.hpp"
 
-void player_swap(Player *player, Game& game);
-void player_move(const Player *player, Game& game);
-void player_facedown_move(const Player *player, Game& game);
+namespace interact {
+
+void swap(Player *player, Game& game);
+void move(const Player *player, Game& game);
+void facedown_move(const Player *player, Game& game);
+
+} // namespace interact
+
 #endif

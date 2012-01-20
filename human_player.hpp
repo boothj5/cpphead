@@ -8,7 +8,7 @@
 
 class HumanPlayer: public Player {
     public:
-    HumanPlayer(const std::string name);
+    explicit HumanPlayer(const std::string name);
     ~HumanPlayer() {};
     bool isComputer() const;
     const std::pair<int, int> askSwapChoice() const;

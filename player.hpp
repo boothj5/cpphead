@@ -14,7 +14,7 @@ class Player {
     std::vector<Card> faceDown_;
     
     public:
-    Player(const std::string name);
+    explicit Player(const std::string name);
     virtual ~Player();
     const std::string name() const;
     const std::vector<Card> hand() const;
@@ -32,8 +32,6 @@ class Player {
     bool hasCards() const;
     bool hasCardsInHand() const;
     bool hasCardsInFaceUp() const;
-
-//    static Player * createPlayer(const std::string, char);
 
     virtual bool isComputer() const =0;
     virtual const std::pair<int, int> askSwapChoice() const =0;

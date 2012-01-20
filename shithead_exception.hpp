@@ -8,7 +8,7 @@ class ShitheadException
     std::string msg_;
 
     public:
-    ShitheadException(std::string msg) : msg_(msg) {}
+    explicit ShitheadException(std::string msg) : msg_(msg) {}
     std::string getMessage() const { return msg_; }
 };
 

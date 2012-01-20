@@ -37,7 +37,7 @@ void CliEngine::run()
 
     vector<Player *> players = game.players();
     for (i = 0 ; i < players.size() ; i++)
-        player_swap(players[i], game);
+        interact::swap(players[i], game);
 
     game.firstMove();
 
@@ -46,9 +46,9 @@ void CliEngine::run()
         console::clearScreen();
         console::showGame(game);
         if (game.playingFromFaceDown())
-            player_facedown_move(currentPlayer, game);
+            interact::facedown_move(currentPlayer, game);
         else
-            player_move(currentPlayer, game);
+            interact::move(currentPlayer, game);
     }
 
     console::showShithead(game.getCppHead());

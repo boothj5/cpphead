@@ -8,7 +8,7 @@ class PlayerHelper {
     std::vector<Card> pile_;
     
     public:
-    PlayerHelper(const std::vector<Card>&);
+    explicit PlayerHelper(const std::vector<Card>&);
     const std::vector<Card> getPile() const;
 };
 

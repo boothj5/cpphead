@@ -8,7 +8,7 @@
 
 class ComputerPlayer: public Player {
     public:
-    ComputerPlayer(const std::string name);
+    explicit ComputerPlayer(const std::string name);
     virtual ~ComputerPlayer() {};
     bool isComputer() const;
     virtual const std::pair<int, int> askSwapChoice() const =0;
@@ -22,7 +22,7 @@ class RandomPlayer: public ComputerPlayer {
     public:
     static const std::string description;
 
-    RandomPlayer(const std::string name);
+    explicit RandomPlayer(const std::string name);
     ~RandomPlayer() {};
     const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
@@ -34,7 +34,7 @@ class LowCardPlayer: public ComputerPlayer {
     public:
     static const std::string description;   
 
-    LowCardPlayer(const std::string name);
+    explicit LowCardPlayer(const std::string name);
     ~LowCardPlayer() {};
     const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
@@ -46,7 +46,7 @@ class HighCardPlayer: public ComputerPlayer {
     public:
     static const std::string description;   
 
-    HighCardPlayer(const std::string name);
+    explicit HighCardPlayer(const std::string name);
     ~HighCardPlayer() {};
     const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;
@@ -58,7 +58,7 @@ class Pyromaniac: public ComputerPlayer {
     public:
     static const std::string description;   
 
-    Pyromaniac(const std::string name);
+    explicit Pyromaniac(const std::string name);
     ~Pyromaniac() {};
     const std::pair<int, int> askSwapChoice() const;
     bool askSwapCards() const;

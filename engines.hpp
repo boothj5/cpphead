@@ -26,7 +26,7 @@ class BattleEngine: public Engine {
     shMap_t shMap_;
 
     public:
-    BattleEngine(const int);
+    explicit BattleEngine(const int);
     ~BattleEngine();
 
     void run();
