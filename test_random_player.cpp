@@ -7,12 +7,7 @@
 
 using namespace std ;
 
-static Player *player;
-
-static void setup(void)
-{
-    player = new RandomPlayer("James");
-}
+static Player *player = new RandomPlayer("Random");
 
 static void teardown(void)
 {
@@ -50,7 +45,6 @@ static void alwaysChoosesFirstFaceDownCard()
 void register_random_player_tests()
 {
     TEST_MODULE("test_random_player");
-    SETUP(setup);
     TEST(testIsComputer);
     TEST(testCannotAskSwapChoice);
     TEST(testDoesntSwapCards);

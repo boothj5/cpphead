@@ -4,96 +4,65 @@
 
 using namespace std;
 
-static Card *threeD;
-static Card *twoH;
-static Card *fiveD;
-static Card *jackD;
-static Card *sevenH;
-static Card *tenD;
-static Card *tenH;
-static Card *tenS;
-static Card *tenC;
-static Card *aceH;
-static Card *nineC;
-
-static void setup(void)
-{
-    threeD = new Card(THREE, DIAMONDS);
-    twoH = new Card(TWO, HEARTS);
-    fiveD = new Card(FIVE, DIAMONDS);
-    jackD = new Card(JACK, DIAMONDS);
-    sevenH = new Card(SEVEN, HEARTS);
-    tenD = new Card(TEN, DIAMONDS);
-    tenH = new Card(TEN, HEARTS);
-    tenS = new Card(TEN, SPADES);
-    tenC = new Card(TEN, CLUBS);
-    aceH = new Card(ACE, HEARTS);
-    nineC = new Card(NINE, CLUBS);
-}
-
-static void teardown(void)
-{
-    delete threeD;
-    delete twoH;
-    delete fiveD;
-    delete jackD;
-    delete sevenH;
-    delete tenD;
-    delete tenH;
-    delete tenS;
-    delete tenC;
-    delete aceH;
-    delete nineC;
-    
-}
+static Card threeD(THREE, DIAMONDS);
+static Card twoH(TWO, HEARTS);
+static Card fiveD(FIVE, DIAMONDS);
+static Card jackD(JACK, DIAMONDS);
+static Card sevenH(SEVEN, HEARTS);
+static Card tenD(TEN, DIAMONDS);
+static Card tenH(TEN, HEARTS);
+static Card tenS(TEN, SPADES);
+static Card tenC(TEN, CLUBS);
+static Card aceH(ACE, HEARTS);
+static Card nineC(NINE, CLUBS);
 
 static void testThreeLowerThanTwo(void)
 {
-    assert_true(Card::shCompare(*threeD, *twoH));
+    assert_true(Card::shCompare(threeD, twoH));
 }
 
 static void testFiveLowerThanTwo(void)
 {
-    assert_true(Card::shCompare(*fiveD, *twoH));
+    assert_true(Card::shCompare(fiveD, twoH));
 }
 
 static void testJackLowerThanSeven(void)
 {
-    assert_true(Card::shCompare(*jackD, *sevenH));
+    assert_true(Card::shCompare(jackD, sevenH));
 }
 
 static void testTwoSpecial(void)
 {
-    assert_true(twoH->special());
+    assert_true(twoH.special());
 }
 
 static void testSevenSpecial(void)
 {
-    assert_true(sevenH->special());
+    assert_true(sevenH.special());
 }
 
 static void testTenSpecial(void)
 {
-    assert_true(tenD->special());
+    assert_true(tenD.special());
 }
 
 static void testRanksEqual(void)
 {
-    assert_true(tenD->equalsRank(*tenH));
+    assert_true(tenD.equalsRank(tenH));
 }
 
 static void testRanksNotEqual(void)
 {
-    assert_false(tenD->equalsRank(*aceH));
+    assert_false(tenD.equalsRank(aceH));
 }
 
 static void testAllRanksEqual(void)
 {
     vector<Card> cards;
-    cards.push_back(*tenS);
-    cards.push_back(*tenD);
-    cards.push_back(*tenC);
-    cards.push_back(*tenH);
+    cards.push_back(tenS);
+    cards.push_back(tenD);
+    cards.push_back(tenC);
+    cards.push_back(tenH);
 
     assert_true(Card::allRanksEqual(cards));
 }
@@ -101,10 +70,10 @@ static void testAllRanksEqual(void)
 static void testNotAllRanksEqual(void)
 {
     vector<Card> cards;
-    cards.push_back(*tenS);
-    cards.push_back(*tenD);
-    cards.push_back(*nineC);
-    cards.push_back(*tenH);
+    cards.push_back(tenS);
+    cards.push_back(tenD);
+    cards.push_back(nineC);
+    cards.push_back(tenH);
 
     assert_false(Card::allRanksEqual(cards));
 }
@@ -112,7 +81,6 @@ static void testNotAllRanksEqual(void)
 void register_card_tests()
 {
     TEST_MODULE("test_card");
-    SETUP(setup);
     TEST(testThreeLowerThanTwo);
     TEST(testFiveLowerThanTwo);
     TEST(testJackLowerThanSeven);
@@ -123,6 +91,5 @@ void register_card_tests()
     TEST(testRanksNotEqual);
     TEST(testAllRanksEqual);
     TEST(testNotAllRanksEqual);
-    TEARDOWN(teardown);
 }
 

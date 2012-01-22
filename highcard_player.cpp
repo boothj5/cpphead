@@ -6,6 +6,7 @@
 #include "computer_players.hpp"
 #include "player_helper.hpp"
 #include "game.hpp"
+#include "shithead_exception.hpp"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ HighCardPlayer::HighCardPlayer(const string name) : ComputerPlayer(name) {}
 
 const pair<int, int> HighCardPlayer::askSwapChoice() const
 {
-    return pair<int, int>(0,0);
+    throw ShitheadException("Cannot ask HighCardPlayer for swap choice");
 }
 
 bool HighCardPlayer::askSwapCards() const

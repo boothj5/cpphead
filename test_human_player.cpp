@@ -1,19 +1,13 @@
 #include <head-unit.h>
 #include <vector>
 #include <algorithm>
-
 #include "player.hpp"
 #include "human_player.hpp"
 #include "shithead_exception.hpp"
 
 using namespace std ;
 
-static Player *player;
-
-static void setup(void)
-{
-    player = new HumanPlayer("James");
-}
+static Player *player = new HumanPlayer("James");
 
 static void teardown(void)
 {
@@ -54,7 +48,6 @@ static void testCannotAskSwapChoice(void)
 void register_human_player_tests()
 {
     TEST_MODULE("test_human_player");
-    SETUP(setup);
     TEST(testIsHuman);
     TEST(testCannotAskSwapCards);
     TEST(testCannotAskSwapChoice);

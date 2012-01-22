@@ -10,7 +10,8 @@ TESTOBJS = test_card.o card.o \
            highcard_player.o lowcard_player.o pyromaniac.o computer_player.o \
 		   test_random_player.o random_player.o player_factory.o \
 		   test_human_player.o human_player.o \
-		   test_lowcard_player.o player_helper.o game.o util.o
+		   test_lowcard_player.o player_helper.o game.o util.o \
+           test_highcard_player.o
 
 cpphead: $(OBJS) cpphead.o
 	$(CC) -o cpphead $(OBJS) cpphead.o
@@ -45,6 +46,8 @@ test_player.o: human_player.hpp
 test_human_player.o: player.hpp human_player.hpp shithead_exception.hpp
 test_random_player.o: computer_players.hpp shithead_exception.hpp
 test_lowcard_player.o: computer_players.hpp shithead_exception.hpp card.hpp \
+                       player_helper.hpp
+test_highcard_player.o: computer_players.hpp shithead_exception.hpp card.hpp \
                        player_helper.hpp
 
 testsuite: testsuite.hpp $(TESTOBJS)
