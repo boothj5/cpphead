@@ -43,7 +43,7 @@ const vector<int> RandomPlayer::askMoveChoice(const PlayerHelper& helper) const
 
         // find the first card I can lay and save its index
         for (i = 0; i < possibleChoices.size(); i++) {
-            if (Game::canLay(hand_[possibleChoices[i]], helper.getPile())) {
+            if (game::canLay(hand_[possibleChoices[i]], helper.getPile())) {
                 first = possibleChoices[i];
                 break;
             }
@@ -65,7 +65,7 @@ const vector<int> RandomPlayer::askMoveChoice(const PlayerHelper& helper) const
         // find the first card I can lay and save the rank
         int i;
         for (i = 0; i < faceUp_.size(); i++) {
-            if (Game::canLay(faceUp_[i], helper.getPile())) {
+            if (game::canLay(faceUp_[i], helper.getPile())) {
                 first = i;
                 break;
             }

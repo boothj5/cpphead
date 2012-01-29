@@ -30,7 +30,7 @@ Game::Game(const vector<string>& names, const vector<char>& types, int numCards)
     }
     currentPlayer_ = players_.begin() ;
 
-    numDecks = calcNumDecks(numPlayers_, numCards_) ;
+    numDecks = game::calcNumDecks(numPlayers_, numCards_) ;
     for (i = 0 ; i < numDecks ; i++)
         for (suit = HEARTS ; suit <= CLUBS ; suit++)
             for (rank = TWO ; rank <= ACE ; rank++) {
@@ -231,7 +231,7 @@ bool Game::validMove(const vector<Card>& cards) const
     if (!card::allRanksEqual(cards)) 
         return false ;
     else
-        return Game::canLay(cards.back(), pile_) ;
+        return game::canLay(cards.back(), pile_) ;
 }
 
 bool Game::currentPlayerCanMove() const
@@ -373,38 +373,13 @@ bool Game::canMoveWithOneOf(const vector<Card>& cards) const
 {
     int i ;
     for (i = 0 ; i < cards.size() ; i++)
-        if (Game::canLay(cards[i], pile_))
+        if (game::canLay(cards[i], pile_))
             return true ;
     return false ;   
 
 }
 
-bool Game::canLay(const Card& card, const vector<Card>& cards)
-{
-    if (cards.empty())
-        return true ;
-    else if (card.special())
-        return true ;
-    else if (cards.back().isInvisible()) {
-        vector<Card> newPile = cards ;
-        newPile.pop_back() ;
-        return canLay(card, newPile) ;
-    }
-    else if (card.rank() < cards.back().rank())
-        return false ;
-    else
-        return true ;
-}
 
-int Game::calcNumDecks(const int numPlayers, const int numCards)
-{
-    int decksRequired, totalCards, div, add ;
-    totalCards = numPlayers * (numCards * 3) ;
-    div = totalCards / DECK_SIZE ;
-    add = ((totalCards % DECK_SIZE) > 0) ;
-    decksRequired = div + add ;
-    return decksRequired ;
-}
 
 const string Game::getCppHead() const
 {
@@ -444,3 +419,34 @@ const string Game::lastMove() const
 { 
     return lastMove_ ; 
 }
+
+namespace game {
+
+bool canLay(const Card& card, const vector<Card>& cards)
+{
+    if (cards.empty())
+        return true ;
+    else if (card.special())
+        return true ;
+    else if (cards.back().isInvisible()) {
+        vector<Card> newPile = cards ;
+        newPile.pop_back() ;
+        return game::canLay(card, newPile) ;
+    }
+    else if (card.rank() < cards.back().rank())
+        return false ;
+    else
+        return true ;
+}
+
+int calcNumDecks(const int numPlayers, const int numCards)
+{
+    int decksRequired, totalCards, div, add ;
+    totalCards = numPlayers * (numCards * 3) ;
+    div = totalCards / DECK_SIZE ;
+    add = ((totalCards % DECK_SIZE) > 0) ;
+    decksRequired = div + add ;
+    return decksRequired ;
+}
+
+} // namespace game

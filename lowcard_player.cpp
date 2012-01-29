@@ -36,7 +36,7 @@ const vector<int> LowCardPlayer::askMoveChoice(const PlayerHelper& helper) const
         // find the first card I can lay and save its index
         int i;
         for (i = 0; i < hand_.size(); i++) {
-            if (Game::canLay(hand_[i], helper.getPile())) {
+            if (game::canLay(hand_[i], helper.getPile())) {
                 first = i;
                 break;
             }
@@ -62,7 +62,7 @@ const vector<int> LowCardPlayer::askMoveChoice(const PlayerHelper& helper) const
         // find the first card I can lay and save its index
         int i;
         for (i = 0; i < sorted.size(); i++) {
-            if (Game::canLay(sorted[i], helper.getPile())) {
+            if (game::canLay(sorted[i], helper.getPile())) {
                 first = i;
                 break;
             }
