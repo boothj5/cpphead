@@ -139,11 +139,11 @@ bool shCompare(const Card& c1, const Card& c2)
 
 bool allRanksEqual(const vector<Card>& cards)
 {
-    const Card first = cards[0];
-
-    int i;
-    for (i = 1 ; i < cards.size() ; i++)
-        if (!cards[i].equalsRank(first))
+    vector<Card>::const_iterator first = cards.begin();
+    
+    vector<Card>::const_iterator iter;    
+    for (iter = cards.begin() + 1; iter!=cards.end(); iter++)
+        if (!iter->equalsRank(*first))
             return false;
     return true;
 }

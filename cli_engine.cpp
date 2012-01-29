@@ -36,8 +36,9 @@ void CliEngine::run()
     console::clearScreen();
 
     vector<Player *> players = game.players();
-    for (i = 0 ; i < players.size() ; i++)
-        interact::swap(*players[i], game);
+    vector<Player *>::const_iterator piter;
+    for (piter = players.begin(); piter!=players.end(); piter++)
+        interact::swap(**piter, game);
 
     game.firstMove();
 

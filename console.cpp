@@ -64,11 +64,9 @@ char requestPlayerType(const int num)
     char type;
     
     cout << endl << "Enter player type for player " << num << ":" << endl;
-    
     cout << endl << "h --> Human player." << endl;
 
     playerDescMap_t playerDescMap = PlayerFactory::getPlayerDescriptions();
-
     playerDescMap_t::const_iterator iter;
     for (iter = playerDescMap.begin(); iter!=playerDescMap.end(); iter++) {
         cout << iter->first << " --> " << iter->second << endl; 
@@ -182,9 +180,10 @@ static const vector<int> parseChoices(const string strChoices)
     vector<int> choices ;
     vector<string> splitString ;
     split(splitString, strChoices, is_any_of(","));
-    int i ;
-    for (i = 0 ; i < splitString.size() ; i++) {
-        string choice = splitString[i] ;
+   
+    vector<string>::const_iterator iter;    
+    for (iter = splitString.begin(); iter!=splitString.end(); iter++) {
+        string choice = *iter ;
         stringstream str(choice) ;
         int choiceInt ;
         str >> choiceInt ;

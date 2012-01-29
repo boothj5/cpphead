@@ -281,9 +281,9 @@ void Game::pickUpPileAndFaceDown(const int choice)
 
 void Game::playFromHand(const vector<int>& toLay)
 {
-    int i ;
-    for (i = 0 ; i < toLay.size() ; i++)
-        pile_.push_back((*currentPlayer_)->hand()[toLay[i]]) ;
+    vector<int>::const_iterator iter;
+    for (iter = toLay.begin(); iter!=toLay.end(); iter++)
+        pile_.push_back((*currentPlayer_)->hand()[*iter]) ;
     
     (*currentPlayer_)->removeFromHand(toLay) ;
 
@@ -295,9 +295,9 @@ void Game::playFromHand(const vector<int>& toLay)
 
 void Game::playFromFaceUp(const vector<int>& toLay)
 {
-    int i ;
-    for (i = 0 ; i < toLay.size() ; i++)
-        pile_.push_back((*currentPlayer_)->faceUp()[toLay[i]]) ;
+    vector<int>::const_iterator iter;
+    for (iter = toLay.begin(); iter!=toLay.end(); iter++)
+        pile_.push_back((*currentPlayer_)->faceUp()[*iter]) ;
     
     (*currentPlayer_)->removeFromFaceUp(toLay) ;
 }
@@ -314,10 +314,11 @@ void Game::setLastHandMove(const vector<int>& toLay)
     lastMove_ = "" ;
     lastMove_ += player->name() ;
     lastMove_ += " laid " ;
-    int i ;
-    for (i = 0 ; i < toLay.size() ; i++) {
-        lastMove_ += player->hand()[toLay[i]].toString() ;
-        if (i < toLay.size())
+    
+    vector<int>::const_iterator iter;
+    for (iter = toLay.begin(); iter!=toLay.end(); iter++) {
+        lastMove_ += player->hand()[*iter].toString() ;
+        if (iter != toLay.end())
             lastMove_ += ", " ;
     }
 }
@@ -328,10 +329,11 @@ void Game::setLastFaceUpMove(const vector<int>& toLay)
     lastMove_ = "" ;
     lastMove_ += player->name() ;
     lastMove_ += " laid " ;
-    int i ;
-    for (i = 0 ; i < toLay.size() ; i++) {
-        lastMove_ += player->faceUp()[toLay[i]].toString() ;
-        if (i < toLay.size())
+    
+    vector<int>::const_iterator iter;
+    for (iter = toLay.begin(); iter!=toLay.end(); iter++) {
+        lastMove_ += player->faceUp()[*iter].toString() ;
+        if (iter != toLay.end())
             lastMove_ += ", " ;
     }
 }
@@ -371,15 +373,13 @@ void Game::moveToNextPlayer()
 
 bool Game::canMoveWithOneOf(const vector<Card>& cards) const
 {
-    int i ;
-    for (i = 0 ; i < cards.size() ; i++)
-        if (game::canLay(cards[i], pile_))
+    vector<Card>::const_iterator iter;
+    for (iter = cards.begin(); iter!=cards.end(); iter++)
+        if (game::canLay(*iter, pile_))
             return true ;
     return false ;   
 
 }
-
-
 
 const string Game::getCppHead() const
 {

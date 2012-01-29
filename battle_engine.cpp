@@ -49,14 +49,13 @@ void BattleEngine::run()
         }
     
         auto_ptr<Game> game(new Game(names, types, NUM_CARDS));
-    
         game->deal();
     
         // ask players to swap
         vector<Player *> players = game->players();
-        int i;
-        for (i = 0 ; i < players.size() ; i++)
-            interact::swap(*players[i], *game);
+        vector<Player *>::const_iterator piter;
+        for (piter = players.begin(); piter!=players.end(); piter++)
+            interact::swap(**piter, *game);
         
         game->firstMove();
     
