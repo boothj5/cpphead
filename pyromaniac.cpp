@@ -6,6 +6,7 @@
 #include "computer_players.hpp"
 #include "player_helper.hpp"
 #include "game.hpp"
+#include "shithead_exception.hpp"
 
 using namespace std;
 
@@ -16,7 +17,7 @@ Pyromaniac::Pyromaniac(const string name) : ComputerPlayer(name) {}
 
 const pair<int, int> Pyromaniac::askSwapChoice() const
 {
-    return pair<int, int>(0,0);
+    throw ShitheadException("Pyromaniac asked to swap cards");
 }
 
 bool Pyromaniac::askSwapCards() const

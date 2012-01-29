@@ -11,7 +11,7 @@ TESTOBJS = test_card.o card.o \
 		   test_random_player.o random_player.o player_factory.o \
 		   test_human_player.o human_player.o \
 		   test_lowcard_player.o player_helper.o game.o util.o \
-           test_highcard_player.o
+           test_highcard_player.o test_pyromaniac.o
 
 cpphead: $(OBJS) cpphead.o
 	$(CC) -o cpphead $(OBJS) cpphead.o
@@ -25,11 +25,11 @@ human_player.o: human_player.hpp player.hpp player_helper.hpp shithead_exception
 random_player.o: computer_players.hpp player_helper.hpp card.hpp \
                  game.hpp util.hpp shithead_exception.hpp
 lowcard_player.o: computer_players.hpp player_helper.hpp \
-				  card.hpp game.hpp
+				  card.hpp game.hpp shithead_exception.hpp
 highcard_player.o: card.hpp computer_players.hpp \
-				   player_helper.hpp game.hpp
+				   player_helper.hpp game.hpp shithead_exception.hpp
 pyromaniac.o: card.hpp computer_players.hpp \
-              player_helper.hpp game.hpp
+              player_helper.hpp game.hpp shithead_exception.hpp
 player_interaction.o: player_interaction.hpp player.hpp game.hpp \
                       console.hpp player_helper.hpp shithead_exception.hpp
 player_helper.o: player_helper.hpp card.hpp
@@ -48,6 +48,8 @@ test_random_player.o: computer_players.hpp shithead_exception.hpp
 test_lowcard_player.o: computer_players.hpp shithead_exception.hpp card.hpp \
                        player_helper.hpp
 test_highcard_player.o: computer_players.hpp shithead_exception.hpp card.hpp \
+                       player_helper.hpp
+test_pyromaniac.o: computer_players.hpp shithead_exception.hpp card.hpp \
                        player_helper.hpp
 
 testsuite: testsuite.hpp $(TESTOBJS)

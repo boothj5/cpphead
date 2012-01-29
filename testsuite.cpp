@@ -9,6 +9,7 @@ int main(void)
     register_human_player_tests() ;
     register_lowcard_player_tests() ;
     register_highcard_player_tests() ;
+    register_pyromaniac_tests() ;
     run_suite() ;
     return 0 ;
 }
