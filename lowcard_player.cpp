@@ -35,8 +35,8 @@ const vector<int> LowCardPlayer::askMoveChoice(const PlayerHelper& helper) const
         
         // find the first card I can lay and save its index
         int i;
-        for (i = 0; i < hand_.size(); i++) {
-            if (game::canLay(hand_[i], helper.getPile())) {
+        for (i = 0; i < hand().size(); i++) {
+            if (game::canLay(hand()[i], helper.getPile())) {
                 first = i;
                 break;
             }
@@ -44,8 +44,8 @@ const vector<int> LowCardPlayer::askMoveChoice(const PlayerHelper& helper) const
         
         // add all cards of same rank from my hand to my choice
         bool found = false;
-        for (i = 0; i < hand_.size(); i++) {
-            if (hand_[i].equalsRank(hand_[first])) {
+        for (i = 0; i < hand().size(); i++) {
+            if (hand()[i].equalsRank(hand()[first])) {
                 choices.push_back(i);
                 found = true;
             } else if (found) {
@@ -56,7 +56,7 @@ const vector<int> LowCardPlayer::askMoveChoice(const PlayerHelper& helper) const
         // play from faceUp
         
         // copy and sort my faceUp
-        vector<Card> sorted = faceUp_;
+        vector<Card> sorted = faceUp();
         sort(sorted.begin(), sorted.end(), card::shCompare);
         
         // find the first card I can lay and save its index
@@ -69,8 +69,8 @@ const vector<int> LowCardPlayer::askMoveChoice(const PlayerHelper& helper) const
         }
         
         // add all cards of this rank to my choice
-        for (i = 0; i < faceUp_.size(); i++) {
-            if (faceUp_[i].equalsRank(sorted[first])) {
+        for (i = 0; i < faceUp().size(); i++) {
+            if (faceUp()[i].equalsRank(sorted[first])) {
                 choices.push_back(i);
             }
         }

@@ -36,11 +36,11 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
         // go through hand backwards
 
         // if i have a burn cards save their indexes
-        for (i = hand_.size()-1; i >= 0; i--) {
-            if (hand_[i].isBurnCard()) {
+        for (i = hand().size()-1; i >= 0; i--) {
+            if (hand()[i].isBurnCard()) {
                 choices.push_back(i);
             } 
-            else if (!hand_[i].special()) {
+            else if (!hand()[i].special()) {
                 break;
             }
         }
@@ -53,8 +53,8 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
         // otherwise
 
         // find the first card I can lay and save its index
-        for (i = 0; i < hand_.size(); i++) {
-            if (game::canLay(hand_[i], helper.getPile())) {
+        for (i = 0; i < hand().size(); i++) {
+            if (game::canLay(hand()[i], helper.getPile())) {
                 first = i;
                 break;
             }
@@ -62,8 +62,8 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
         
         // add all cards of same rank from my hand to my choice
         bool found = false;
-        for (i = 0; i < hand_.size(); i++) {
-            if (hand_[i].equalsRank(hand_[first])) {
+        for (i = 0; i < hand().size(); i++) {
+            if (hand()[i].equalsRank(hand()[first])) {
                 choices.push_back(i);
                 found = true;
             } else if (found) {
@@ -74,8 +74,8 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
         // play from faceUp
 
         // if i have a burn cards save their indexes
-        for (i = 0; i < faceUp_.size(); i++) {
-            if (faceUp_[i].isBurnCard()) {
+        for (i = 0; i < faceUp().size(); i++) {
+            if (faceUp()[i].isBurnCard()) {
                 choices.push_back(i);
             }
         }
@@ -85,7 +85,7 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
             return choices;
         } 
         // copy and sort my faceUp
-        vector<Card> sorted = faceUp_;
+        vector<Card> sorted = faceUp();
         sort(sorted.begin(), sorted.end(), card::shCompare);
         
         // find the first card I can lay and save its index
@@ -97,8 +97,8 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
         }
         
         // add all cards of this rank to my choice
-        for (i = 0; i < faceUp_.size(); i++) {
-            if (faceUp_[i].equalsRank(sorted[first])) {
+        for (i = 0; i < faceUp().size(); i++) {
+            if (faceUp()[i].equalsRank(sorted[first])) {
                 choices.push_back(i);
             }
         }

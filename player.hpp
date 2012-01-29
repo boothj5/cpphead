@@ -7,7 +7,7 @@
 #include "player_helper.hpp"
 
 class Player {
-    protected:
+    private:
     const std::string name_;
     std::vector<Card> hand_;
     std::vector<Card> faceUp_;

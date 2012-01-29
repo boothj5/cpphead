@@ -36,14 +36,14 @@ const vector<int> RandomPlayer::askMoveChoice(const PlayerHelper& helper) const
         // shuffle posisble indexes
         vector<int> possibleChoices;
         int i;
-        for (i = 0; i < hand_.size(); i++) {
+        for (i = 0; i < hand().size(); i++) {
             possibleChoices.push_back(i);
         }
         util::shuffle(possibleChoices);
 
         // find the first card I can lay and save its index
         for (i = 0; i < possibleChoices.size(); i++) {
-            if (game::canLay(hand_[possibleChoices[i]], helper.getPile())) {
+            if (game::canLay(hand()[possibleChoices[i]], helper.getPile())) {
                 first = possibleChoices[i];
                 break;
             }
@@ -51,8 +51,8 @@ const vector<int> RandomPlayer::askMoveChoice(const PlayerHelper& helper) const
 
         // add all cards of this rank from my hand to my choice
         bool found = false;
-        for (i = 0; i < hand_.size(); i++) {
-            if (hand_[i].equalsRank(hand_[first])) {
+        for (i = 0; i < hand().size(); i++) {
+            if (hand()[i].equalsRank(hand()[first])) {
                 choices.push_back(i);
                 found = true;
             } else if (found) {
@@ -64,16 +64,16 @@ const vector<int> RandomPlayer::askMoveChoice(const PlayerHelper& helper) const
         
         // find the first card I can lay and save the rank
         int i;
-        for (i = 0; i < faceUp_.size(); i++) {
-            if (game::canLay(faceUp_[i], helper.getPile())) {
+        for (i = 0; i < faceUp().size(); i++) {
+            if (game::canLay(faceUp()[i], helper.getPile())) {
                 first = i;
                 break;
             }
         }
         
         // add all cards of this rank to my choice
-        for (i = 0; i < faceUp_.size(); i++) {
-            if (faceUp_[i].equalsRank(faceUp_[first])) {
+        for (i = 0; i < faceUp().size(); i++) {
+            if (faceUp()[i].equalsRank(faceUp()[first])) {
                 choices.push_back(i);
             }
         }
