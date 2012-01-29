@@ -6,9 +6,9 @@
 
 namespace interact {
 
-void swap(Player *player, Game& game);
-void move(const Player *player, Game& game);
-void facedown_move(const Player *player, Game& game);
+void swap(Player& player, Game& game);
+void move(const Player& player, Game& game);
+void facedown_move(const Player& player, Game& game);
 
 } // namespace interact
 

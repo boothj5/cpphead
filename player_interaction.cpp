@@ -9,45 +9,45 @@ using namespace std;
 
 namespace interact {
 
-void swap(Player *player, Game& game)
+void swap(Player& player, Game& game)
 {
-    if (!player->isComputer()) {
+    if (!player.isComputer()) {
         console::clearScreen();
-        console::showPlayer(*player);
-        bool doSwap = console::requestSwapCards(player->name());
+        console::showPlayer(player);
+        bool doSwap = console::requestSwapCards(player.name());
         while (doSwap) {
             int handChoice = console::requestHandChoice();
             int faceUpChoice = console::requestFaceUpChoice();
             game.swap(player, handChoice, faceUpChoice);
             console::clearScreen();
-            console::showPlayer(*player);
-            doSwap = console::requestSwapMore(player->name());
+            console::showPlayer(player);
+            doSwap = console::requestSwapMore(player.name());
         }
     }
     else {
-        bool doSwap = player->askSwapCards();
+        bool doSwap = player.askSwapCards();
         while (doSwap) {
-            pair<int, int> swapChoice = player->askSwapChoice();
+            pair<int, int> swapChoice = player.askSwapChoice();
             game.swap(player, swapChoice.first, swapChoice.second);
-            doSwap = player->askSwapCards();
+            doSwap = player.askSwapCards();
         }
     }
 }
 
-void move(const Player *player, Game& game)
+void move(const Player& player, Game& game)
 {
     if (game.currentPlayerCanMove()) {
-        if (!player->isComputer()) {
-            vector<int> choices = console::requestMove(player->name());
+        if (!player.isComputer()) {
+            vector<int> choices = console::requestMove(player.name());
             while (!game.validMove(choices)) {
                 console::showBadMove();
-                choices = console::requestMove(player->name());
+                choices = console::requestMove(player.name());
             }
             game.makeMove(choices);
         }  else {
             // computer player
             PlayerHelper helper = game.getPlayerHelper();
-            vector<int> choices = player->askMoveChoice(helper);
+            vector<int> choices = player.askMoveChoice(helper);
             if (!game.validMove(choices)) {
                 throw ShitheadException("Computer player is cheating!");
             } else {
@@ -55,8 +55,8 @@ void move(const Player *player, Game& game)
             }            
         }
     } else {
-        if (!player->isComputer()) {
-            console::showPickUpMessage(player->name());
+        if (!player.isComputer()) {
+            console::showPickUpMessage(player.name());
             game.pickUp();
         } else {
             game.pickUp();
@@ -64,12 +64,12 @@ void move(const Player *player, Game& game)
     }
 }
 
-void facedown_move(const Player *player, Game& game)
+void facedown_move(const Player& player, Game& game)
 {
     int choice = 0;
     
-    if (player->isComputer()) {
-        choice = player->askFaceDownMoveChoice();
+    if (player.isComputer()) {
+        choice = player.askFaceDownMoveChoice();
         if (game.validMoveFromFaceDown(choice)) {
             game.makeFaceDownMove(choice);
         }
@@ -77,13 +77,13 @@ void facedown_move(const Player *player, Game& game)
             game.pickUpPileAndFaceDown(choice);
         }
     } else {
-        choice = console::requestFaceDownCard(player->name());
+        choice = console::requestFaceDownCard(player.name());
         if (game.validMoveFromFaceDown(choice)) {
-            console::showFaceDownWin(player->faceDown()[choice]);
+            console::showFaceDownWin(player.faceDown()[choice]);
             game.makeFaceDownMove(choice);
         }
         else {
-            console::showFaceDownFail(player->faceDown()[choice]);
+            console::showFaceDownFail(player.faceDown()[choice]);
             game.pickUpPileAndFaceDown(choice);
         }
     }

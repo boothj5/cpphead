@@ -75,10 +75,10 @@ void Game::deal()
     }
 }
 
-void Game::swap(Player * player, const int handChoice, const int faceUpChoice)
+void Game::swap(Player& player, const int handChoice, const int faceUpChoice)
 {
-    player->swap(handChoice, faceUpChoice) ;
-    player->sortHand();
+    player.swap(handChoice, faceUpChoice) ;
+    player.sortHand();
 }
 
 void Game::firstMove()

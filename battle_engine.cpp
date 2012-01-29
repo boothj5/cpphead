@@ -56,7 +56,7 @@ void BattleEngine::run()
         vector<Player *> players = game->players();
         int i;
         for (i = 0 ; i < players.size() ; i++)
-            interact::swap(players[i], *game);
+            interact::swap(*players[i], *game);
         
         game->firstMove();
     
@@ -65,9 +65,9 @@ void BattleEngine::run()
         while (game->canContinue() && moves < THRESHOLD) {
             const Player *currentPlayer = game->currentPlayer();
             if (game->playingFromFaceDown())
-                interact::facedown_move(currentPlayer, *game);
+                interact::facedown_move(*currentPlayer, *game);
             else
-                interact::move(currentPlayer, *game);
+                interact::move(*currentPlayer, *game);
             
             moves++;
         }

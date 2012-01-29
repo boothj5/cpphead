@@ -23,7 +23,7 @@ class Game {
     
     const PlayerHelper getPlayerHelper() const;
     void deal();
-    void swap(Player *, const int, const int);
+    void swap(Player&, const int, const int);
     void firstMove();
     const std::vector<Player *> players() const;
     const Player * currentPlayer() const;
