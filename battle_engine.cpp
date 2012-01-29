@@ -112,7 +112,7 @@ void BattleEngine::showScores() const
 {
     shVec_t shVec;
     copy(shMap_.begin(), shMap_.end(), back_inserter(shVec));
-    sort(shVec.begin(), shVec.end(), scoreOrder);
+    sort(shVec.begin(), shVec.end(), engine::scoreOrder);
 
     cout << "SCORES" << endl;
     cout << left;
@@ -133,8 +133,12 @@ void BattleEngine::showScores() const
     }
 }
 
-bool BattleEngine::scoreOrder(pair<string, int> player1, pair<string, int> player2)
+namespace engine {
+
+bool scoreOrder(const pair<string, int>& player1, const pair<string, int>& player2)
 {
     return player1.second < player2.second;
 }
+
+} // namespace engine
 

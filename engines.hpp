@@ -35,8 +35,6 @@ class BattleEngine: public Engine {
     void showStats(const clock_t, const clock_t) const;
     void showSummary(const clock_t, const clock_t) const;
     void showScores() const;
-    static bool scoreOrder(std::pair<std::string, int>,
-        std::pair<std::string, int>);
 };
 
 class CliEngine: public Engine {
@@ -46,5 +44,12 @@ class CliEngine: public Engine {
     
     void run();
 };    
+
+namespace engine {
+
+bool scoreOrder(const std::pair<std::string, int>&, 
+    const std::pair<std::string, int>&);
+
+} // namespace engine
 
 #endif
