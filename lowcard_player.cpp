@@ -57,7 +57,7 @@ const vector<int> LowCardPlayer::askMoveChoice(const PlayerHelper& helper) const
         
         // copy and sort my faceUp
         vector<Card> sorted = faceUp_;
-        sort(sorted.begin(), sorted.end(), Card::shCompare);
+        sort(sorted.begin(), sorted.end(), card::shCompare);
         
         // find the first card I can lay and save its index
         int i;

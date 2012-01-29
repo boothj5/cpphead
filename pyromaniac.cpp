@@ -86,7 +86,7 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
         } 
         // copy and sort my faceUp
         vector<Card> sorted = faceUp_;
-        sort(sorted.begin(), sorted.end(), Card::shCompare);
+        sort(sorted.begin(), sorted.end(), card::shCompare);
         
         // find the first card I can lay and save its index
         for (i = 0; i < sorted.size(); i++) {

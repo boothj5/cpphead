@@ -26,14 +26,15 @@ class Card {
     bool isBurnCard() const;
     bool isMissAGoCard() const;
     bool equalsRank(const Card& card) const;
-
-    static bool shCompare(const Card&, const Card&);   
-    static bool allRanksEqual(const std::vector<Card>&);
-    
-    private:
-    const std::string rankStr() const;
-    const std::string suitStr() const;
 };    
+
+namespace card {
+
+bool shCompare(const Card&, const Card&);   
+
+bool allRanksEqual(const std::vector<Card>&);
+
+} // namespace card
 
 std::ostream& operator<<(std::ostream&, const Card&);
 

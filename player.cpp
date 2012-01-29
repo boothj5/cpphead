@@ -63,7 +63,7 @@ void Player::addToFaceDown(const Card& card)
 
 void Player::sortHand() 
 { 
-    sort(hand_.begin(), hand_.end(), Card::shCompare) ; 
+    sort(hand_.begin(), hand_.end(), card::shCompare) ; 
 }
 
 void Player::swap(const int handCard, const int faceUpCard)

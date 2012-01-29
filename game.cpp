@@ -93,7 +93,7 @@ void Game::firstMove()
     Card currentLowest = (*currentPlayer_)->hand()[0] ;
     for (i = 1 ; i < numPlayers_ ; i++) {
         Card playersLowest = players_[i]->hand()[0] ;
-        if (Card::shCompare(playersLowest, currentLowest))
+        if (card::shCompare(playersLowest, currentLowest))
             currentPlayer_ = players_.begin() + i ;
     }
      
@@ -186,7 +186,7 @@ bool Game::burnCardLaid() const
         lastFour.push_back(pile_[pile_.size() - 3]) ;
         lastFour.push_back(pile_[pile_.size() - 4]) ;
         
-        if (Card::allRanksEqual(lastFour))
+        if (card::allRanksEqual(lastFour))
             return true ;
     }
     return false ;
@@ -228,7 +228,7 @@ bool Game::validMoveFromFaceDown(const int choice) const
 
 bool Game::validMove(const vector<Card>& cards) const
 {
-    if (!Card::allRanksEqual(cards)) 
+    if (!card::allRanksEqual(cards)) 
         return false ;
     else
         return Game::canLay(cards.back(), pile_) ;

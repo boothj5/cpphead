@@ -15,107 +15,143 @@ Card::Card(const cardrank rank, const cardsuit suit)
       suit_(suit) 
 {}
 
-const string Card::toString() const 
-{ 
-    return rankStr() + " of " + suitStr() ; 
-}
-
 bool Card::operator==(const Card& other) const
 {
-    return rank_ == other.rank_ && suit_ == other.suit_ ;
+    return rank_ == other.rank_ && suit_ == other.suit_;
 }
 
 bool Card::operator!=(const Card& other) const
 {
-    return rank_ != other.rank_ || suit_ != other.suit_ ;
-}
-
-ostream& operator<<(ostream& strm, const Card& card)
-{
-    return strm << card.toString();
+    return rank_ != other.rank_ || suit_ != other.suit_;
 }
 
 cardrank Card::rank() const
 {
-    return rank_ ;
+    return rank_;
 }
 
 bool Card::special() const 
 { 
-    return rank_ == TWO || rank_ == SEVEN || rank_ == TEN ; 
+    return rank_ == TWO || rank_ == SEVEN || rank_ == TEN; 
 }
 
 bool Card::isInvisible() const
 {
-    return rank_ == SEVEN ;
+    return rank_ == SEVEN;
 }
 
 bool Card::isBurnCard() const
 {
-    return rank_ == TEN ;
+    return rank_ == TEN;
 }
 
 bool Card::isMissAGoCard() const
 {
-    return rank_ == EIGHT ;
+    return rank_ == EIGHT;
 }
 
 bool Card::equalsRank(const Card& card)  const
 { 
-    return rank_ == card.rank_ ; 
+    return rank_ == card.rank_; 
 }
 
-const string Card::rankStr() const
-{
+const string Card::toString() const 
+{ 
+    string rankStr;
     switch(rank_) {
-    case TWO:   return "TWO" ;
-    case THREE: return "THREE" ;
-    case FOUR:  return "FOUR" ;
-    case FIVE:  return "FIVE" ;
-    case SIX:   return "SIX" ;
-    case SEVEN: return "SEVEN" ;
-    case EIGHT: return "EIGHT" ;
-    case NINE:  return "NINE" ;
-    case TEN:   return "TEN" ;
-    case JACK:  return "JACK" ;
-    case QUEEN: return "QUEEN" ;
-    case KING:  return "KING" ;
-    case ACE:   return "ACE" ;
-    default:    throw ShitheadException("Card has invalid rank");
+    case TWO:   
+        rankStr = "TWO";
+        break;
+    case THREE: 
+        rankStr = "THREE";
+        break;
+    case FOUR:  
+        rankStr = "FOUR";
+        break;
+    case FIVE:  
+        rankStr = "FIVE";
+        break;
+    case SIX:   
+        rankStr = "SIX";
+        break;
+    case SEVEN: 
+        rankStr = "SEVEN";
+        break;
+    case EIGHT: 
+        rankStr = "EIGHT";
+        break;
+    case NINE:  
+        rankStr = "NINE";
+        break;
+    case TEN:   
+        rankStr = "TEN";
+        break;
+    case JACK:  
+        rankStr = "JACK";
+        break;
+    case QUEEN: 
+        rankStr = "QUEEN";
+        break;
+    case KING:  
+        rankStr = "KING";
+        break;
+    case ACE:   
+        rankStr = "ACE";
+        break;
+    default:    
+        throw ShitheadException("Card has invalid rank");
     }
-}
-
-const string Card::suitStr() const
-{
+    
+    string suitStr;
     switch(suit_) {
-    case HEARTS:   return "HEARTS" ;
-    case DIAMONDS: return "DIAMONDS" ;
-    case CLUBS:    return "CLUBS" ;
-    case SPADES:   return "SPADES" ;
-    default:       throw ShitheadException("Card has invalid suit");
+    case HEARTS:   
+        suitStr = "HEARTS";
+        break;
+    case DIAMONDS: 
+        suitStr = "DIAMONDS";
+        break;
+    case CLUBS:    
+        suitStr = "CLUBS";
+        break;
+    case SPADES:   
+        suitStr = "SPADES";
+        break;
+    default:       
+        throw ShitheadException("Card has invalid suit");
     }
+
+    return rankStr + " of " + suitStr; 
 }
 
-bool Card::shCompare(const Card& c1, const Card& c2)
+namespace card {
+
+bool shCompare(const Card& c1, const Card& c2)
 {   
     if (c1.special() && c2.special())
-        return c1.rank_ < c2.rank_ ;
+        return c1.rank() < c2.rank();
     else if (c1.special() && !c2.special())
-        return false ;
+        return false;
     else if (c2.special())
-        return true ;
+        return true;
     else
-        return c1.rank_ < c2.rank_ ;
+        return c1.rank() < c2.rank();
 }
 
-bool Card::allRanksEqual(const vector<Card>& cards)
+bool allRanksEqual(const vector<Card>& cards)
 {
-    const Card first = cards[0] ;
+    const Card first = cards[0];
 
-    int i ;
+    int i;
     for (i = 1 ; i < cards.size() ; i++)
         if (!cards[i].equalsRank(first))
-            return false ;
-    return true ;
+            return false;
+    return true;
+}
+
+} // namespace card
+
+ostream& operator<<(ostream& strm, const Card& card)
+{
+    return strm << card.toString();
 }
 

@@ -18,17 +18,17 @@ static Card nineC(NINE, CLUBS);
 
 static void testThreeLowerThanTwo(void)
 {
-    assert_true(Card::shCompare(threeD, twoH));
+    assert_true(card::shCompare(threeD, twoH));
 }
 
 static void testFiveLowerThanTwo(void)
 {
-    assert_true(Card::shCompare(fiveD, twoH));
+    assert_true(card::shCompare(fiveD, twoH));
 }
 
 static void testJackLowerThanSeven(void)
 {
-    assert_true(Card::shCompare(jackD, sevenH));
+    assert_true(card::shCompare(jackD, sevenH));
 }
 
 static void testTwoSpecial(void)
@@ -64,7 +64,7 @@ static void testAllRanksEqual(void)
     cards.push_back(tenC);
     cards.push_back(tenH);
 
-    assert_true(Card::allRanksEqual(cards));
+    assert_true(card::allRanksEqual(cards));
 }
 
 static void testNotAllRanksEqual(void)
@@ -75,7 +75,7 @@ static void testNotAllRanksEqual(void)
     cards.push_back(nineC);
     cards.push_back(tenH);
 
-    assert_false(Card::allRanksEqual(cards));
+    assert_false(card::allRanksEqual(cards));
 }
 
 void register_card_tests()

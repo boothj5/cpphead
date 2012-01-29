@@ -56,7 +56,7 @@ const vector<int> HighCardPlayer::askMoveChoice(const PlayerHelper& helper) cons
         
         // copy and reverse sort my faceUp
         vector<Card> sorted = faceUp_;
-        sort(sorted.begin(), sorted.end(), Card::shCompare);
+        sort(sorted.begin(), sorted.end(), card::shCompare);
         reverse(sorted.begin(), sorted.end());
         
         // find the first card I can lay and save its index
