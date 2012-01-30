@@ -1,14 +1,9 @@
-#include <iostream>
-#include <algorithm>
-#include <iterator>
 #include <vector>
 #include <string>
-#include "card.hpp"
 #include "computer_players.hpp"
 #include "player_helper.hpp"
-#include "game.hpp"
-#include "util.hpp"
 #include "shithead_exception.hpp"
+#include "card_choosers.hpp"
 
 using namespace std;
 
@@ -28,56 +23,12 @@ bool RandomPlayer::askSwapCards() const
 
 const vector<int> RandomPlayer::askMoveChoice(const PlayerHelper& helper) const
 {
-    int first = 0;
     vector<int> choices;
-    if (hasCardsInHand()) {
-        // play from hand
-        
-        // shuffle posisble indexes
-        vector<int> possibleChoices;
-        int i;
-        for (i = 0; i < hand().size(); i++) {
-            possibleChoices.push_back(i);
-        }
-        util::shuffle(possibleChoices);
 
-        // find the first card I can lay and save its index
-        for (i = 0; i < possibleChoices.size(); i++) {
-            if (game::canLay(hand()[possibleChoices[i]], helper.getPile())) {
-                first = possibleChoices[i];
-                break;
-            }
-        }
-
-        // add all cards of this rank from my hand to my choice
-        bool found = false;
-        for (i = 0; i < hand().size(); i++) {
-            if (hand()[i].equalsRank(hand()[first])) {
-                choices.push_back(i);
-                found = true;
-            } else if (found) {
-                break;
-            }
-        }
-    } else {
-        // play from faceUp
-        
-        // find the first card I can lay and save the rank
-        int i;
-        for (i = 0; i < faceUp().size(); i++) {
-            if (game::canLay(faceUp()[i], helper.getPile())) {
-                first = i;
-                break;
-            }
-        }
-        
-        // add all cards of this rank to my choice
-        for (i = 0; i < faceUp().size(); i++) {
-            if (faceUp()[i].equalsRank(faceUp()[first])) {
-                choices.push_back(i);
-            }
-        }
-    }
+    if (hasCardsInHand())
+        choose::randomFromSorted(hand(), helper, choices);
+    else
+        choose::randomFromUnsorted(faceUp(), helper, choices);
 
     return choices;
 }
