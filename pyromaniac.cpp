@@ -26,10 +26,17 @@ const vector<int> Pyromaniac::askMoveChoice(const PlayerHelper& helper) const
 {
     vector<int> choices;
    
-    if (hasCardsInHand())
-        choose::burnThenLowestFromSorted(hand(), helper, choices);
-    else
-        choose::burnThenLowestFromUnsorted(faceUp(), helper, choices);
+    if (hasCardsInHand()) {
+        choose::burnFromSorted(hand(), helper, choices);
+        if (choices.empty()) {
+            choose::lowestFromSorted(hand(), helper, choices);
+        }
+    } else {
+        choose::burnFromUnsorted(faceUp(), helper, choices);
+        if (choices.empty()) {
+            choose::lowestFromUnsorted(faceUp(), helper, choices);
+        }
+    }
 
     return choices;
 }

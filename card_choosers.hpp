@@ -25,10 +25,10 @@ void randomFromSorted(const std::vector<Card>&, const PlayerHelper& helper,
 void randomFromUnsorted(const std::vector<Card>&, const PlayerHelper& helper, 
     std::vector<int>&);
 
-void burnThenLowestFromSorted(const std::vector<Card>&, const PlayerHelper& helper, 
+void burnFromSorted(const std::vector<Card>&, const PlayerHelper& helper, 
     std::vector<int>&);
 
-void burnThenLowestFromUnsorted(const std::vector<Card>&, 
+void burnFromUnsorted(const std::vector<Card>&, 
     const PlayerHelper& helper, std::vector<int>&);
 
 } // namespace choose

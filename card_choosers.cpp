@@ -147,8 +147,8 @@ void randomFromUnsorted(const vector<Card>& cards, const PlayerHelper& helper,
     choose::addSimilarFromUnsorted(cards, cards[first], choices);
 }
 
-// Chooses burn cards first, then low cards, assumes cards are sorted
-void burnThenLowestFromSorted(const vector<Card>& cards, const PlayerHelper& helper,
+// Chooses burn cards, or nothing if none, assumes cards are sorted
+void burnFromSorted(const vector<Card>& cards, const PlayerHelper& helper,
     vector<int>& choices)
 {
     int i;
@@ -160,17 +160,10 @@ void burnThenLowestFromSorted(const vector<Card>& cards, const PlayerHelper& hel
             break;
         }
     }
-
-    if (choices.size() > 0) {
-        return;
-    }
-
-    int first = choose::firstPlayableFrom(cards, helper);
-    choose::addSimilarFromSorted(cards, cards[first], choices);
 }
 
-// Chooses burn cards first, then low cards, assumes cards are not sorted
-void burnThenLowestFromUnsorted(const vector<Card>& cards, 
+// Chooses burn cards, or nothing if none, assumes cards are not sorted
+void burnFromUnsorted(const vector<Card>& cards, 
     const PlayerHelper& helper, vector<int>& choices)
 {
     int i;
@@ -179,16 +172,6 @@ void burnThenLowestFromUnsorted(const vector<Card>& cards,
             choices.push_back(i);
         }
     }
-
-    if (choices.size() > 0) {
-        return;
-    }
-
-    vector<Card> sorted = cards;
-    sort(sorted.begin(), sorted.end(), card::shCompare);
-
-    int first = choose::firstPlayableFrom(sorted, helper);
-    choose::addSimilarFromUnsorted(cards, sorted[first], choices);
 }
 
 } // namespace choose
