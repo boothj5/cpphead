@@ -22,7 +22,8 @@ card.o: card.hpp shithead_exception.hpp
 player.o: player.hpp human_player.hpp card.hpp util.hpp
 player_factory.o: player_factory.hpp player.hpp human_player.hpp \
 				  computer_players.hpp
-card_choosers.o: card_choosers.hpp card.hpp game.hpp player_helper.hpp util.hpp
+card_choosers.o: card_choosers.hpp card.hpp game.hpp player_helper.hpp util.hpp \
+				 shithead_exception.hpp
 computer_player.o: player.hpp computer_players.hpp
 human_player.o: human_player.hpp player.hpp player_helper.hpp shithead_exception.hpp
 random_player.o: computer_players.hpp player_helper.hpp \

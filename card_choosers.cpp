@@ -5,70 +5,94 @@
 #include "game.hpp"
 #include "player_helper.hpp"
 #include "util.hpp"
+#include "shithead_exception.hpp"
 
 using namespace std;
 
 namespace choose {
 
+// Helper functions -----------------------------------------------------------
+
+// go through cards, return index of first playable card found
+static int firstPlayableFrom(const vector<Card>& cards, 
+    const PlayerHelper& helper)
+{
+    int i;
+    for (i = 0; i < cards.size(); i++)
+        if (game::canLay(cards[i], helper.getPile()))
+            return i;
+
+    throw ShitheadException("Computer could not find a card to play.");
+}
+
+// go through cards backwards, return index of first playable card found
+static int lastPlayableFrom(const vector<Card>& cards, 
+    const PlayerHelper& helper)
+{
+    int i;
+    for (i = cards.size()-1; i >= 0; i--)
+        if (game::canLay(cards[i], helper.getPile()))
+            return i;
+
+    throw ShitheadException("Computer could not find a card to play.");
+}
+
+// add cards of same rank to choice, assuming cards are sorted
+static void addSimilarFromSorted(const vector<Card>& cards, 
+    const Card& first, vector<int>& choices)
+{
+    int i;
+    bool found = false;
+    for (i = 0; i < cards.size(); i++) {
+        if (cards[i].equalsRank(first)) {
+            choices.push_back(i);
+            found = true;
+        } else if (found) {
+            break;
+        }
+    }
+}
+
+// add cards of same rank to choice, assuming cards are not sorted
+static void addSimilarFromUnsorted(const vector<Card>& cards, 
+    const Card& first, vector<int>& choices)
+{
+    int i;
+    for (i = 0; i < cards.size(); i++) {
+        if (cards[i].equalsRank(first)) {
+            choices.push_back(i);
+        }
+    }
+}
+
+// Functions callable by players ----------------------------------------------
+
+// Choose all lowest cards of same rank, assumes the cards are already sorted
 void lowestFromSorted(const vector<Card>& cards, const PlayerHelper& helper, 
     vector<int>& choices)
 {
-    int i;
-    int first = 0;
-    for (i = 0; i < cards.size(); i++) {
-        if (game::canLay(cards[i], helper.getPile())) {
-            first = i;
-            break;
-        }
-    }
-
-    bool found = false;
-    for (i = 0; i < cards.size(); i++) {
-        if (cards[i].equalsRank(cards[first])) {
-            choices.push_back(i);
-            found = true;
-        } else if (found) {
-            break;
-        }
-    }
+    int first = choose::firstPlayableFrom(cards, helper);
+    choose::addSimilarFromSorted(cards, cards[first], choices);
 }
 
+// Choose all lowest cards of same rank, assumes the cards are not sorted
 void lowestFromUnsorted(const vector<Card>& cards, const PlayerHelper& helper,
     vector<int>& choices)
 {
-    int i;
-    int first = 0;
-    
     vector<Card> sorted = cards;
     sort(sorted.begin(), sorted.end(), card::shCompare);
 
-    for (i = 0; i < sorted.size(); i++) {
-        if (game::canLay(sorted[i], helper.getPile())) {
-            first = i;
-            break;
-        }
-    }
-
-    for (i = 0; i < cards.size(); i++) {
-        if (cards[i].equalsRank(sorted[first])) {
-            choices.push_back(i);
-        }
-    }
+    int first = choose::firstPlayableFrom(sorted, helper);
+    choose::addSimilarFromUnsorted(cards, sorted[first], choices);
 }
 
+// Choose all highest cards of same rank, assumes the cards are already sorted
 void highestFromSorted(const vector<Card>& cards, const PlayerHelper& helper, 
     vector<int>& choices)
 {
-    int i;
-    int first = 0;
+    int first = choose::lastPlayableFrom(cards, helper);
 
-    for (i = cards.size()-1; i >= 0; i--) {
-        if (game::canLay(cards[i], helper.getPile())) {
-            first = i;
-            break;
-        }
-    }
-    
+    int i;
     bool found = false;
     for (i = cards.size()-1; i >= 0; i--) {
         if (cards[i].equalsRank(cards[first])) {
@@ -80,35 +104,22 @@ void highestFromSorted(const vector<Card>& cards, const PlayerHelper& helper,
     }
 }
 
+// Choose all highest cards of same rank, assumes the cards are not sorted
 void highestFromUnsorted(const vector<Card>& cards, const PlayerHelper& helper,
     vector<int>& choices)
 {
-    int i;
-    int first = 0;
-    
     vector<Card> sorted = cards;
     sort(sorted.begin(), sorted.end(), card::shCompare);
-    reverse(sorted.begin(), sorted.end());
 
-    for (i = 0; i < sorted.size(); i++) {
-        if (game::canLay(sorted[i], helper.getPile())) {
-            first = i;
-            break;
-        }
-    }
-
-    for (i = 0; i < cards.size(); i++) {
-        if (cards[i].equalsRank(sorted[first])) {
-            choices.push_back(i);
-        }
-    }
+    int first = choose::lastPlayableFrom(sorted, helper);
+    choose::addSimilarFromUnsorted(cards, sorted[first], choices);    
 }
 
+// Choose randomly cards of same rank, assumes the cards are sorted
 void randomFromSorted(const vector<Card>& cards, const PlayerHelper& helper,
     vector<int>& choices)
 {
     int i;
-    int first = 0;
     
     vector<int> possibleChoices;
     for (i = 0; i < cards.size(); i++) {
@@ -117,6 +128,7 @@ void randomFromSorted(const vector<Card>& cards, const PlayerHelper& helper,
 
     util::shuffle(possibleChoices);
 
+    int first = 0;
     for (i = 0; i < possibleChoices.size(); i++) {
         if (game::canLay(cards[possibleChoices[i]], helper.getPile())) {
             first = possibleChoices[i];
@@ -124,37 +136,18 @@ void randomFromSorted(const vector<Card>& cards, const PlayerHelper& helper,
         }
     }
 
-    bool found = false;
-    for (i = 0; i < cards.size(); i++) {
-        if (cards[i].equalsRank(cards[first])) {
-            choices.push_back(i);
-            found = true;
-        } else if (found) {
-            break;
-        }
-    }
+    choose::addSimilarFromSorted(cards, cards[first], choices);
 }
 
+// Choose randomly cards of same rank, assumes the cards are not sorted
 void randomFromUnsorted(const vector<Card>& cards, const PlayerHelper& helper,
     vector<int>& choices)
 {
-    int i;
-    int first = 0;
-
-    for (i = 0; i < cards.size(); i++) {
-        if (game::canLay(cards[i], helper.getPile())) {
-            first = i;
-            break;
-        }
-    }
-
-    for (i = 0; i < cards.size(); i++) {
-        if (cards[i].equalsRank(cards[first])) {
-            choices.push_back(i);
-        }
-    }
+    int first = choose::firstPlayableFrom(cards, helper);
+    choose::addSimilarFromUnsorted(cards, cards[first], choices);
 }
 
+// Chooses burn cards first, then low cards, assumes cards are sorted
 void burnThenLowestFromSorted(const vector<Card>& cards, const PlayerHelper& helper,
     vector<int>& choices)
 {
@@ -172,25 +165,11 @@ void burnThenLowestFromSorted(const vector<Card>& cards, const PlayerHelper& hel
         return;
     }
 
-    int first = 0;
-    for (i = 0; i < cards.size(); i++) {
-        if (game::canLay(cards[i], helper.getPile())) {
-            first = i;
-            break;
-        }
-    }
-
-    bool found = false;
-    for (i = 0; i < cards.size(); i++) {
-        if (cards[i].equalsRank(cards[first])) {
-            choices.push_back(i);
-            found = true;
-        } else if (found) {
-            break;
-        }
-    }
+    int first = choose::firstPlayableFrom(cards, helper);
+    choose::addSimilarFromSorted(cards, cards[first], choices);
 }
 
+// Chooses burn cards first, then low cards, assumes cards are not sorted
 void burnThenLowestFromUnsorted(const vector<Card>& cards, 
     const PlayerHelper& helper, vector<int>& choices)
 {
@@ -208,19 +187,8 @@ void burnThenLowestFromUnsorted(const vector<Card>& cards,
     vector<Card> sorted = cards;
     sort(sorted.begin(), sorted.end(), card::shCompare);
 
-    int first = 0;
-    for (i = 0; i < sorted.size(); i++) {
-        if (game::canLay(sorted[i], helper.getPile())) {
-            first = i;
-            break;
-        }
-    }
-
-    for (i = 0; i < cards.size(); i++) {
-        if (cards[i].equalsRank(sorted[first])) {
-            choices.push_back(i);
-        }
-    }
+    int first = choose::firstPlayableFrom(sorted, helper);
+    choose::addSimilarFromUnsorted(cards, sorted[first], choices);
 }
 
 } // namespace choose
