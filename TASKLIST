@@ -7,3 +7,20 @@ Battle mode...          Done
 GUI...                  To do
 Threaded battle mode... To do
 Network game...         To do
+
+
+-- Performance 1 million games:
+
+SUMMARY
+Total games : 1000000
+Total time : 4 minutes, 34 seconds
+Average game: 0.27425 milliseconds
+Stalemates: 747, 0.0747%
+
+SCORES
+Name                Shithead  Lose rate 
+----------------------------------------
+LowCardPlayer       120507    12%
+Pyromaniac          140576    14%
+RandomPlayer        738170    74%
+
