@@ -178,17 +178,7 @@ void Game::missAGo()
 bool Game::burnCardLaid() const
 {
     if (pile_.back().isBurnCard())
-        return true ;
-    else if (pile_.size() > 3) {
-        vector<Card> lastFour ;
-        lastFour.push_back(pile_[pile_.size() - 1]) ;
-        lastFour.push_back(pile_[pile_.size() - 2]) ;
-        lastFour.push_back(pile_[pile_.size() - 3]) ;
-        lastFour.push_back(pile_[pile_.size() - 4]) ;
-        
-        if (card::allRanksEqual(lastFour))
-            return true ;
-    }
+        return true;
     return false ;
 }
 
@@ -281,15 +271,21 @@ void Game::pickUpPileAndFaceDown(const int choice)
 
 void Game::playFromHand(const vector<int>& toLay)
 {
+    int cardstoLay = 0;
     vector<int>::const_iterator iter;
-    for (iter = toLay.begin(); iter!=toLay.end(); iter++)
-        pile_.push_back((*currentPlayer_)->hand()[*iter]) ;
+    for (iter = toLay.begin(); iter!=toLay.end(); iter++){
+        cardstoLay++;
+        pile_.push_back((*currentPlayer_)->hand()[*iter]);
+    }
     
     (*currentPlayer_)->removeFromHand(toLay) ;
 
     while (deck_.size() > 0 && (*currentPlayer_)->hand().size() < numCards_) {
         (*currentPlayer_)->addToHand(deck_.back()) ;
         deck_.pop_back() ;
+    }
+    if(cardstoLay == 4){
+        burnPile();
     }
 }
 
