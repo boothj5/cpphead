@@ -23,6 +23,7 @@ Game::Game(const vector<string>& names, const vector<char>& types, int numCards)
       currentPlayer_(NULL),
       lastMove_("")
 {
+	//Create the players of the user-specified types
     int i, rank, suit, numDecks ;
     for (i = 0 ; i < numPlayers_ ; i++) {
         Player *player = PlayerFactory::createPlayer(names[i], types[i]) ;
@@ -30,6 +31,7 @@ Game::Game(const vector<string>& names, const vector<char>& types, int numCards)
     }
     currentPlayer_ = players_.begin() ;
 
+	//Create the user-specified number of decks and shuffle them
     numDecks = game::calcNumDecks(numPlayers_, numCards_) ;
     for (i = 0 ; i < numDecks ; i++)
         for (suit = HEARTS ; suit <= CLUBS ; suit++)
@@ -57,6 +59,7 @@ const PlayerHelper Game::getPlayerHelper() const
     return helper;
 }
 
+//Deals each player their facedown, faceup, and cards in hand from the deck
 void Game::deal()
 {
     int i ;
@@ -71,6 +74,7 @@ void Game::deal()
             (*player)->addToFaceDown(deck_.back()) ;
             deck_.pop_back() ;
         }
+	//Rank from lowest (3) to highest (special/burn cards)
         (*player)->sortHand() ;
     }
 }
@@ -112,6 +116,7 @@ void Game::firstMove()
     moveToNextPlayer() ;
 }
 
+//Determine if the game is over or not
 bool Game::canContinue() const
 {
     int playersWithCards = 0 ;
@@ -126,12 +131,12 @@ bool Game::canContinue() const
 
 void Game::makeMove(const vector<int>& choices)
 {
+	//Play cards from hand first
     if ((*currentPlayer_)->hasCardsInHand()) {
         setLastHandMove(choices) ;
         playFromHand(choices) ;
         (*currentPlayer_)->sortHand();
-    }
-    else {
+    } else { //If they have none, pay their choice from face up cards
         setLastFaceUpMove(choices) ;
         playFromFaceUp(choices) ;
     }
@@ -156,6 +161,8 @@ void Game::processSpecialCards()
         moveToNextPlayer() ;
 }
 
+//Removes all cards in the discard (pile)
+//so that future players will not pick them up
 void Game::burnPile()
 {
     burnt_ += pile_.size() ;
@@ -178,17 +185,7 @@ void Game::missAGo()
 bool Game::burnCardLaid() const
 {
     if (pile_.back().isBurnCard())
-        return true ;
-    else if (pile_.size() > 3) {
-        vector<Card> lastFour ;
-        lastFour.push_back(pile_[pile_.size() - 1]) ;
-        lastFour.push_back(pile_[pile_.size() - 2]) ;
-        lastFour.push_back(pile_[pile_.size() - 3]) ;
-        lastFour.push_back(pile_[pile_.size() - 4]) ;
-        
-        if (card::allRanksEqual(lastFour))
-            return true ;
-    }
+        return true;
     return false ;
 }
 
@@ -202,6 +199,7 @@ bool Game::validMove(const vector<int>& choices) const
     const Player *player = currentPlayer() ;
     vector<Card> toLay ;
     vector<int>::const_iterator index ;
+	//Make sure all choices are within the proper bounds for no seg faults
     if (player->hasCardsInHand())
         for (index = choices.begin() ; index != choices.end() ; index++)
             if (*index >= player->hand().size())
@@ -214,7 +212,7 @@ bool Game::validMove(const vector<int>& choices) const
                 return false ;
             else 
                 toLay.push_back(player->faceUp()[*index]) ;
-
+    //Now that there are no errors, check if the cards themselves are valid
     return validMove(toLay) ;
 }
 
@@ -228,6 +226,7 @@ bool Game::validMoveFromFaceDown(const int choice) const
 
 bool Game::validMove(const vector<Card>& cards) const
 {
+    //If cards are all of the same type, it is a valid move
     if (!card::allRanksEqual(cards)) 
         return false ;
     else
@@ -236,9 +235,12 @@ bool Game::validMove(const vector<Card>& cards) const
 
 bool Game::currentPlayerCanMove() const
 {
+    //Every card can be laid on an empty discard
     if (pile_.empty())
         return true ;
     
+    //Check if any of the cards in hand (or face-up, accordingly) are higher than
+    //current top card in the discard
     const Player *player = currentPlayer() ;    
     if (player->hasCardsInHand())
         return canMoveWithOneOf(player->hand()) ;
@@ -254,17 +256,24 @@ bool Game::playingFromFaceDown() const
     return (!player->hasCardsInHand() && !player->hasCardsInFaceUp()) ;
 }
 
+
 void Game::pickUp()
 {
+    //Pick up all cards in the discard and put them in the current player's hand
     (*currentPlayer_)->addAllToHand(pile_) ;
+
+    //Sort new cards into hand
     (*currentPlayer_)->sortHand() ;
 
+    //Reset the discard
     pile_.clear() ;
 
+    //Skip the rest of player's turn
     setLastMovePickUp() ;
     moveToNextPlayer() ;
 }
 
+//Function to call when whichever facedown choice couldn't be played on discard
 void Game::pickUpPileAndFaceDown(const int choice)
 {
     (*currentPlayer_)->addAllToHand(pile_) ;
@@ -279,33 +288,55 @@ void Game::pickUpPileAndFaceDown(const int choice)
     moveToNextPlayer() ;
 }
 
+//Given indices are valid and ranks are valid, play cards from hand
 void Game::playFromHand(const vector<int>& toLay)
 {
+    int cardstoLay = 0;
     vector<int>::const_iterator iter;
-    for (iter = toLay.begin(); iter!=toLay.end(); iter++)
-        pile_.push_back((*currentPlayer_)->hand()[*iter]) ;
-    
+    //Add cards to discard
+    for (iter = toLay.begin(); iter!=toLay.end(); iter++){
+        cardstoLay++;
+        pile_.push_back((*currentPlayer_)->hand()[*iter]);
+    }
+
+    //Remove cards from hand    
     (*currentPlayer_)->removeFromHand(toLay) ;
 
+    //Draw up to the number of cards (default is 3) if player went below
     while (deck_.size() > 0 && (*currentPlayer_)->hand().size() < numCards_) {
         (*currentPlayer_)->addToHand(deck_.back()) ;
         deck_.pop_back() ;
     }
+
+    //If player laid 4 of a kind, burn the pile
+    if(cardstoLay == 4){
+        burnPile();
+    }
 }
 
+//Play from face-up array as opposed to hand-array
 void Game::playFromFaceUp(const vector<int>& toLay)
 {
+    int cardstoLay = 0;
     vector<int>::const_iterator iter;
-    for (iter = toLay.begin(); iter!=toLay.end(); iter++)
-        pile_.push_back((*currentPlayer_)->faceUp()[*iter]) ;
+    for (iter = toLay.begin(); iter!=toLay.end(); iter++){
+	cardstoLay++;
+        pile_.push_back((*currentPlayer_)->faceUp()[*iter]);
+    }
     
-    (*currentPlayer_)->removeFromFaceUp(toLay) ;
+    (*currentPlayer_)->removeFromFaceUp(toLay);
+
+    if(cardstoLay == 4){
+	burnPile();
+    }
 }
 
+//Play from face-down array
 void Game::playFromFaceDown(const int choice)
 {
     pile_.push_back((*currentPlayer_)->faceDown()[choice]) ;
     (*currentPlayer_)->removeFromFaceDown(choice) ;
+    //No burn check required, this is always one card
 }
 
 void Game::setLastHandMove(const vector<int>& toLay) 
@@ -359,6 +390,7 @@ void Game::setLastMovePickUp()
     lastMove_ += " picked up." ;
 }
 
+//End current player's turn and loop through players that are still in the game
 void Game::moveToNextPlayer()
 {
     currentPlayer_++;
@@ -371,6 +403,7 @@ void Game::moveToNextPlayer()
     }
 }
 
+//Check if any of the given cards are higher than the current top in the discard
 bool Game::canMoveWithOneOf(const vector<Card>& cards) const
 {
     vector<Card>::const_iterator iter;
@@ -425,16 +458,16 @@ namespace game {
 bool canLay(const Card& card, const vector<Card>& cards)
 {
     if (cards.empty())
-        return true ;
+        return true ;		//You can always lay no cards
     else if (card.special())
-        return true ;
+        return true ;		//Skip/burn/reset/invisible cards can be played on anything
     else if (cards.back().isInvisible()) {
         vector<Card> newPile = cards ;
         newPile.pop_back() ;
-        return game::canLay(card, newPile) ;
+        return game::canLay(card, newPile) ;	//If top card is a 7, remove it and try again (7 doesn't increase/decrease threshold)
     }
     else if (card.rank() < cards.back().rank())
-        return false ;
+        return false ;		//If card is of lower value than top card, player cannot lay that card
     else
         return true ;
 }
