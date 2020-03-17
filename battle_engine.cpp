@@ -97,7 +97,13 @@ void BattleEngine::showStats(const clock_t start, const clock_t end) const
 void BattleEngine::showSummary(const clock_t start, const clock_t end) const
 {
     double totalMillis = (end - start) / (CLOCKS_PER_SEC / 1000);
+    if (totalMillis < 0){
+         perror("Game time is negative");
+    }
     float avgGameMillis = totalMillis / numGames_;
+    if ((double)stalemates_ > (double)numGames_){
+         perror("There are more stalemates than games");
+    }
     float stalematePercent = ((double)stalemates_ / (double)numGames_) * 100.0;
 
     cout << "SUMMARY" << endl;
