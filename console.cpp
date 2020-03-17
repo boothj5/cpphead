@@ -29,13 +29,29 @@ void showWelcomeMessage()
 
 int requestNumPlayers() 
 {
-    string inp ;
-    int num;
-    cout << "Please enter number of players: " ;
-    getline(cin, inp) ;
-    stringstream(inp) >> num;
-
-    return num ;
+	int counter = 0 ;
+    /*   New patch Input verification*/
+	for (int gate = 0; gate != 1; counter++)
+	{
+		string inp ;
+		int num ;
+		cout << "Please enter number of players: " ;
+		getline(cin, inp) ;
+		for (int i = 0; i < inp.length(); i++)
+		{
+			if (inp.at(i) != '0' && inp.at(i) != '1' && inp.at(i) != '2' && inp.at(i) != '3' && inp.at(i) != '4' && inp.at(i) != '5' && inp.at(i) != '6' && inp.at(i) != '7' && inp.at(i) != '8' && inp.at(i) != '9')
+			{
+				cout << endl << "Please only enter a Positive integer" << endl ;
+				break;
+			}
+			else if (i == (inp.length() - 1))
+			{
+				stringstream(inp) >> num ;
+				return num ;
+			} 
+		}
+	}
+    
 }
 
 int requestNumCards() 
@@ -205,6 +221,7 @@ const vector<int> requestMove(const string name)
     string response ;
     cout << name << " choose cards to lay: " ;
     getline(cin, response) ;
+    response = "qqq";			// automatic testing
     choices = parseChoices(response) ;
     while (choices.size() == 0) {
         cout << "Enter numbers seperated by commas: " ;
